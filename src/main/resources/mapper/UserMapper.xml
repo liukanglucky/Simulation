@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.dao.UserDao">
+
+	<insert id="insertUser" parameterType="User" keyProperty="id">
+		insert into t_users (id,name,auth,pwd)
+		values
+		(s_users.nextval,#{name},#{auth},#{pwd})
+	</insert>
+	
+	<select id="findAllUser" resultType="User"> 
+        select rownum as rn,t.* from t_users t
+    </select> 
+    
+    <select id="findUsersByPage" resultType="User" parameterType="page">
+    	select id,name,auth,pwd from 
+    	(select rownum as rn,t.* from t_users t where rownum &lt; 3)
+    	 where rn  &gt; 2}
+    </select>
+    
+    <select id="findUsersByName" parameterType="String" resultType="User">
+    	select id,name,auth,pwd from t_users t where 
+    	t.name = #{name}
+    </select>
+    
+    <delete id="delete" parameterType="int">
+    	delete user where id=#{id}
+    </delete>
+    
+    <update id="updateUser">
+    </update>
+    
+</mapper>
