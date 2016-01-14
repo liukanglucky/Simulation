@@ -25,6 +25,10 @@
     	t.name = #{name}
     </select>
     
+    <select id="findUsersById" parameterType="int" resultType="User">
+    	select * from t_users where id=#{id}
+    </select>
+    
     <delete id="delete" parameterType="int">
     	delete user where id=#{id}
     </delete>

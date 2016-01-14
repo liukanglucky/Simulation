@@ -10,4 +10,5 @@ public interface UserService {
 	public List<User> findAllUser();
 	
 	public List<User> findUserByName(String name);
+	public User findUserById(int id);
 }

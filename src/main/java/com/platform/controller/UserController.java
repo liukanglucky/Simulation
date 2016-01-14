@@ -2,18 +2,24 @@ package com.platform.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.platform.model.User;
 import com.platform.service.impl.UserServiceImpl;
 
 @Controller
 @RequestMapping("/")
-public class UserController {
+public class UserController extends BaseJsonAction{
 	@Autowired
 	private UserServiceImpl usi;
 	
@@ -59,5 +65,12 @@ public class UserController {
 		List<User> list = usi.findAllUser(); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("index");
+    }
+	
+	@RequestMapping("queryUserById")
+    public  void queryUserById(HttpServletRequest request){
+		int id = Integer.valueOf(request.getParameter("id")).intValue();
+        this.setData(usi.findUserById(id)); 
+        this.outPut();
     }
 }

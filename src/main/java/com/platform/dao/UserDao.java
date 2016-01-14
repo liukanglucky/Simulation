@@ -9,9 +9,11 @@ public interface UserDao {
 	
 	public int insertUser(User user);
 	
+	
 	public List<User> findAllUser();
 	public List<User> findUsersByName(String name);
 	public List<User> findUsersByPage(PageBean p);
+	public User findUsersById(int id);
  	
 	public int delete(int id);
 }

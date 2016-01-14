@@ -6,6 +6,31 @@
     
     <!-- Bootstrap -->
     <#include "common-js.ftl"/>
+    <script>
+      	function updateUser(userid){
+      		$.ajax({
+      			type:"post",
+      			url:"queryUserById.do",
+      			data:{id:userid},
+      			dataType:"json",
+      			success:function(data){
+      				$('#id').val(data.id);
+      				$('#username').val(data.name);
+      				$('#password').val(data.pwd);
+      				if(data.auth==1){
+      					$('#userAuth')[0].selectedIndex = 1;
+      				}else{
+      					$('#userAuth')[0].selectedIndex = 0;
+      				}
+      				$('#updateUser').modal();
+      			},
+      			error : function() {  
+		              alert("异常！");
+		        }
+      		}
+      		);
+      	}
+      </script>
   </head>
   <body>
 
@@ -50,7 +75,7 @@
         		<td>${user.id}</td>
         		<td>${user.name}</td>
         		<td><#if user.auth = 1>管理员</#if><#if user.auth = 2>普通用户</#if></td>
-        		<td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
+        		<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser('${user.id}')">更新</button></td>
       		</tr>
       		</#list>
           </table> 
@@ -74,7 +99,7 @@
     <!-- Modal -->
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
         <h3 id="myModalLabel">增加用户</h3>
       </div>
       <div class="modal-body">
@@ -109,28 +134,31 @@
     </div>
 
     <!-- update -->
-    <div id="update" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="updateUser" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
         <h3 id="myModalLabel">更新用户</h3>
       </div>
       <div class="modal-body">
         <table class="table table-hover" >
+        	<tr style="display:none">
+        		<td><input type="text" id="id"></td>
+        	</tr>
             <tr>
               <td align="center">有户名</td>
-              <td align="center"><input type="text" name="name" value="user1"></td>
+              <td align="center"><input type="text" id="username"></td>
             </tr>
             <tr>
               <td align="center">用户类型</td>
               <td align="center">
-                <select name="utype">
+                <select id="userAuth">
                   <option >普通用户</option><option >管理员</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td align="center">密码</td>
-              <td align="center"><input type="text" name="password" value="123456"></td>
+              <td align="center"><input type="text" id="password"></td>
             </tr>  
             <tr>
               <td colspan="2"><input type="button" class="btn btn-success" value="更新"></td>
@@ -140,5 +168,6 @@
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
       </div>
+      
   </body>
 </html>

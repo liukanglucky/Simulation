@@ -34,7 +34,7 @@ public class BaseJsonAction  {
 //		this.response= response;
 //	}
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
@@ -71,7 +71,6 @@ public class BaseJsonAction  {
 				try {
 					pw.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
