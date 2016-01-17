@@ -6,6 +6,8 @@ import com.platform.model.User;
 
 public interface UserService {
 	public int insertUser(User user);
+	public int updateUser(User user);
+	public int deleteUser(int id);
 	
 	public List<User> findAllUser();
 	

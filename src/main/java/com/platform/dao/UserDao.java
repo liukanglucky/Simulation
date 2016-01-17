@@ -8,6 +8,7 @@ import com.platform.model.User;
 public interface UserDao {
 	
 	public int insertUser(User user);
+	public int updateUser(User user);
 	
 	
 	public List<User> findAllUser();

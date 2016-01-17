@@ -15,15 +15,11 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 	@Override
 	public int insertUser(User user) {
-		// TODO Auto-generated method stub
 		return userDao.insertUser(user);
 	}
 	
 	@Override
 	public List<User> findAllUser() {
-		// TODO Auto-generated method stub
-		//List<User> temp =userDao.findAllUser();
-		//System.out.println(temp);
 		return userDao.findAllUser();
 	}
 
@@ -36,6 +32,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findUserById(int id) {
 		return userDao.findUsersById(id);
+	}
+
+	@Override
+	public int updateUser(User user) {
+		return userDao.updateUser(user);
+	}
+
+	@Override
+	public int deleteUser(int id) {
+		return userDao.delete(id);
 	}
 	
 	

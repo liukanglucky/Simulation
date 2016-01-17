@@ -5,15 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.platform.model.User;
 import com.platform.service.impl.UserServiceImpl;
 
@@ -64,7 +60,21 @@ public class UserController extends BaseJsonAction{
 		modelMap.addAttribute("info",i);
 		List<User> list = usi.findAllUser(); 
 		modelMap.addAttribute("userDo",list);
-        return new ModelAndView("index");
+        return new ModelAndView("user");
+    }
+	
+	@RequestMapping("updateUser")
+    public ModelAndView updateUser(int id,String name,int auth,String pwd,ModelMap modelMap){
+		User user=new User();
+		user.setId(id);
+		user.setName(name);
+		user.setAuth(auth);
+		user.setPwd(pwd);
+		int i = usi.updateUser(user);
+		modelMap.addAttribute("info",i);
+		List<User> list = usi.findAllUser(); 
+		modelMap.addAttribute("userDo",list);
+        return new ModelAndView("user");
     }
 	
 	@RequestMapping("queryUserById")
@@ -72,5 +82,19 @@ public class UserController extends BaseJsonAction{
 		int id = Integer.valueOf(request.getParameter("id")).intValue();
         this.setData(usi.findUserById(id)); 
         this.outPut();
+    }
+	
+	@RequestMapping("deleteUsers")
+    public  ModelAndView deleteUsers(String idList, ModelMap modelMap){
+		String id[] =idList.split(",");
+        for(int i=0;i<id.length;i++){
+        	usi.deleteUser(Integer.valueOf(id[i]).intValue());
+        	System.out.println(id[i]);
+        }
+//        this.setData(1);
+//        this.outPut();
+        List<User> list = usi.findAllUser(); 
+		modelMap.addAttribute("userDo",list);
+        return new ModelAndView("user");
     }
 }

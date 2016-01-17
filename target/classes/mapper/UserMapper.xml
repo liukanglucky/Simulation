@@ -10,6 +10,10 @@
 		(s_users.nextval,#{name},#{auth},#{pwd})
 	</insert>
 	
+	<update id="updateUser" parameterType="User">
+		update t_users set name=#{name},auth=#{auth},pwd=#{pwd} where id=#{id}
+	</update>
+	
 	<select id="findAllUser" resultType="User"> 
         select rownum as rn,t.* from t_users t
     </select> 
@@ -30,10 +34,8 @@
     </select>
     
     <delete id="delete" parameterType="int">
-    	delete user where id=#{id}
+    	delete t_users where id=#{id}
     </delete>
     
-    <update id="updateUser">
-    </update>
     
 </mapper>

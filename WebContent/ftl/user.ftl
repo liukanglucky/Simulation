@@ -6,7 +6,13 @@
     
     <!-- Bootstrap -->
     <#include "common-js.ftl"/>
+    <#include "page.ftl"/>
+    <#include "checkbox.ftl"/>
     <script>
+    $(document).ready(function(){
+		page();
+	})
+    	<#--根据id查询用户信息-->
       	function updateUser(userid){
       		$.ajax({
       			type:"post",
@@ -30,6 +36,34 @@
       		}
       		);
       	}
+      	<#--deleteUsers-->
+			function go() {
+            var str="";
+            $("input[id='subcheck']:checkbox").each(function(){ 
+                if($(this).attr("checked")){
+                    str += $(this).val()+","
+                }
+            });
+            <#--alert(str);-->
+            $.post("deleteUsers.do",
+            {idList:str},
+            function(){
+            window.location.reload();
+            }
+            );
+            <#--$.ajax({
+            	type:"post",
+      			url:"deleteUsers.do",
+      			data:{idList:str},
+      			dataType:"json",
+      			success:function(data){
+      				$.post("userManage.do");   
+      			},
+      			error:function(data){
+      			}
+            });-->
+            
+        } 	
       </script>
   </head>
   <body>
@@ -56,13 +90,13 @@
 
         <div>
           <a href="#myModal" role="button" class="btn btn-info" data-toggle="modal">增加用户</a>
-          <input type="button" class="btn btn-warning" value="删除用户">
+          <input type="button" class="btn btn-warning" value="删除用户" onclick="go()">
         </div>
         <br>
         <div>
           <table class="table" >
             <tr style="background-color:#0088CC">
-              <td align="center"><input type="checkbox"><font color="white">全选</font></td>
+              <td align="center"><input type="checkbox" id="SelectAll" onclick="selectAll()"><font color="white">全选</font></td>
               <td align="center"><font color="white">序号</font></td>
               <td align="center"><font color="white">用户名</font></td>
               <td align="center"><font color="white">类型</font></td>
@@ -71,23 +105,17 @@
             <#list userDo as user>
             <#--这是一段注释-->
       		<tr>
-      			<td><input type="checkbox"></td>
+      			<td><input type="checkbox" id="subcheck" onclick="setSelectAll()" value=${user.id}></td>
         		<td>${user.id}</td>
         		<td>${user.name}</td>
         		<td><#if user.auth = 1>管理员</#if><#if user.auth = 2>普通用户</#if></td>
-        		<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser('${user.id}')">更新</button></td>
+        		<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser(${user.id})">更新</button></td>
       		</tr>
       		</#list>
           </table> 
         </div>
-        <div class="pagination">
-          <ul>
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li ><a href="#">2</a></li>
-            <li ><a href="#">3</a></li>
-            <li ><a href="#">4</a></li>
-            <li ><a href="#">5</a></li>
+        <div class="pagination pagination-centered" >
+          <ul id="page">
           </ul>
         </div>
       </div>
@@ -140,30 +168,30 @@
         <h3 id="myModalLabel">更新用户</h3>
       </div>
       <div class="modal-body">
+      <form action="updateUser.do" method="post">
         <table class="table table-hover" >
-        	<tr style="display:none">
-        		<td><input type="text" id="id"></td>
-        	</tr>
             <tr>
+              <input type="hidden" id="id" name="id">
               <td align="center">有户名</td>
-              <td align="center"><input type="text" id="username"></td>
+              <td align="center"><input type="text" id="username" name="name"></td>
             </tr>
             <tr>
               <td align="center">用户类型</td>
               <td align="center">
-                <select id="userAuth">
-                  <option >普通用户</option><option >管理员</option>
+                <select id="userAuth" name="auth">
+                  <option value=2>普通用户</option><option value=1>管理员</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td align="center">密码</td>
-              <td align="center"><input type="text" id="password"></td>
+              <td align="center"><input type="text" id="password" name="pwd"></td>
             </tr>  
             <tr>
-              <td colspan="2"><input type="button" class="btn btn-success" value="更新"></td>
+              <td colspan="2"><button class="btn btn-success" type="submit">更新</button></td>
             </tr>
         </table>
+        </form>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
