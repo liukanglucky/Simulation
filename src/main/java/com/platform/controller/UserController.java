@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.platform.model.PageBean;
 import com.platform.model.User;
 import com.platform.service.impl.UserServiceImpl;
 
@@ -46,6 +47,17 @@ public class UserController extends BaseJsonAction{
 	@RequestMapping("userManage")
     public ModelAndView index(ModelMap modelMap){
 		List<User> list = usi.findAllUser(); 
+		modelMap.addAttribute("userDo",list);
+        return new ModelAndView("user");
+    }
+	
+	@RequestMapping("queryUserByPage")
+    public ModelAndView queryUserByPage(int currentPage,int pageSize,ModelMap modelMap){
+		
+		int recordCount = usi.countUser().getRecordCount();
+		PageBean page =new PageBean(recordCount,pageSize,currentPage);
+		System.out.println(page.toString());
+		List<User> list = usi.findUsersByPage(page); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
@@ -97,4 +109,9 @@ public class UserController extends BaseJsonAction{
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
+	
+	@RequestMapping("test")
+	public void test(){
+		System.out.println(usi.countUser().getRecordCount());
+	}
 }

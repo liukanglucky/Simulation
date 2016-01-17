@@ -18,10 +18,13 @@
         select rownum as rn,t.* from t_users t
     </select> 
     
+    <select id="countUser" resultType="count">
+    	select count(*) as recordCount from t_users
+    </select>
     <select id="findUsersByPage" resultType="User" parameterType="page">
     	select id,name,auth,pwd from 
-    	(select rownum as rn,t.* from t_users t where rownum &lt; 3)
-    	 where rn  &gt; 2}
+    	(select rownum as rn,t.* from t_users t where rownum &lt; = #{P1})
+    	 where rn  &gt; #{P2}
     </select>
     
     <select id="findUsersByName" parameterType="String" resultType="User">

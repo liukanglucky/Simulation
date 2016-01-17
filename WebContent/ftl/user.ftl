@@ -64,6 +64,13 @@
             });-->
             
         } 	
+        function test(){
+        	$.post("queryUserByPage.do",
+        	{
+        		currentPage:2,
+        		pageSize:10
+        	})
+        }
       </script>
   </head>
   <body>
@@ -82,7 +89,7 @@
                   <option >普通用户</option><option >管理员</option>
                 </select>
               </td>
-              <td><input type="button" class="btn btn-success" value="查询"></td>
+              <td><input type="button" class="btn btn-success" value="查询" onclick="test()"></td>
             </tr>
             
           </table>

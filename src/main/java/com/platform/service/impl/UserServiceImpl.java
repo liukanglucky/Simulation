@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.platform.dao.UserDao;
+import com.platform.model.Count;
+import com.platform.model.PageBean;
 import com.platform.model.User;
 import com.platform.service.UserService;
 
@@ -42,6 +44,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int deleteUser(int id) {
 		return userDao.delete(id);
+	}
+
+	@Override
+	public Count countUser() {
+		return userDao.countUser();
+	}
+
+	@Override
+	public List<User> findUsersByPage(PageBean page) {
+		return userDao.findUsersByPage(page);
 	}
 	
 	

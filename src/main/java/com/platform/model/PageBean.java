@@ -7,7 +7,12 @@ public class PageBean {
 	private int nextPage;
 	private int currentPage;
 	private int recordCount;
+	private int P1;
+	private int P2;
 	
+	public PageBean(int recordCount){
+		this.recordCount = recordCount;
+	}
 	public PageBean(int recordCount,int pageSize,int currentPage){
 		this.currentPage = currentPage;
 		this.recordCount = recordCount;
@@ -27,6 +32,20 @@ public class PageBean {
 		}else{
 			this.prePage=currentPage+1;
 		}
+		this.P1=this.pageSize*this.currentPage;
+		this.P2=this.pageSize*(this.currentPage-1);
+	}
+	public int getP1() {
+		return P1;
+	}
+	public void setP1(int p1) {
+		P1 = p1;
+	}
+	public int getP2() {
+		return P2;
+	}
+	public void setP2(int p2) {
+		P2 = p2;
 	}
 	public int getTotalPage() {
 		return totalPage;
@@ -63,6 +82,12 @@ public class PageBean {
 	}
 	public void setRecordCount(int recordCount) {
 		this.recordCount = recordCount;
+	}
+	@Override
+	public String toString() {
+		return "PageBean [totalPage=" + totalPage + ", pageSize=" + pageSize + ", prePage=" + prePage + ", nextPage="
+				+ nextPage + ", currentPage=" + currentPage + ", recordCount=" + recordCount + ", P1=" + P1 + ", P2="
+				+ P2 + "]";
 	}
 	
 

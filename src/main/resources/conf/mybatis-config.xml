@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <typeAliases>
          <typeAlias alias="User" type="com.platform.model.User"/> 
          <typeAlias alias="page" type="com.platform.model.PageBean"/> 
+         <typeAlias alias="count" type="com.platform.model.Count"/> 
     </typeAliases>
  
     <!-- 映射map -->
