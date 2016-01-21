@@ -18,5 +18,5 @@ public interface UserDao {
 	public List<User> findUsersByPage(PageBean page);
 	public User findUsersById(int id);
  	
-	public int delete(int id);
+	public int deleteUser(int id);
 }

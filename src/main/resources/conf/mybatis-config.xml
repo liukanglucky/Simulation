@@ -6,6 +6,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <!-- 命名空间 -->
     <typeAliases>
          <typeAlias alias="User" type="com.platform.model.User"/> 
+         <typeAlias alias="Model" type="com.platform.model.Model"/> 
+         <typeAlias alias="Simulation" type="com.platform.model.Simulation"/> 
+         <typeAlias alias="Feature" type="com.platform.model.Feature"/> 
          <typeAlias alias="page" type="com.platform.model.PageBean"/> 
          <typeAlias alias="count" type="com.platform.model.Count"/> 
     </typeAliases>

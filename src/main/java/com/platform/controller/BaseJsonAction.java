@@ -17,7 +17,16 @@ import com.alibaba.fastjson.JSON;
 public class BaseJsonAction  {
 	
 	protected Object data;
+	protected Object page;
 	
+	public Object getPage() {
+		return page;
+	}
+
+	public void setPage(Object page) {
+		this.page = page;
+	}
+
 	protected HttpServletRequest request;  
     protected HttpServletResponse response;  
     protected HttpSession session;  
@@ -57,6 +66,33 @@ public class BaseJsonAction  {
 	
 	protected void outPut(){
 		String json = JSON.toJSONString(data);
+		response.setContentType("text/javascript");
+		response.setCharacterEncoding("utf-8");
+		OutputStreamWriter pw = null;
+		try{
+			OutputStream os = response.getOutputStream();
+			pw = new OutputStreamWriter(os);
+			pw.write(json);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(null != pw){
+				try {
+					pw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	protected void outPutPage(){
+		String json1 = JSON.toJSONString(data);
+		String json2 = JSON.toJSONString(page);
+		String json = "[{\"data\":"+json1+",\"page\":"+json2+"}]";
+		System.out.println(json1);
+		System.out.println(json);
 		response.setContentType("text/javascript");
 		response.setCharacterEncoding("utf-8");
 		OutputStreamWriter pw = null;

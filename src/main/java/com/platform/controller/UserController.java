@@ -46,18 +46,30 @@ public class UserController extends BaseJsonAction{
 	
 	@RequestMapping("userManage")
     public ModelAndView index(ModelMap modelMap){
-		List<User> list = usi.findAllUser(); 
+		int recordCount = usi.countUser().getRecordCount();
+		PageBean page =new PageBean(recordCount,2,1);
+		modelMap.addAttribute("page",page);
+		List<User> list = usi.findUsersByPage(page); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
 	
 	@RequestMapping("queryUserByPage")
-    public ModelAndView queryUserByPage(int currentPage,int pageSize,ModelMap modelMap){
+    public void queryUserByPage(int currentPage,int pageSize,ModelMap modelMap){
 		
 		int recordCount = usi.countUser().getRecordCount();
 		PageBean page =new PageBean(recordCount,pageSize,currentPage);
-		System.out.println(page.toString());
+		modelMap.addAttribute("page",page);
 		List<User> list = usi.findUsersByPage(page); 
+		modelMap.addAttribute("userDo",list);
+        this.data=list;
+        this.page=page;
+        this.outPutPage();
+    }
+	
+	@RequestMapping("queryUsersByNameAndAuth")
+    public ModelAndView queryUsersByNameAndAuth(String name,int auth,ModelMap modelMap){
+		List<User> list = usi.findUserByName(name); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
@@ -97,21 +109,14 @@ public class UserController extends BaseJsonAction{
     }
 	
 	@RequestMapping("deleteUsers")
-    public  ModelAndView deleteUsers(String idList, ModelMap modelMap){
+    public  void deleteUsers(String idList){
 		String id[] =idList.split(",");
         for(int i=0;i<id.length;i++){
         	usi.deleteUser(Integer.valueOf(id[i]).intValue());
-        	System.out.println(id[i]);
         }
-//        this.setData(1);
-//        this.outPut();
         List<User> list = usi.findAllUser(); 
-		modelMap.addAttribute("userDo",list);
-        return new ModelAndView("user");
+        this.setData(list);
+        this.outPut();
     }
 	
-	@RequestMapping("test")
-	public void test(){
-		System.out.println(usi.countUser().getRecordCount());
-	}
 }

@@ -1,22 +1,77 @@
 package com.platform.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.platform.model.Simulation;
+import com.platform.service.impl.SimServiceImpl;
+
 @Controller
 @RequestMapping("/")
-public class SimController {
+public class SimController extends BaseJsonAction{
+	@Autowired
+	private SimServiceImpl ssi;
 	
 	@RequestMapping("simManage")
     public ModelAndView simManage(ModelMap modelMap){
+		List<Simulation> list = ssi.findAllSim(); 
+		modelMap.addAttribute("simList",list);
         return new ModelAndView("sim");
     }
 	
-	@RequestMapping("simAdd")
-    public ModelAndView simAdd(ModelMap modelMap){
-        return new ModelAndView("simAdd");
+	@RequestMapping("addSim")
+    public ModelAndView addSim(String name,ModelMap modelMap){
+		Simulation simulation=new Simulation();
+		simulation.setName(name);
+		int i = ssi.insertSim(simulation);
+		modelMap.addAttribute("info",i);
+		List<Simulation> list = ssi.findAllSim(); 
+		modelMap.addAttribute("simList",list);
+        return new ModelAndView("sim");
+    }
+	
+	@RequestMapping("updateSim")
+    public ModelAndView updateSim(int id,String name,ModelMap modelMap){
+		Simulation simulation=new Simulation();
+		simulation.setId(id);
+		simulation.setName(name);
+		int i = ssi.updateSim(simulation);
+		modelMap.addAttribute("info",i);
+		List<Simulation> list = ssi.findAllSim(); 
+		modelMap.addAttribute("simList",list);
+        return new ModelAndView("sim");
+    }
+	
+	@RequestMapping("querySimsByName")
+    public  ModelAndView querySimsByName(String name,ModelMap modelMap){
+		List<Simulation> list = ssi.findSimsByName(name);
+		modelMap.addAttribute("simList",list);
+        return new ModelAndView("sim");
+    }
+	
+	@RequestMapping("querySimById")
+    public  void querySimById(HttpServletRequest request){
+		int id = Integer.valueOf(request.getParameter("id")).intValue();
+        this.setData(ssi.findSimById(id)); 
+        this.outPut();
+    }
+	
+	@RequestMapping("deleteSims")
+    public  void BaseJsonAction(String idList){
+		String id[] =idList.split(",");
+        for(int i=0;i<id.length;i++){
+        	ssi.deleteSim(Integer.valueOf(id[i]).intValue());
+        }
+        List<Simulation> list = ssi.findAllSim(); 
+        this.setData(list);
+        this.outPut();
     }
 	
 }

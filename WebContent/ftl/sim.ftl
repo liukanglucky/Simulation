@@ -1,82 +1,105 @@
 <html>
   <head>
     <meta charset="utf8">
-    <title>test</title>
+    <title>对象管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <#include "common-js.ftl"/>
+    <#include "page.ftl"/>
+    <#include "checkbox.ftl"/>
+    <script>
+    $(document).ready(function(){
+		page();
+	})
+    	<#--根据id查询仿真对象信息-->
+      	function updateSim(simid){
+      		$.ajax({
+      			type:"post",
+      			url:"querySimById.do",
+      			data:{id:simid},
+      			dataType:"json",
+      			success:function(data){
+      				$('#simId').val(data.id);
+      				$('#simName').val(data.name);
+      				$('#updateSim').modal();
+      			},
+      			error : function() {  
+		              alert("异常！");
+		        }
+      		}
+      		);
+      	}
+      	<#--deleteSims-->
+			function deleteSims() {
+            var str="";
+            $("input[id='subcheck']:checkbox").each(function(){ 
+                if($(this).attr("checked")){
+                    str += $(this).val()+","
+                }
+            });
+            $.post("deleteSims.do",
+            {idList:str},
+            function(data){
+            	var  list = eval(data);
+            	$(".modelList").empty();
+            	for(i=0;i<list.length;i++){
+            	var appendStr="";
+            	appendStr+="<tr class='simList'>"+
+	      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
+	        		"<td>"+list[i].id+"</td>"+
+	        		"<td>"+list[i].name+"</td>"+
+	        		"<td><button class='btn btn-info' data-toggle='modal'"+
+	        		" onclick='updateSim("+list[i].id+")'>更新</button></td><tr>";
+	        		$("#simTable").append(appendStr);
+            	}
+            	
+            }
+            );
+        }
+      </script>
   </head>
   <body>
     <#include "head.ftl"/>
     <#include "functionList.ftl"/>
       <div class="span9">
         <div>
+          <form action="querySimsByName.do" method="post">
           <table class="table table-hover" >
             <tr>
               <td align="center">仿真对象名</td>
               <td align="center"><input type="text" name="name"></td>
-              <td><input type="button" class="btn btn-success" value="查询"></td>
+              <td><button class="btn btn-success" type="submit">查询</button></td>
             </tr>
-            
           </table>
+          </form>
         </div>
 
         <div>
           <a href="#myModal" role="button" class="btn btn-info" data-toggle="modal">增加仿真对象</a>
-          <input type="button" class="btn btn-warning" value="删除仿真对象">
+          <input type="button" class="btn btn-warning" value="删除仿真对象" onclick="deleteSims()">
         </div>
         <br>
         <div>
-          <table class="table" >
+          <table class="table" id="simTable">
             <tr style="background-color:#0088CC">
-              <td align="center"><input type="checkbox"><font color="white">全选</font></td>
+              <td align="center"><input type="checkbox" id="SelectAll" onclick="selectAll()"><font color="white">全选</font></td>
               <td align="center"><font color="white">仿真对象ID</font></td>
               <td align="center"><font color="white">仿真对象名</font></td>
               <td align="center"><font color="white">操作</font></td>
             </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>001</td>
-              <td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
+             <#list simList as sim>
+            <tr class="simList">
+              <td><input type="checkbox" id="subcheck" onclick="setSelectAll()" value=${sim.id}></td>
+              <td>${sim.id}</td>
+        	  <td>${sim.name}</td>
+              <td><button class="btn btn-info" data-toggle="modal" onclick="updateSim(${sim.id})">更新</button></td>
             </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>2</td>
-              <td>054A</td>
-              <td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>3</td>
-              <td>039</td>
-              <td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>4</td>
-              <td>鱼7A</td>
-              <td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>4</td>
-              <td>鱼10</td>
-              <td><a href="#update" role="button" class="btn btn-info" data-toggle="modal">更新</a></td>
-            </tr>
+            </#list>
           </table> 
         </div>
-        <div class="pagination">
-          <ul>
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li ><a href="#">2</a></li>
-            <li ><a href="#">3</a></li>
-            <li ><a href="#">4</a></li>
-            <li ><a href="#">5</a></li>
+        <div class="pagination pagination-centered" >
+          <ul id="page">
           </ul>
         </div>
       </div>
@@ -88,19 +111,21 @@
     <!-- Modal -->
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">增加模型类型</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">增加仿真对象</h3>
       </div>
       <div class="modal-body">
+      <form action="addSim.do" method="post">
         <table class="table table-hover" >
             <tr>
-              <td align="center">模型类型名</td>
+              <td align="center">仿真对象名</td>
               <td align="center"><input type="text" name="name"></td>
             </tr>
             <tr>
-              <td colspan="2"><input type="button" class="btn btn-success" value="新增"></td>
+              <td colspan="2"><button class="btn btn-success" type="submit">新增</button></td>
             </tr>
         </table>
+      </form>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
@@ -108,21 +133,24 @@
     </div>
 
     <!-- update -->
-    <div id="update" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="updateSim" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
         <h3 id="myModalLabel">更新仿真对象</h3>
       </div>
       <div class="modal-body">
+       <form action="updateSim.do" method="post">
         <table class="table table-hover" >
             <tr>
-              <td align="center">仿真对象名</td>
-              <td align="center"><input type="text" name="name" value="001"></td>
+              <input type="hidden" id="simId" name="id">
+              <td align="center">仿真对象</td>
+              <td align="center"><input type="text" name="name" id="simName"></td>
             </tr>
             <tr>
-              <td colspan="2"><input type="button" class="btn btn-success" value="更新"></td>
+              <td colspan="2"><button class="btn btn-success" type="submit">更新</button></td>
             </tr>
         </table>
+      </form>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>

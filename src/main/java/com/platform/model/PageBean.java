@@ -28,9 +28,9 @@ public class PageBean {
 			this.prePage=currentPage-1;
 		}
 		if(this.currentPage==this.totalPage){
-			this.prePage=this.currentPage;
+			this.nextPage=this.currentPage;
 		}else{
-			this.prePage=currentPage+1;
+			this.nextPage=currentPage+1;
 		}
 		this.P1=this.pageSize*this.currentPage;
 		this.P2=this.pageSize*(this.currentPage-1);
