@@ -9,7 +9,6 @@
     <#include "page.ftl"/>
     <#include "checkbox.ftl"/>
     <script>
-    
     $(document).ready(function(){
 		var currentPage=${page.currentPage};
 		var totalPage=${page.totalPage};
