@@ -55,6 +55,12 @@ public class UserServiceImpl implements UserService{
 	public List<User> findUsersByPage(PageBean page) {
 		return userDao.findUsersByPage(page);
 	}
+
+	@Override
+	public List<User> findUserByNameAndPwd(User user) {
+		
+		return userDao.findUserByNameAndPwd(user);
+	}
 	
 	
 }

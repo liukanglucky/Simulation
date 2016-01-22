@@ -27,20 +27,20 @@ public class UserController extends BaseJsonAction{
 	
 	@RequestMapping("login")
 	public ModelAndView login(String name,String pwd,ModelMap modelMap){
-		List <User> list=usi.findUserByName(name);
+		User user =new User();
+		user.setName(name);
+		user.setPwd(pwd);
+		List <User> list=usi.findUserByNameAndPwd(user);
 		if(list.isEmpty()){
-			modelMap.addAttribute("info", "用户不存在！");
+			modelMap.addAttribute("info", "用户名或密码不正确！");
 			return new ModelAndView("login");
 		}else{
-			if(list.get(0).getPwd().equals(pwd)){
-				List<User> usersList = usi.findAllUser(); 
-				modelMap.addAttribute("userDo",usersList);
-				return new ModelAndView("user");
-			}else{
-				modelMap.addAttribute("info", "密码不正确！");
-				return new ModelAndView("login");
-			}
-			
+			int recordCount = usi.countUser().getRecordCount();
+			PageBean page =new PageBean(recordCount,2,1);
+			modelMap.addAttribute("page",page);
+			List<User> userList = usi.findUsersByPage(page); 
+			modelMap.addAttribute("userDo",userList);
+			return new ModelAndView("user");	
 		}
 	}
 	

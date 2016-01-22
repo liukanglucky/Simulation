@@ -16,6 +16,7 @@ public interface UserDao {
 	public List<User> findAllUser();
 	public List<User> findUsersByName(String name);
 	public List<User> findUsersByPage(PageBean page);
+	public List<User> findUserByNameAndPwd(User user);
 	public User findUsersById(int id);
  	
 	public int deleteUser(int id);

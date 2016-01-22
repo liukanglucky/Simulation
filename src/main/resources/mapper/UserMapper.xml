@@ -32,6 +32,10 @@
     	t.name like '%#{name}%'
     </select>
     
+    <select id="findUserByNameAndPwd" parameterType="User" resultType="User">
+    	select id,name,auth,pwd from t_users t where t.name =#{name} and t.pwd =#{pwd}
+    </select>
+    
     <select id="findUsersById" parameterType="int" resultType="User">
     	select * from t_users where id=#{id}
     </select>

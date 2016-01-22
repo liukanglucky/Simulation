@@ -39,27 +39,13 @@
     </style>
 </head>
 <body>
-  <div>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-      <li><a tabindex="-1" href="#">Action</a></li>
-      <li><a tabindex="-1" href="#">Another action</a></li>
-      <li><a tabindex="-1" href="#">Something else here</a></li>
-      <li class="divider"></li>
-      <li><a tabindex="-1" href="#">Separated link</a></li>
-    </ul>
-  </div>
 	<div class="container">
-
       <form class="form-signin" action="login.do" method="post">
         <h2 class="form-signin-heading">数据仿真平台登陆</h2>
         <input type="text" class="input-block-level" placeholder="用户名" name="name">
         <input type="password" class="input-block-level" placeholder="密码" name="pwd">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> 记住密码
-        </label>
         <button class="btn btn-large btn-primary" type="submit">登陆</button>
       </form>
-
     </div>
 </body>
 </html>
