@@ -45,7 +45,7 @@ public class UserController extends BaseJsonAction{
 	}
 	
 	@RequestMapping("userManage")
-    public ModelAndView index(ModelMap modelMap){
+    public ModelAndView userManage(ModelMap modelMap){
 		int recordCount = usi.countUser().getRecordCount();
 		PageBean page =new PageBean(recordCount,2,1);
 		modelMap.addAttribute("page",page);
@@ -55,13 +55,10 @@ public class UserController extends BaseJsonAction{
     }
 	
 	@RequestMapping("queryUserByPage")
-    public void queryUserByPage(int currentPage,int pageSize,ModelMap modelMap){
-		
+    public void queryUserByPage(int currentPage,int pageSize){
 		int recordCount = usi.countUser().getRecordCount();
 		PageBean page =new PageBean(recordCount,pageSize,currentPage);
-		modelMap.addAttribute("page",page);
 		List<User> list = usi.findUsersByPage(page); 
-		modelMap.addAttribute("userDo",list);
         this.data=list;
         this.page=page;
         this.outPutPage();

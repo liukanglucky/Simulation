@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.model.Feature;
+import com.platform.model.PageBean;
 import com.platform.service.impl.FeatureServiceImpl;
 
 @Controller
@@ -22,10 +23,24 @@ public class FeatureController extends BaseJsonAction{
 	
 	@RequestMapping("featureManage")
     public ModelAndView featureManage(ModelMap modelMap){
-		List<Feature> list = fsi.findAllFeature(); 
+		int recordCount = fsi.countFeature().getRecordCount();
+		PageBean page =new PageBean(recordCount,2,1);
+		modelMap.addAttribute("page",page);
+		List<Feature> list = fsi.findFeaturesByPage(page); 
 		modelMap.addAttribute("featureList",list);
         return new ModelAndView("feature");
     }
+	
+	@RequestMapping("queryFeatureByPage")
+    public void queryFeatureByPage(int currentPage,int pageSize){
+		int recordCount = fsi.countFeature().getRecordCount();
+		PageBean page =new PageBean(recordCount,pageSize,currentPage);
+		List<Feature> list = fsi.findFeaturesByPage(page); 
+        this.data=list;
+        this.page=page;
+        this.outPutPage();
+    }
+	
 	@RequestMapping("addFeature")
     public ModelAndView addFeature(String name,ModelMap modelMap){
 		Feature feature=new Feature();

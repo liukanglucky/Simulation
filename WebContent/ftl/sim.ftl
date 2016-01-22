@@ -10,54 +10,80 @@
     <#include "checkbox.ftl"/>
     <script>
     $(document).ready(function(){
-		page();
+		var currentPage=${page.currentPage};
+		var totalPage=${page.totalPage};
+		var prePage=${page.prePage};
+		var nextPage=${page.nextPage};
+		page(totalPage,currentPage,prePage,nextPage);
 	})
-    	<#--根据id查询仿真对象信息-->
-      	function updateSim(simid){
-      		$.ajax({
-      			type:"post",
-      			url:"querySimById.do",
-      			data:{id:simid},
-      			dataType:"json",
-      			success:function(data){
-      				$('#simId').val(data.id);
-      				$('#simName').val(data.name);
-      				$('#updateSim').modal();
-      			},
-      			error : function() {  
-		              alert("异常！");
-		        }
-      		}
-      		);
-      	}
-      	<#--deleteSims-->
-			function deleteSims() {
-            var str="";
-            $("input[id='subcheck']:checkbox").each(function(){ 
-                if($(this).attr("checked")){
-                    str += $(this).val()+","
-                }
-            });
-            $.post("deleteSims.do",
-            {idList:str},
-            function(data){
-            	var  list = eval(data);
-            	$(".modelList").empty();
-            	for(i=0;i<list.length;i++){
-            	var appendStr="";
-            	appendStr+="<tr class='simList'>"+
-	      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
-	        		"<td>"+list[i].id+"</td>"+
-	        		"<td>"+list[i].name+"</td>"+
-	        		"<td><button class='btn btn-info' data-toggle='modal'"+
-	        		" onclick='updateSim("+list[i].id+")'>更新</button></td><tr>";
-	        		$("#simTable").append(appendStr);
-            	}
-            	
-            }
-            );
+	<#--根据id查询仿真对象信息-->
+  	function updateSim(simid){
+  		$.ajax({
+  			type:"post",
+  			url:"querySimById.do",
+  			data:{id:simid},
+  			dataType:"json",
+  			success:function(data){
+  				$('#simId').val(data.id);
+  				$('#simName').val(data.name);
+  				$('#updateSim').modal();
+  			},
+  			error : function() {  
+	              alert("异常！");
+	        }
+  		}
+  		);
+  	}
+  	<#--deleteSims-->
+	function deleteSims() {
+    var str="";
+    $("input[id='subcheck']:checkbox").each(function(){ 
+        if($(this).attr("checked")){
+            str += $(this).val()+","
         }
-      </script>
+    });
+    $.post("deleteSims.do",
+        {idList:str},
+        function(data){
+        	var  list = eval(data);
+        	showSim(list);
+    	}
+    );
+    }
+    function showSim(list){
+    	$(".modelList").empty();
+        	for(i=0;i<list.length;i++){
+        	var appendStr="";
+        	appendStr+="<tr class='simList'>"+
+      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
+        		"<td>"+list[i].id+"</td>"+
+        		"<td>"+list[i].name+"</td>"+
+        		"<td><button class='btn btn-info' data-toggle='modal'"+
+        		" onclick='updateSim("+list[i].id+")'>更新</button></td><tr>";
+        		$("#simTable").append(appendStr);
+        	}
+    }
+    <#--分页条-->
+	function queryByPage(current){
+		$.post("querySimByPage.do",
+		{	
+			currentPage:current,
+			pageSize:2
+		},
+		function(json){
+			var  list = eval(json);
+			var data=list[0].data;
+            showSim(data);
+            currentPage=list[0].page.currentPage;
+            totalPage=list[0].page.totalPage;
+            prePage=list[0].page.prePage;
+			nextPage=list[0].page.nextPage;
+            $("#page").empty();
+            page(totalPage,currentPage,prePage,nextPage);
+            }
+		);
+	}
+  </script>
   </head>
   <body>
     <#include "head.ftl"/>

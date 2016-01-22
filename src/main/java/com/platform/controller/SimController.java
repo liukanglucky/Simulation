@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.platform.model.PageBean;
 import com.platform.model.Simulation;
 import com.platform.service.impl.SimServiceImpl;
 
@@ -21,9 +22,22 @@ public class SimController extends BaseJsonAction{
 	
 	@RequestMapping("simManage")
     public ModelAndView simManage(ModelMap modelMap){
-		List<Simulation> list = ssi.findAllSim(); 
+		int recordCount = ssi.countSim().getRecordCount();
+		PageBean page =new PageBean(recordCount,2,1);
+		modelMap.addAttribute("page",page);
+		List<Simulation> list = ssi.findSimsByPage(page);
 		modelMap.addAttribute("simList",list);
         return new ModelAndView("sim");
+    }
+	
+	@RequestMapping("querySimByPage")
+    public void querySimByPage(int currentPage,int pageSize){
+		int recordCount = ssi.countSim().getRecordCount();
+		PageBean page =new PageBean(recordCount,pageSize,currentPage);
+		List<Simulation> list = ssi.findSimsByPage(page);
+        this.data=list;
+        this.page=page;
+        this.outPutPage();
     }
 	
 	@RequestMapping("addSim")
