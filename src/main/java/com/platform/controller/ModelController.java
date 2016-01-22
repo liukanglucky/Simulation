@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.model.Model;
+import com.platform.model.PageBean;
+import com.platform.model.User;
 import com.platform.service.impl.ModelServiceImpl;
 
 @Controller
@@ -21,9 +23,24 @@ public class ModelController extends BaseJsonAction{
 	
 	@RequestMapping("modelManage")
     public ModelAndView modelManage(ModelMap modelMap){
-		List<Model> list = msi.findAllModel(); 
+		int recordCount = msi.countModel().getRecordCount();
+		PageBean page =new PageBean(recordCount,2,1);
+		modelMap.addAttribute("page",page);
+		List<Model> list = msi.findModelsByPage(page);
 		modelMap.addAttribute("modelList",list);
         return new ModelAndView("model");
+    }
+	
+	@RequestMapping("queryModelByPage")
+    public void queryModelByPage(int currentPage,int pageSize,ModelMap modelMap){
+		int recordCount = msi.countModel().getRecordCount();
+		PageBean page =new PageBean(recordCount,pageSize,currentPage);
+		modelMap.addAttribute("page",page);
+		List<Model> list = msi.findModelsByPage(page);
+		modelMap.addAttribute("modelList",list);
+        this.data=list;
+        this.page=page;
+        this.outPutPage();
     }
 	
 	@RequestMapping("addModel")

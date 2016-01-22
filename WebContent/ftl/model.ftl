@@ -10,54 +10,79 @@
     <#include "checkbox.ftl"/>
     <script>
     $(document).ready(function(){
-		page();
+		var currentPage=${page.currentPage};
+		var totalPage=${page.totalPage};
+		var prePage=${page.prePage};
+		var nextPage=${page.nextPage};
+		page(totalPage,currentPage,prePage,nextPage);
 	})
-    	<#--根据id查询模型信息-->
-      	function updateModel(modelid){
-      		$.ajax({
-      			type:"post",
-      			url:"queryModelById.do",
-      			data:{id:modelid},
-      			dataType:"json",
-      			success:function(data){
-      				$('#modelId').val(data.id);
-      				$('#modelName').val(data.name);
-      				$('#updateModel').modal();
-      			},
-      			error : function() {  
-		              alert("异常！");
-		        }
-      		}
-      		);
-      	}
-      	<#--deleteModels-->
-			function deleteModels() {
-            var str="";
-            $("input[id='subcheck']:checkbox").each(function(){ 
-                if($(this).attr("checked")){
-                    str += $(this).val()+","
-                }
-            });
-            $.post("deleteModels.do",
-            {idList:str},
-            function(data){
-            	var  list = eval(data);
-            	$(".modelList").empty();
-            	for(i=0;i<list.length;i++){
-            	var appendStr="";
-            	appendStr+="<tr class='modelList'>"+
-	      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
-	        		"<td>"+list[i].id+"</td>"+
-	        		"<td>"+list[i].name+"</td>"+
-	        		"<td><button class='btn btn-info' data-toggle='modal'"+
-	        		" onclick='updateModel("+list[i].id+")'>更新</button></td><tr>";
-	        		$("#modelTable").append(appendStr);
-            	}
-            	
-            }
-            );
+	<#--根据id查询模型信息-->
+  	function updateModel(modelid){
+  		$.ajax({
+  			type:"post",
+  			url:"queryModelById.do",
+  			data:{id:modelid},
+  			dataType:"json",
+  			success:function(data){
+  				$('#modelId').val(data.id);
+  				$('#modelName').val(data.name);
+  				$('#updateModel').modal();
+  			},
+  			error : function() {  
+	              alert("异常！");
+	        }
+  		}
+  		);
+  	}
+  	<#--deleteModels-->
+	function deleteModels() {
+    var str="";
+    $("input[id='subcheck']:checkbox").each(function(){ 
+        if($(this).attr("checked")){
+            str += $(this).val()+","
         }
-      </script>
+    });
+    $.post("deleteModels.do",
+    	{idList:str},
+    	function(data){
+	    	var list = eval(data);
+	    	showModel(list);
+	    	}
+    	);
+	}
+	function showModel(list){
+		$(".modelList").empty();
+    	for(i=0;i<list.length;i++){
+    	var appendStr="";
+    	appendStr+="<tr class='modelList'>"+
+  			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
+    		"<td>"+list[i].id+"</td>"+
+    		"<td>"+list[i].name+"</td>"+
+    		"<td><button class='btn btn-info' data-toggle='modal'"+
+    		" onclick='updateModel("+list[i].id+")'>更新</button></td><tr>";
+    		$("#modelTable").append(appendStr);
+    		}
+	}
+	function queryByPage(current){
+		$.post("queryModelByPage.do",
+		{	
+			currentPage:current,
+			pageSize:2
+		},
+		function(json){
+			var  list = eval(json);
+			var data=list[0].data;
+            showModel(data);
+            currentPage=list[0].page.currentPage;
+            totalPage=list[0].page.totalPage;
+            prePage=list[0].page.prePage;
+			nextPage=list[0].page.nextPage;
+            $("#page").empty();
+            page(totalPage,currentPage,prePage,nextPage);
+            }
+		);
+	}
+	</script>
   </head>
   <body>
     <#include "head.ftl"/>
