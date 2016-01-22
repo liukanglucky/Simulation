@@ -68,7 +68,7 @@
 		$.post("queryFeatureByPage.do",
 		{	
 			currentPage:current,
-			pageSize:2
+			pageSize:5
 		},
 		function(json){
 			var  list = eval(json);

@@ -36,7 +36,7 @@ public class UserController extends BaseJsonAction{
 			return new ModelAndView("login");
 		}else{
 			int recordCount = usi.countUser().getRecordCount();
-			PageBean page =new PageBean(recordCount,2,1);
+			PageBean page =new PageBean(recordCount,5,1);
 			modelMap.addAttribute("page",page);
 			List<User> userList = usi.findUsersByPage(page); 
 			modelMap.addAttribute("userDo",userList);
@@ -47,7 +47,7 @@ public class UserController extends BaseJsonAction{
 	@RequestMapping("userManage")
     public ModelAndView userManage(ModelMap modelMap){
 		int recordCount = usi.countUser().getRecordCount();
-		PageBean page =new PageBean(recordCount,2,1);
+		PageBean page =new PageBean(recordCount,5,1);
 		modelMap.addAttribute("page",page);
 		List<User> list = usi.findUsersByPage(page); 
 		modelMap.addAttribute("userDo",list);
@@ -79,7 +79,10 @@ public class UserController extends BaseJsonAction{
 		user.setPwd(pwd);
 		int i = usi.insertUser(user);
 		modelMap.addAttribute("info",i);
-		List<User> list = usi.findAllUser(); 
+		int recordCount = usi.countUser().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<User> list = usi.findUsersByPage(page); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
@@ -93,7 +96,10 @@ public class UserController extends BaseJsonAction{
 		user.setPwd(pwd);
 		int i = usi.updateUser(user);
 		modelMap.addAttribute("info",i);
-		List<User> list = usi.findAllUser(); 
+		int recordCount = usi.countUser().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<User> list = usi.findUsersByPage(page); 
 		modelMap.addAttribute("userDo",list);
         return new ModelAndView("user");
     }
@@ -111,9 +117,12 @@ public class UserController extends BaseJsonAction{
         for(int i=0;i<id.length;i++){
         	usi.deleteUser(Integer.valueOf(id[i]).intValue());
         }
-        List<User> list = usi.findAllUser(); 
+        int recordCount = usi.countUser().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		List<User> list = usi.findUsersByPage(page);
+		this.setPage(page);
         this.setData(list);
-        this.outPut();
+        this.outPutPage();
     }
 	
 }

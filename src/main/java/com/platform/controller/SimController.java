@@ -23,7 +23,7 @@ public class SimController extends BaseJsonAction{
 	@RequestMapping("simManage")
     public ModelAndView simManage(ModelMap modelMap){
 		int recordCount = ssi.countSim().getRecordCount();
-		PageBean page =new PageBean(recordCount,2,1);
+		PageBean page =new PageBean(recordCount,5,1);
 		modelMap.addAttribute("page",page);
 		List<Simulation> list = ssi.findSimsByPage(page);
 		modelMap.addAttribute("simList",list);
@@ -46,7 +46,10 @@ public class SimController extends BaseJsonAction{
 		simulation.setName(name);
 		int i = ssi.insertSim(simulation);
 		modelMap.addAttribute("info",i);
-		List<Simulation> list = ssi.findAllSim(); 
+		int recordCount = ssi.countSim().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Simulation> list = ssi.findSimsByPage(page);
 		modelMap.addAttribute("simList",list);
         return new ModelAndView("sim");
     }
@@ -58,7 +61,10 @@ public class SimController extends BaseJsonAction{
 		simulation.setName(name);
 		int i = ssi.updateSim(simulation);
 		modelMap.addAttribute("info",i);
-		List<Simulation> list = ssi.findAllSim(); 
+		int recordCount = ssi.countSim().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Simulation> list = ssi.findSimsByPage(page);
 		modelMap.addAttribute("simList",list);
         return new ModelAndView("sim");
     }
@@ -83,9 +89,12 @@ public class SimController extends BaseJsonAction{
         for(int i=0;i<id.length;i++){
         	ssi.deleteSim(Integer.valueOf(id[i]).intValue());
         }
-        List<Simulation> list = ssi.findAllSim(); 
-        this.setData(list);
-        this.outPut();
+        int recordCount = ssi.countSim().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		List<Simulation> list = ssi.findSimsByPage(page);
+		this.data=list;
+        this.page=page;
+        this.outPutPage();
     }
 	
 }

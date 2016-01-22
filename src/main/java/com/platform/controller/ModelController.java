@@ -23,7 +23,7 @@ public class ModelController extends BaseJsonAction{
 	@RequestMapping("modelManage")
     public ModelAndView modelManage(ModelMap modelMap){
 		int recordCount = msi.countModel().getRecordCount();
-		PageBean page =new PageBean(recordCount,2,1);
+		PageBean page =new PageBean(recordCount,5,1);
 		modelMap.addAttribute("page",page);
 		List<Model> list = msi.findModelsByPage(page);
 		modelMap.addAttribute("modelList",list);
@@ -46,7 +46,10 @@ public class ModelController extends BaseJsonAction{
 		model.setName(name);
 		int i = msi.insertModel(model);
 		modelMap.addAttribute("info",i);
-		List<Model> list = msi.findAllModel(); 
+		int recordCount = msi.countModel().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Model> list = msi.findModelsByPage(page);
 		modelMap.addAttribute("modelList",list);
         return new ModelAndView("model");
     }
@@ -58,7 +61,10 @@ public class ModelController extends BaseJsonAction{
 		model.setName(name);
 		int i = msi.updateModel(model);
 		modelMap.addAttribute("info",i);
-		List<Model> list = msi.findAllModel(); 
+		int recordCount = msi.countModel().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Model> list = msi.findModelsByPage(page);
 		modelMap.addAttribute("modelList",list);
         return new ModelAndView("model");
     }
@@ -83,8 +89,11 @@ public class ModelController extends BaseJsonAction{
         for(int i=0;i<id.length;i++){
         	msi.deleteModel(Integer.valueOf(id[i]).intValue());
         }
-        List<Model> list = msi.findAllModel(); 
-        this.setData(list);
-        this.outPut();
+        int recordCount = msi.countModel().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		List<Model> list = msi.findModelsByPage(page);
+		this.data=list;
+        this.page=page;
+        this.outPutPage();
     }
 }

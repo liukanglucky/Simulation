@@ -24,7 +24,7 @@ public class FeatureController extends BaseJsonAction{
 	@RequestMapping("featureManage")
     public ModelAndView featureManage(ModelMap modelMap){
 		int recordCount = fsi.countFeature().getRecordCount();
-		PageBean page =new PageBean(recordCount,2,1);
+		PageBean page =new PageBean(recordCount,5,1);
 		modelMap.addAttribute("page",page);
 		List<Feature> list = fsi.findFeaturesByPage(page); 
 		modelMap.addAttribute("featureList",list);
@@ -47,7 +47,10 @@ public class FeatureController extends BaseJsonAction{
 		feature.setName(name);
 		int i = fsi.insertFeature(feature);
 		modelMap.addAttribute("info",i);
-		List<Feature> list = fsi.findAllFeature(); 
+		int recordCount = fsi.countFeature().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Feature> list = fsi.findFeaturesByPage(page); 
 		modelMap.addAttribute("featureList",list);
         return new ModelAndView("feature");
     }
@@ -59,7 +62,10 @@ public class FeatureController extends BaseJsonAction{
 		feature.setName(name);
 		int i = fsi.updateFeature(feature);
 		modelMap.addAttribute("info",i);
-		List<Feature> list = fsi.findAllFeature(); 
+		int recordCount = fsi.countFeature().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		modelMap.addAttribute("page",page);
+		List<Feature> list = fsi.findFeaturesByPage(page); 
 		modelMap.addAttribute("featureList",list);
         return new ModelAndView("feature");
     }
@@ -84,8 +90,11 @@ public class FeatureController extends BaseJsonAction{
         for(int i=0;i<id.length;i++){
         	fsi.deleteFeature(Integer.valueOf(id[i]).intValue());
         }
-        List<Feature> list = fsi.findAllFeature(); 
-        this.setData(list);
-        this.outPut();
+        int recordCount = fsi.countFeature().getRecordCount();
+		PageBean page =new PageBean(recordCount,5,1);
+		List<Feature> list = fsi.findFeaturesByPage(page); 
+		this.data=list;
+        this.page=page;
+        this.outPutPage();
     }
 }
