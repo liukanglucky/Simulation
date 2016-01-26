@@ -123,7 +123,7 @@
              <#list modelList as model>
             <tr class="modelList">
               <td><input type="checkbox" id="subcheck" onclick="setSelectAll()" value=${model.id}></td>
-              <td>${model.id}</td>
+              <td><a href="#modelDetails" role="button" class="btn btn-info" data-toggle="modal">${model.id}</a></td>
         	  <td>${model.name}</td>
               <td><button class="btn btn-info" data-toggle="modal" onclick="updateModel(${model.id})">更新</button></td>
             </tr>
@@ -183,6 +183,29 @@
             </tr>
         </table>
       </form>
+      </div>
+      
+      <!-- modelDetails -->
+     <div id="modelDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <h3 id="myModalLabel">模型说明</h3>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover" >
+            <tr>
+              <td align="center">模型功能</td>
+              <td align="center"><input type="text" name="fun" id="modelFun" value="功能详细说明"></td>
+            </tr>
+            <tr>
+              <td align="center">输入参数</td>
+              <td align="center"><input type="text" name="fun" id="modelFun" value="输入参数说明"></td>
+            </tr>
+            <tr>
+              <td align="center">输出参数</td>
+              <td align="center"><input type="text" name="fun" id="modelFun" value="输出参数说明"></td>
+            </tr>
+        </table>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
