@@ -46,7 +46,14 @@
         {idList:str},
         function(data){
         	var  list = eval(data);
-        	showFeature(list);
+        	var featureList=list[0].data;
+        	showFeature(featureList);
+        	currentPage=list[0].page.currentPage;
+            totalPage=list[0].page.totalPage;
+            prePage=list[0].page.prePage;
+			nextPage=list[0].page.nextPage;
+            $("#page").empty();
+            page(totalPage,currentPage,prePage,nextPage);
         }
      	);
 	}

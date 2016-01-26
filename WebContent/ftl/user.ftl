@@ -51,8 +51,15 @@
         $.post("deleteUsers.do",
         {idList:str},
         function(data){
-        var  list = eval(data);
-        	showUser(list);	
+        	var  list = eval(data);
+			var userList=list[0].data;
+        	showUser(userList);
+        	currentPage=list[0].page.currentPage;
+            totalPage=list[0].page.totalPage;
+            prePage=list[0].page.prePage;
+			nextPage=list[0].page.nextPage;
+            $("#page").empty();
+            page(totalPage,currentPage,prePage,nextPage);
         }
         );
     }
