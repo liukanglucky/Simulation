@@ -63,7 +63,7 @@
     	var appendStr="";
     	appendStr+="<tr class='modelList'>"+
   			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
-    		"<td>"+list[i].id+"</td>"+
+    		"<td><a href="#modelDetails" role="button" class="btn btn-info" data-toggle="modal">"+list[i].id+"</a></td>"+
     		"<td>"+list[i].name+"</td>"+
     		"<td><button class='btn btn-info' data-toggle='modal'"+
     		" onclick='updateModel("+list[i].id+")'>更新</button></td><tr>";
@@ -93,8 +93,30 @@
   </head>
   <body>
     <#include "head.ftl"/>
-    <#include "functionList.ftl"/>
-      <div class="span9">
+    <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
+    <div class = "span4">
+   	 	<table class="table" >
+          <tr style="background-color:#0088CC">
+            <td align="center"><font color="white">功能列表</font></td>
+          </tr>
+          <tr>
+            <td><a href="user.html">用户管理</a></td>
+          </tr>
+          <tr class="info">
+            <td><a href="model.html">模型管理</td>
+          </tr>
+          <tr >
+            <td><a href="query.html">仿真查询</td>
+          </tr>
+          <tr>
+            <td><a href="cal.html">仿真计算</td>
+          </tr>
+          <tr>
+            <td><a href="datadump.html">数据备份</td>
+          </tr>
+        </table>
+        </div>
+      <div class="span8">
         <div>
           <form action="queryModelsByName.do" method="post">
           <table class="table table-hover" >

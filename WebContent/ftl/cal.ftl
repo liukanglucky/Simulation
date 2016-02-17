@@ -12,65 +12,100 @@
   </head>
   <body>
     <#include "head.ftl"/>
-    <#include "functionList.ftl"/>
-      <div class="span9">
-        <div>
-          <table class="table table-hover" >
-            <tr>
-              <td align="center">模型类型</td>
-              <td align="center">
-                <select name="utype">
-                  <option >海洋环境</option>
-                  <option >潜艇</option>
-                  <option >水面舰</option>
-                  <option >鱼类</option>
-                </select>
-              </td>
-              <td align="center">仿真对象</td>
-              <td align="center">
-                <select name="utype">
-                  <option >001</option><option >002</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">声学模型</td>
-              <td align="center">
-                <select name="utype">
-                  <option >舰艇自噪声</option>
-                  <option >高频模型</option>
-                  <option >舰艇目标声反射</option>
-                  <option >鱼类辐射</option>
-                </select>
-              </td>
-              <td align="center">数据类型</td>
-              <td align="center">
-                <select name="utype">
-                  <option >仿真数据</option><option ></option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">全文检索</td>
-              <td align="center">
-                <input type="text" >
-              </td>
-              <td colspan="2"><input type="button" class="btn btn-success" value="查询"></td>
-            </tr>
-              
-          
+    <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
+    <div class = "span4">
+   	 	<table class="table" >
+          <tr style="background-color:#0088CC">
+            <td align="center"><font color="white">功能列表</font></td>
+          </tr>
+          <tr>
+            <td><a href="user.html">用户管理</a></td>
+          </tr>
+          <tr>
+            <td><a href="model.html">模型管理</td>
+          </tr>
+          <tr >
+            <td><a href="query.html">仿真查询</td>
+          </tr>
+          <tr class="info">
+            <td><a href="cal.html">仿真计算</td>
+          </tr>
+          <tr>
+            <td><a href="datadump.html">数据备份</td>
+          </tr>
+        </table>
+    <table class="table" >
+          <tr>
+            <td align="center">仿真类型</td>
+            <td align="center">
+              <select name="utype">
+                <option >数据仿真</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">选择实例数据</td>
+            <td align="center">
+              <input type="file">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="button" class="btn btn-success" value="开始仿真" onClick="showData();"></td>
+          </tr>  
+     </table>
+        
+
+        <!-- 输入tab页面  begin-->
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active" ><a href="#tab1" data-toggle="tab">舰艇声反射</a></li>
+          <li><a href="#tab2" data-toggle="tab">高频混响</a></li>
+          <li><a href="#tab3" data-toggle="tab">舰艇辐射</a></li>
+          <li><a href="#tab4" data-toggle="tab">鱼雷</a></li>
+          <li><a href="#tab5" data-toggle="tab">舰艇自噪声</a></li>
+          <li><a href="#tab6" data-toggle="tab">鱼雷自噪声</a></li>
+          <li><a href="#tab7" data-toggle="tab">海洋环境</a></li>
+          <li><a href="#tab8" data-toggle="tab">声传播</a></li>
+        </ul>
+         
+        <div class="tab-content">
+          <div class="active tab-pane" id="tab1">
+            目标三维模型 : <input type="file"><br>
+            仿真类型：<br>
+            <select name="utype">
+              <option >潜艇</option>
+            </select>
+            <select name="utype">
+              <option >001</option>
+            </select>
+            <br>
+            采样频率KHz：<input type="text"><br>
+            检测域dB：<input type="text"><br>
             
-          </table>
+            距离：<input type="text"><br>
+            
+            声速m/s：<input type="text">
+            <br>
+            仿真总时间：<input type="text"><br>
+            发射信号形式： <select name="utype">
+              <option >CW</option>
+            </select>
+            <br>
+            声源级dB：<input type="text"><br>
+            仿真开始时刻：<input type="text"><br>
+          </div>
+          <div class="tab-pane" id="tab2">2</div>
+          <div class="tab-pane" id="tab3">3</div>
+          <div class="tab-pane" id="tab4">4</div>
+          <div class="tab-pane" id="tab5">5</div>
+          <div class="tab-pane" id="tab6">6</div>
+          <div class="tab-pane" id="tab7">7</div>
+          <div class="tab-pane" id="tab8">8</div>
         </div>
 
+
+      </div>
+      <div class="span8">
         <div>
-          <a href="simAdd.do" role="button" class="btn btn-info" >新建仿真</a>
-          <input type="button" class="btn btn-warning" value="删除记录">
-        </div>
-        <br>
-        
-        <div>
-          <hr>
           <font color="blue">输入参数：</font><br>
           <div id="input"></div>
           <hr>
@@ -79,75 +114,9 @@
           <hr>
         </div>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-        <div id="main" style="height:400px;display:none"></div>
-
-        <div>
-          <font color="blue">点击记录查看输入输出数据及线谱</font><br>
-          <table class="table table-hover" >
-            <tr style="background-color:#0088CC">
-              <td align="center"><input type="checkbox"><font color="white">全选</font></td>
-              <td align="center"><font color="white">序号</font></td>
-              <td align="center"><font color="white">名称</font></td>
-              <td align="center"><font color="white">修改时间</font></td>
-              <td align="center"><font color="white">修改人</font></td>
-              <td align="center"><font color="white">所属对象</font></td>
-              <td align="center"><font color="white">数据类型</font></td>
-              <td align="center"><font color="white">模型特性</font></td>
-            </tr>
-            <tr onClick="showData();" >
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-             <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-          </table> 
-        </div>
-        <div class="pagination">
-          <ul>
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li ><a href="#">2</a></li>
-            <li ><a href="#">3</a></li>
-            <li ><a href="#">4</a></li>
-            <li ><a href="#">5</a></li>
-          </ul>
-        </div>
-
-        
+        <div id="main" style="height:200px;display:none" class="chart"></div>
+        <div id="main2" style="height:200px;display:none" class="chart"></div>
+        <div id="main3" style="height:200px;display:none" class="chart"></div>
         <!-- ECharts单文件引入 -->
         <script src="js/echarts.js"></script>
         <script type="text/javascript">
@@ -164,13 +133,16 @@
     </div>
     <script>
       function showData(){
-        var input = "吨位：0，吃水：0 ... ...";
-        var output = "线谱频率：";
+        var input = "吨位：4000.00，吃水：6.00 ，航速：18.00，输出频率：100-1000，采样率：20.00 ，增益：80.00<br>\
+        灵敏度：－200.00，阵元：48.00，总声级：166.00 ,轴频：1.80，螺旋桨数：5.00\
+        ";
+        var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
 
         $("#input").html(input);
         $("#output").html(output);
 
-        $("#main").css("display","");
+        $(".chart").css("display","");
+        
         // 使用
         require(
             [
@@ -179,14 +151,30 @@
             ],
             function (ec) {
                 // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main')); 
+                var myChart = ec.init(document.getElementById('main'));
+                var myChart2 = ec.init(document.getElementById('main2')); 
+                var myChart3 = ec.init(document.getElementById('main3'));  
                 
+                var xdata = new Array(500);
+                var data1 = new Array(500);
+                var data2 = new Array(500);
+                var data3 = new Array(500);
+
+                for(var i=0;i<500;i++){
+                  xdata[i] = i;
+                  data1[i] = Math.random()+10;
+                  data2[i] = 5;
+                  data3[i] = Math.random()*5+5;
+                }
+
+
                 var option = {
+
     tooltip : {
         trigger: 'axis'
     },
     legend: {
-        data:['回波频率谱','目标强度方位变化','回波信号','反射信号']
+        data:['回波频率谱']
     },
     toolbox: {
         show : true,
@@ -199,16 +187,34 @@
         }
     },
     calculable : true,
+    grid:{
+      borderColor:'#cccccc',
+      borderWidth:0,
+      backgroundColor:'#000',
+      
+    },
     xAxis : [
+
         {
             type : 'category',
+            show:false,
             boundaryGap : false,
-            data : ['1','2','3','4','5','6','7']
+            data : xdata,
+            splitLine:{
+              show:false
+            },
         }
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
+            show:false,
+             axisLabel : {
+                formatter: ''
+            },
+            splitLine:{
+              show:false
+            },
         }
     ],
     series : [
@@ -216,36 +222,138 @@
             name:'回波频率谱',
             type:'line',
             stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-            name:'目标强度方位变化',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-            name:'回波信号',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-            name:'反射信号',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[320, 332, 301, 334, 390, 330, 320]
+            symbol:'none',
+
+            
+            itemStyle: {normal: {
+
+              lineStyle:{
+                width:1,
+                color:'#00cd00',
+            },
+
+            }},
+            data:data1
         }
     ]
 };
                     
-        
+              var option2 = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['目标强度方位变化']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    grid:{
+      backgroundColor:'#000',
+      borderColor:'#cccccc',
+      borderWidth:0
+    },
+    xAxis : [
+        {
+            type : 'category',
+            show:false,
+            boundaryGap : false,
+            data : xdata,
+            splitLine:{
+              show:false
+            },
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            show:false,
+            splitLine:{
+              show:false
+            },
+        }
+    ],
+    series : [
+        {
+            name:'目标强度方位变化',
+            type:'line',
+            stack: '总量',
+            symbol:'none',
+            itemStyle: {normal:{lineStyle:{width:1,color:'#00cd00',}}},
+            data:data2
+        }
+    ]
+};  
+  
+              var option3 = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['回波信号']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    grid:{
+      borderColor:'#cccccc',
+      borderWidth:0,
+      backgroundColor:'#000',
+      
+    },
+    xAxis : [
+        {
+            type : 'category',
+            show:false,
+            boundaryGap : false,
+            data : xdata,
+            splitLine:{
+              show:false
+            },
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            show:false,
+            splitLine:{
+              show:false
+            },
+        }
+    ],
+    series : [
+        {
+            name:'回波信号',
+            type:'line',
+            stack: '总量',
+            symbol:'none',
+            itemStyle: {normal:{lineStyle:{width:1,color:'#00cd00',}}},
+            data:data3
+        }
+    ]
+};
+
+
                 // 为echarts对象加载数据 
                 myChart.setOption(option); 
+                myChart2.setOption(option2); 
+                myChart3.setOption(option3); 
             }
           );
       }

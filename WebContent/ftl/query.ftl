@@ -12,7 +12,29 @@
   </head>
   <body>
     <#include "head.ftl"/>
-    <#include "functionList.ftl"/>
+    <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
+    <div class = "span4">
+   	 	<table class="table" >
+          <tr style="background-color:#0088CC">
+            <td align="center"><font color="white">功能列表</font></td>
+          </tr>
+          <tr>
+            <td><a href="user.html">用户管理</a></td>
+          </tr>
+          <tr>
+            <td><a href="model.html">模型管理</td>
+          </tr>
+          <tr class="info">
+            <td><a href="query.html">仿真查询</td>
+          </tr>
+          <tr>
+            <td><a href="cal.html">仿真计算</td>
+          </tr>
+          <tr>
+            <td><a href="datadump.html">数据备份</td>
+          </tr>
+        </table>
+        </div>
       <div class="span9">
         <div>
           <table class="table table-hover" >
