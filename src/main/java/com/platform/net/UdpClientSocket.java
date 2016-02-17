@@ -89,6 +89,15 @@ public class UdpClientSocket {
      * @param args 
      * @throws Exception 
      */  
+    public void testweb() throws Exception{
+    	UdpClientSocket client = new UdpClientSocket();  
+        String serverHost = "127.0.0.1";  
+        int serverPort = 3344;  
+        client.send(serverHost, serverPort, ("你好，server!").getBytes());  
+        String info = client.receive(serverHost, serverPort);  
+        System.out.println("服务端回应数据：" + info);  
+    } 
+    
     public static void main(String[] args) throws Exception {  
         UdpClientSocket client = new UdpClientSocket();  
         String serverHost = "127.0.0.1";  

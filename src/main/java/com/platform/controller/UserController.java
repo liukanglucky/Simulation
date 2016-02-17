@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.model.PageBean;
 import com.platform.model.User;
+import com.platform.net.UdpClientSocket;
 import com.platform.service.impl.UserServiceImpl;
 
 @Controller
@@ -23,6 +24,16 @@ public class UserController extends BaseJsonAction{
 	@RequestMapping("welcome")
 	public ModelAndView welcome(){
 		return new ModelAndView("login");
+	}
+	
+	@RequestMapping("test")
+	public void test() throws Exception{
+		UdpClientSocket client = new UdpClientSocket();  
+        String serverHost = "127.0.0.1";  
+        int serverPort = 3344;  
+        client.send(serverHost, serverPort, ("你好，server!").getBytes());  
+        String info = client.receive(serverHost, serverPort);  
+        System.out.println("服务端回应数据：" + info);  
 	}
 	
 	@RequestMapping("login")
