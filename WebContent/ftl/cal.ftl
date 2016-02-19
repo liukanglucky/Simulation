@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf8">
-    <title>test</title>
+    <title>仿真计算</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Bootstrap -->
@@ -13,98 +13,120 @@
   <body>
     <#include "head.ftl"/>
     <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
-    <div class = "span4">
-   	 	<table class="table" >
+      <div class = "span6">
+        <div class = "span8">
+        <table class="table" >
           <tr style="background-color:#0088CC">
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
           <tr>
-            <td><a href="user.html">用户管理</a></td>
+            <td><a href="userManage.do">用户管理</a></td>
           </tr>
           <tr>
-            <td><a href="model.html">模型管理</td>
+            <td><a href="#">模型管理</td>
           </tr>
           <tr >
-            <td><a href="query.html">仿真查询</td>
+            <td><a href="#">仿真查询</td>
           </tr>
           <tr class="info">
-            <td><a href="cal.html">仿真计算</td>
+            <td><a href="calManage.do">仿真计算</td>
           </tr>
           <tr>
-            <td><a href="datadump.html">数据备份</td>
+            <td><a href="#">数据备份</td>
           </tr>
-        </table>
-    <table class="table" >
+        </table> 
+      </div>
+        <table class="table">
           <tr>
-            <td align="center">仿真类型</td>
+            <td align="center">仿真类型：</td>
             <td align="center">
-              <select name="utype">
-                <option >数据仿真</option>
+              <select name="utype" style="width:90px; height:20px" id="simType">
+                <option value="1">数据仿真</option>
+                <option value="0">分析数据</option>
               </select>
             </td>
-          </tr>
-          <tr>
-            <td align="center">选择实例数据</td>
-            <td align="center">
+            <td align="center">选择实例数据：</td>
+            <td align="center" style="width:90px; height:20px">
               <input type="file">
             </td>
-          </tr>
-          <tr>
-            <td colspan="2"><input type="button" class="btn btn-success" value="开始仿真" onClick="showData();"></td>
-          </tr>  
-     </table>
-        
-
+          </tr> 
+        </table>
+        <script src="js/custom/defaultData.js"></script>
+        <script>
+          function tabgo3()
+          {
+            if($("#simType").val()==0){
+                $('#tab-3').attr('href','#tab3A'); 
+                $('#myTab a[href="#tab3A"]').tab('show');
+              }
+            if($("#simType").val()==1){
+                $('#tab-3').attr('href','#tab3B'); 
+                $('#myTab a[href="#tab3B"]').tab('show');
+              }
+          }
+          function tabgo4()
+          {
+            if($("#simType").val()==0){
+                $('#tab-4').attr('href','#tab4A'); 
+                $('#myTab a[href="#tab4A"]').tab('show');
+              }
+            if($("#simType").val()==1){
+                $('#tab-4').attr('href','#tab4B'); 
+                $('#myTab a[href="#tab4B"]').tab('show');
+              }
+          }
+          function tabgo5()
+          {
+            if($("#simType").val()==0){
+                $('#tab-5').attr('href','#tab5A'); 
+                $('#myTab a[href="#tab5A"]').tab('show');
+              }
+            if($("#simType").val()==1){
+                $('#tab-5').attr('href','#tab5B'); 
+                $('#myTab a[href="#tab5B"]').tab('show');
+              }
+          }
+          function tabgo6()
+          {
+            if($("#simType").val()==0){
+                $('#tab-6').attr('href','#tab6A'); 
+                $('#myTab a[href="#tab6A"]').tab('show');
+              }
+            if($("#simType").val()==1){
+                $('#tab-6').attr('href','#tab6B'); 
+                $('#myTab a[href="#tab6B"]').tab('show');
+              }
+          }
+        </script>
         <!-- 输入tab页面  begin-->
-        <ul class="nav nav-tabs" id="myTab">
+        <ul class="nav nav-tabs" id="myTab" style="font-size:12px;">
           <li class="active" ><a href="#tab1" data-toggle="tab">舰艇声反射</a></li>
-          <li><a href="#tab2" data-toggle="tab">高频混响</a></li>
-          <li><a href="#tab3" data-toggle="tab">舰艇辐射</a></li>
-          <li><a href="#tab4" data-toggle="tab">鱼雷</a></li>
-          <li><a href="#tab5" data-toggle="tab">舰艇自噪声</a></li>
-          <li><a href="#tab6" data-toggle="tab">鱼雷自噪声</a></li>
+          <li><a href="#" onclick="tabgo2()" id="tab-2">高频混响</a></li>
+          <li><a href="#" onclick="tabgo3()" id="tab-3">舰艇辐射</a></li>
+          <li><a href="#" onclick="tabgo4()" id="tab-4">鱼雷</a></li>
+          <li><a href="#" onclick="tabgo5()" id="tab-5">舰艇自噪声</a></li>
+          <li><a href="#" onclick="tabgo6()" id="tab-6">鱼雷自噪声</a></li>
           <li><a href="#tab7" data-toggle="tab">海洋环境</a></li>
           <li><a href="#tab8" data-toggle="tab">声传播</a></li>
         </ul>
          
         <div class="tab-content">
-          <div class="active tab-pane" id="tab1">
-            目标三维模型 : <input type="file"><br>
-            仿真类型：<br>
-            <select name="utype">
-              <option >潜艇</option>
-            </select>
-            <select name="utype">
-              <option >001</option>
-            </select>
-            <br>
-            采样频率KHz：<input type="text"><br>
-            检测域dB：<input type="text"><br>
-            
-            距离：<input type="text"><br>
-            
-            声速m/s：<input type="text">
-            <br>
-            仿真总时间：<input type="text"><br>
-            发射信号形式： <select name="utype">
-              <option >CW</option>
-            </select>
-            <br>
-            声源级dB：<input type="text"><br>
-            仿真开始时刻：<input type="text"><br>
-          </div>
-          <div class="tab-pane" id="tab2">2</div>
-          <div class="tab-pane" id="tab3">3</div>
-          <div class="tab-pane" id="tab4">4</div>
-          <div class="tab-pane" id="tab5">5</div>
-          <div class="tab-pane" id="tab6">6</div>
-          <div class="tab-pane" id="tab7">7</div>
-          <div class="tab-pane" id="tab8">8</div>
+          <#include "tab/tab1.ftl"/>
+          <#include "tab/tab2.ftl"/>
+          <#include "tab/tab3A.ftl"/>
+          <#include "tab/tab3B.ftl"/>
+          <#include "tab/tab4A.ftl"/>
+          <#include "tab/tab4B.ftl"/>
+          <#include "tab/tab5A.ftl"/>
+          <#include "tab/tab5B.ftl"/>
+          <#include "tab/tab6A.ftl"/>
+          <#include "tab/tab6B.ftl"/>
+          <#include "tab/tab7.ftl"/>
+          <#include "tab/tab8.ftl"/>
         </div>
-
-
+        
       </div>
-      <div class="span8">
+      <div class="span6">
         <div>
           <font color="blue">输入参数：</font><br>
           <div id="input"></div>

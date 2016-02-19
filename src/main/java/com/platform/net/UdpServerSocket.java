@@ -1,11 +1,15 @@
 package com.platform.net;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;  
+import java.io.ObjectInputStream;
 import java.net.DatagramPacket;  
 import java.net.DatagramSocket;  
 import java.net.InetAddress;  
 import java.net.InetSocketAddress;  
 import java.net.SocketException;  
+
+import com.platform.report.receive.OneSend;
   
 /**      
  * UTP服务类.      
@@ -72,14 +76,20 @@ public class UdpServerSocket {
      * 接收数据包，该方法会造成线程阻塞. 
      * @return 返回接收的数据串信息 
      * @throws IOException  
+     * @throws ClassNotFoundException 
      */  
-    public final String receive() throws IOException {  
+    public final String receive() throws IOException, ClassNotFoundException {  
         packet = new DatagramPacket(buffer, buffer.length);  
         ds.receive(packet);  
-        orgIp = packet.getAddress().getHostAddress();  
-        String info = new String(packet.getData(), 0, packet.getLength());  
-        System.out.println("接收信息：" + info);  
-        return info;  
+//        orgIp = packet.getAddress().getHostAddress();  
+//        String info = new String(packet.getData(), 0, packet.getLength());  
+//        System.out.println("接收信息：" + info);
+        OneSend message = new OneSend();
+        ByteArrayInputStream bint=new ByteArrayInputStream(buffer);
+        ObjectInputStream oint=new ObjectInputStream(bint);
+        message=(OneSend)oint.readObject();       //反序列化，恢复对象
+        System.out.println("接收信息：" + message.toString());
+        return message.toString();  
     }  
   
     /** 

@@ -113,19 +113,19 @@
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
           <tr class="info">
-            <td><a href="user.html">用户管理</a></td>
+            <td><a href="userManage.do">用户管理</a></td>
           </tr>
           <tr>
-            <td><a href="model.html">模型管理</td>
+            <td><a href="#">模型管理</td>
           </tr>
           <tr >
-            <td><a href="query.html">仿真查询</td>
+            <td><a href="#">仿真查询</td>
           </tr>
           <tr>
-            <td><a href="cal.html">仿真计算</td>
+            <td><a href="calManage.do">仿真计算</td>
           </tr>
           <tr>
-            <td><a href="datadump.html">数据备份</td>
+            <td><a href="#">数据备份</td>
           </tr>
         </table>
       </div> 

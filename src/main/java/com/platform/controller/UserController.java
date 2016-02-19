@@ -26,16 +26,6 @@ public class UserController extends BaseJsonAction{
 		return new ModelAndView("login");
 	}
 	
-	@RequestMapping("test")
-	public void test() throws Exception{
-		UdpClientSocket client = new UdpClientSocket();  
-        String serverHost = "127.0.0.1";  
-        int serverPort = 3344;  
-        client.send(serverHost, serverPort, ("你好，server!").getBytes());  
-        String info = client.receive(serverHost, serverPort);  
-        System.out.println("服务端回应数据：" + info);  
-	}
-	
 	@RequestMapping("login")
 	public ModelAndView login(String name,String pwd,ModelMap modelMap){
 		User user =new User();
