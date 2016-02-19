@@ -4,20 +4,8 @@ public class User{
 	
 	private int id;
 	private String name;
-	private int auth;
-	private String pwd;
-	public int getAuth() {
-		return auth;
-	}
-	public void setAuth(int auth) {
-		this.auth = auth;
-	}
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
+	private int type;
+	private String password;
 	public int getId() {
 		return id;
 	}
@@ -30,5 +18,18 @@ public class User{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	
 }

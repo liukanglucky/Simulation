@@ -26,8 +26,8 @@
   			success:function(data){
   				$('#id').val(data.id);
   				$('#username').val(data.name);
-  				$('#password').val(data.pwd);
-  				if(data.auth==1){
+  				$('#password').val(data.password);
+  				if(data.type==1){
   					$('#userAuth')[0].selectedIndex = 1;
   				}else{
   					$('#userAuth')[0].selectedIndex = 0;
@@ -131,24 +131,6 @@
       </div> 
       <div class="span8">
         <div>
-        <form action="queryUsersByNameAndAuth.do" method="post">
-          <table class="table table-hover" >
-            <tr>
-              <td align="center">用户名</td>
-              <td align="center"><input type="text" name="name"></td>
-              <td align="center">用户类型</td>
-              <td align="center">
-                <select name="auth">
-                  <option value=2>普通用户</option><option value=1>管理员</option>
-                </select>
-              </td>
-              <td><button class="btn btn-success" type="submit">查询</button></td>
-            </tr>
-          </table>
-          </form>
-        </div>
-
-        <div>
           <a href="#myModal" role="button" class="btn btn-info" data-toggle="modal">增加用户</a>
           <input type="button" class="btn btn-warning" value="删除用户" onclick="deleteUsers()">
         </div>
@@ -168,7 +150,7 @@
       			<td><input type="checkbox" id="subcheck" onclick="setSelectAll()" value=${user.id}></td>
         		<td>${user.id}</td>
         		<td>${user.name}</td>
-        		<td><#if user.auth = 1>管理员</#if><#if user.auth = 2>普通用户</#if></td>
+        		<td><#if user.type = 1>管理员</#if><#if user.type = 2>普通用户</#if></td>
         		<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser(${user.id})">更新</button></td>
       		</tr>
       		</#list>
@@ -200,7 +182,7 @@
             <tr>
               <td align="center">用户类型</td>
               <td align="center">
-                <select name="auth">
+                <select name="type">
                   <option value=2>普通用户</option>
                   <option value=1>管理员</option>
                 </select>
@@ -208,7 +190,7 @@
             </tr>
             <tr>
               <td align="center">密码</td>
-              <td align="center"><input type="text" name="pwd"></td>
+              <td align="center"><input type="text" name="passord"></td>
             </tr>
             <tr>
               <td colspan="2"><button class="btn btn-success" type="submit">新增</button></td>
@@ -238,14 +220,14 @@
             <tr>
               <td align="center">用户类型</td>
               <td align="center">
-                <select id="userAuth" name="auth">
+                <select id="userAuth" name="type">
                   <option value=2>普通用户</option><option value=1>管理员</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td align="center">密码</td>
-              <td align="center"><input type="text" id="password" name="pwd"></td>
+              <td align="center"><input type="text" id="password" name="password"></td>
             </tr>  
             <tr>
               <td colspan="2"><button class="btn btn-success" type="submit">更新</button></td>

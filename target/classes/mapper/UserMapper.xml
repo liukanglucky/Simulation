@@ -5,43 +5,34 @@
 <mapper namespace="com.platform.dao.UserDao">
 
 	<insert id="insertUser" parameterType="User" keyProperty="id">
-		insert into t_users (id,name,auth,pwd)
+		insert into userlog (id,name,type,password)
 		values
-		(s_users.nextval,#{name},#{auth},#{pwd})
+		(s_users.nextval,#{name},#{type},#{password})
 	</insert>
 	
 	<update id="updateUser" parameterType="User">
-		update t_users set name=#{name},auth=#{auth},pwd=#{pwd} where id=#{id}
+		update userlog set name=#{name},type=#{type},password=#{password} where id=#{id}
 	</update>
-	
-	<select id="findAllUser" resultType="User"> 
-        select rownum as rn,t.* from t_users t order by t.id asc
-    </select> 
     
     <select id="countUser" resultType="count">
-    	select count(*) as recordCount from t_users
+    	select count(*) as recordCount from userlog
     </select>
     <select id="findUsersByPage" resultType="User" parameterType="page">
-    	select id,name,auth,pwd from 
-    	(select rownum as rn,t.* from t_users t where rownum &lt; = #{P1} order by id asc)
+    	select id,name,type,password from 
+    	(select rownum as rn,t.* from userlog t where rownum &lt; = #{P1} order by id asc)
     	 where rn  &gt; #{P2}
     </select>
     
-    <select id="findUsersByName" parameterType="String" resultType="User">
-    	select id,name,auth,pwd from t_users t where 
-    	t.name like '%#{name}%'
-    </select>
-    
     <select id="findUserByNameAndPwd" parameterType="User" resultType="User">
-    	select id,name,auth,pwd from t_users t where t.name =#{name} and t.pwd =#{pwd}
+    	select id,name,type,password from userlog t where t.name =#{name} and t.password =#{password}
     </select>
     
     <select id="findUsersById" parameterType="int" resultType="User">
-    	select * from t_users where id=#{id}
+    	select * from userlog where id=#{id}
     </select>
     
     <delete id="deleteUser" parameterType="int">
-    	delete t_users where id=#{id}
+    	delete userlog where id=#{id}
     </delete>
     
     

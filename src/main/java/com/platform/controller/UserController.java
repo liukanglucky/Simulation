@@ -40,13 +40,13 @@ public class UserController extends BaseJsonAction{
 	public ModelAndView login(String name,String pwd,ModelMap modelMap){
 		User user =new User();
 		user.setName(name);
-		user.setPwd(pwd);
+		user.setPassword(pwd);
 		List <User> list=usi.findUserByNameAndPwd(user);
 		if(list.isEmpty()){
 			modelMap.addAttribute("info", "用户名或密码不正确！");
 			return new ModelAndView("login");
 		}else{
-			if(list.get(0).getAuth()==1){
+			if(list.get(0).getType()==1){
 				int recordCount = usi.countUser().getRecordCount();
 				PageBean page =new PageBean(recordCount,5,1);
 				modelMap.addAttribute("page",page);
@@ -79,19 +79,13 @@ public class UserController extends BaseJsonAction{
         this.outPutPage();
     }
 	
-	@RequestMapping("queryUsersByNameAndAuth")
-    public ModelAndView queryUsersByNameAndAuth(String name,int auth,ModelMap modelMap){
-		List<User> list = usi.findUserByName(name); 
-		modelMap.addAttribute("userDo",list);
-        return new ModelAndView("user");
-    }
 	
 	@RequestMapping("addUser")
-    public ModelAndView addUser(String name,int auth,String pwd,ModelMap modelMap){
+    public ModelAndView addUser(String name,int type,String password,ModelMap modelMap){
 		User user=new User();
 		user.setName(name);
-		user.setAuth(auth);
-		user.setPwd(pwd);
+		user.setType(type);
+		user.setPassword(password);
 		int i = usi.insertUser(user);
 		modelMap.addAttribute("info",i);
 		int recordCount = usi.countUser().getRecordCount();
@@ -103,12 +97,12 @@ public class UserController extends BaseJsonAction{
     }
 	
 	@RequestMapping("updateUser")
-    public ModelAndView updateUser(int id,String name,int auth,String pwd,ModelMap modelMap){
+    public ModelAndView updateUser(int id,String name,int type,String password,ModelMap modelMap){
 		User user=new User();
 		user.setId(id);
 		user.setName(name);
-		user.setAuth(auth);
-		user.setPwd(pwd);
+		user.setType(type);
+		user.setPassword(password);
 		int i = usi.updateUser(user);
 		modelMap.addAttribute("info",i);
 		int recordCount = usi.countUser().getRecordCount();
