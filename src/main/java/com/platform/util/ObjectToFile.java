@@ -10,8 +10,10 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 
@@ -130,7 +132,7 @@ public class ObjectToFile {
 										
 										String tempValue = "";
 										for (int j = 0; j < temp.length; j++) {
-											tempValue += temp[j]+",";
+											tempValue += String.valueOf(temp[j])+",";
 										}
 										map.put(key, tempValue);
 									}else{
@@ -170,19 +172,155 @@ public class ObjectToFile {
 		return map;
 	}
 	
+	/**
+	 * map转object
+	 * @param map
+	 * @param thisObj
+	 * @return
+	 */
+	public Object mapToObject(Map<String,String> map,Object obj){
+		Class c = null ;
+		
+		try {
+			c =Class.forName(obj.getClass().getName());
+			//获取fields
+			Field[] fields = c.getDeclaredFields();
+			String key = "";
+			String type = "";
+			for (int i = 0; i < fields.length; i++) {
+				key = fields[i].getName();
+				
+				if(map.containsKey(key)){
+					type = fields[i].getType().getSimpleName();
+					//访问private方法
+					fields[i].setAccessible(true);
+					
+					//System.out.println("fieldType is "+type);
+					
+					if(type.equals("char")){
+						fields[i].set(obj, map.get(key).charAt(0));
+					}
+					
+					if(type.equals("float")){
+						fields[i].set(obj, Float.parseFloat(map.get(key)));
+					}
+					
+					if(type.equals("char[]")){
+						String[] temp = map.get(key).split(",");
+						char[] tempvalue =new char[temp.length];
+						for (int j = 0; j < temp.length; j++) {
+							tempvalue[j] = temp[j].charAt(0);
+						}
+						fields[i].set(obj, tempvalue);
+					}
+					
+					if(type.equals("float[]")){
+						String[] temp = map.get(key).split(",");
+						float[] tempvalue =new float[temp.length];
+						for (int j = 0; j < temp.length; j++) {
+							tempvalue[j] = Float.parseFloat(temp[j]);
+							
+						}
+						fields[i].set(obj, tempvalue);
+					}
+					
+		
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return obj;
+	}
 	
+	/**
+	 * 前台字符串转map
+	 * @param str
+	 * @return
+	 */
+	public Map<String,String> stringToMap(String str){
+		Map<String,String> map = new HashMap<String,String>();
+		if(str.length()<=1)
+			return null;
+		if(str.endsWith(","))
+			str = str.substring(0,str.length()-2);
+		
+		String[] kvs = str.split(",");
+		
+		for (int i = 0; i < kvs.length; i++) {
+			String[] kv = kvs[i].split(":");
+			if(kv.length == 2){
+				if(map.containsKey(kv[0])){
+					map.put(kv[0], map.get(kv[0])+","+kv[1]);
+				}else{
+					map.put(kv[0], kv[1]);
+				}
+			}
+		}
+		
+		return map;
+	}
 	
 	public static void main(String[] args) {
 		ObjectToFile otf = new ObjectToFile();
 		
 		DATA2 data2 = new DATA2();
-		data2.setS1('a');
+//		data2.setS1('a');
+//		data2.setSpeed1(2f);
+//		char[] type2 = {'1','1','1','1'};
+//		data2.setType2(type2);
+//		
+//		System.out.println(otf.objectSerialize(data2, "WebContent/data/data2.txt"));
+//		
+//		data2 = (DATA2)otf.objectDeSerialize("WebContent/data/data2.txt");
 		
-		System.out.println(otf.objectSerialize(data2, "WebContent/data/data2.txt"));
+		Map<String,String> map =  otf.stringToMap("speed1:2,pu1:3,speed2:0,pu2:0,jz:0,wind:0.0,wind:0.0,wind:0.0,num1:0,fspeed:0.0,fspeed:0.0,fspeed:0.0,depth:0,d2:0.0,d2:0.0,d2:0.0,d2:0.0,num2:0,speed3:0,d1:0.0,d1:0.0,d1:0.0,d1:0.0,ang1:1.0,pu3:0,d3:0.0,d3:0.0,d3:0.0,d3:0.0,ang1:2.0,ang2:0.0,ang2:0.0,ang3:0.0,ang3:0.0,slocx:1.0,slocx:2.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:3.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,ang4:0.0,cy1:0,dk1:0.0,dk1:0.0,dk1:0.0,dk1:0.0,ang4:0.0,mk1:0,fre1:0.0,fre1:0.0,fre1:0.0,fre1:0.0,ss:0,num:,loc:0.0,loc:0.0,loc:0.0,pu4:0,lm1:0,speed:0.0,speed:0.0,speed:0.0,utype:海洋环境,type2:1,type2:1,type2:1,type2:1,");
 		
-		data2 = (DATA2)otf.objectDeSerialize("WebContent/data/data2.txt");
+		Iterator entries = map.entrySet().iterator();  
+		  
+		while (entries.hasNext()) {  
+		  
+		    Map.Entry entry = (Map.Entry) entries.next();  
+		  
+		    String key = (String)entry.getKey();  
+		  
+		    String value = (String) entry.getValue();  
+		  
+		    System.out.println("Key = " + key + ", Value = " + value);  
+		  
+		}
 		
-		System.out.println(data2.getS1());
+//		System.out.println(data2.getSpeed1());
+		
+//		DATA1 data1 = new DATA1();
+//		data1.setCy1(1.4f);
+//		data1.setType1('0');
+//		data1.setType2('0');
+//		System.out.println(otf.objectSerialize(data1, "WebContent/data/data1.txt"));
+//		data1 = (DATA1)otf.objectDeSerialize("WebContent/data/data1.txt");
+		
+		
+//		Map<String,String> map2 = new HashMap<String,String>() ;
+//		
+//		map2.put("ang", "0");
+//		
+//		map2.put("ang4","1.4");
+//		
+//		map2.put("file1", "a,a,a,a,c,c,c,c,c");
+//		
+//		DATA1 data1_new = new DATA1();
+//		
+//		otf.mapToObject(map, data1_new);
+//		
+//		System.out.println(data1_new.getCy1());
+		
+//		String json1 = JSON.toJSONString(data1);
+//		System.out.println(json1);
+		
 	}
 	
 	

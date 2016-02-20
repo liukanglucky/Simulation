@@ -26,7 +26,7 @@
             <td><a href="#">模型管理</td>
           </tr>
           <tr >
-            <td><a href="#">仿真查询</td>
+            <td><a href="querySim.do">仿真查询</td>
           </tr>
           <tr class="info">
             <td><a href="calManage.do">仿真计算</td>
@@ -40,7 +40,7 @@
           <tr>
             <td align="center">仿真类型：</td>
             <td align="center">
-              <select name="utype" style="width:90px; height:20px" id="simType">
+              <select name="utype" style="width:90px; height:20px" id="simType" onChange="changeType();">
                 <option value="1">数据仿真</option>
                 <option value="0">分析数据</option>
               </select>
@@ -52,55 +52,9 @@
           </tr> 
         </table>
         <script src="js/custom/defaultData.js"></script>
-        <script>
-          function tabgo3()
-          {
-            if($("#simType").val()==0){
-                $('#tab-3').attr('href','#tab3A'); 
-                $('#myTab a[href="#tab3A"]').tab('show');
-              }
-            if($("#simType").val()==1){
-                $('#tab-3').attr('href','#tab3B'); 
-                $('#myTab a[href="#tab3B"]').tab('show');
-              }
-          }
-          function tabgo4()
-          {
-            if($("#simType").val()==0){
-                $('#tab-4').attr('href','#tab4A'); 
-                $('#myTab a[href="#tab4A"]').tab('show');
-              }
-            if($("#simType").val()==1){
-                $('#tab-4').attr('href','#tab4B'); 
-                $('#myTab a[href="#tab4B"]').tab('show');
-              }
-          }
-          function tabgo5()
-          {
-            if($("#simType").val()==0){
-                $('#tab-5').attr('href','#tab5A'); 
-                $('#myTab a[href="#tab5A"]').tab('show');
-              }
-            if($("#simType").val()==1){
-                $('#tab-5').attr('href','#tab5B'); 
-                $('#myTab a[href="#tab5B"]').tab('show');
-              }
-          }
-          function tabgo6()
-          {
-            if($("#simType").val()==0){
-                $('#tab-6').attr('href','#tab6A'); 
-                $('#myTab a[href="#tab6A"]').tab('show');
-              }
-            if($("#simType").val()==1){
-                $('#tab-6').attr('href','#tab6B'); 
-                $('#myTab a[href="#tab6B"]').tab('show');
-              }
-          }
-        </script>
         <!-- 输入tab页面  begin-->
         <ul class="nav nav-tabs" id="myTab" style="font-size:12px;">
-          <li class="active" ><a href="#tab1" data-toggle="tab">舰艇声反射</a></li>
+          <li><a href="#" onclick="tabgo1()" id="tab-1">舰艇声反射</a></li>
           <li><a href="#" onclick="tabgo2()" id="tab-2">高频混响</a></li>
           <li><a href="#" onclick="tabgo3()" id="tab-3">舰艇辐射</a></li>
           <li><a href="#" onclick="tabgo4()" id="tab-4">鱼雷</a></li>
@@ -110,8 +64,9 @@
           <li><a href="#tab8" data-toggle="tab">声传播</a></li>
         </ul>
          
-        <div class="tab-content">
+        <div class="tab-content" id="tabContent">
           <#include "tab/tab1.ftl"/>
+          <#include "tab/tab1B.ftl"/>
           <#include "tab/tab2.ftl"/>
           <#include "tab/tab3A.ftl"/>
           <#include "tab/tab3B.ftl"/>

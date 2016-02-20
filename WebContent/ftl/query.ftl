@@ -19,37 +19,69 @@
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
           <tr>
-            <td><a href="user.html">用户管理</a></td>
+            <td><a href="userManage.do">用户管理</a></td>
           </tr>
           <tr>
             <td><a href="model.html">模型管理</td>
           </tr>
           <tr class="info">
-            <td><a href="query.html">仿真查询</td>
+            <td><a href="querySim.do">仿真查询</td>
           </tr>
           <tr>
-            <td><a href="cal.html">仿真计算</td>
+            <td><a href="calManage.do">仿真计算</td>
           </tr>
           <tr>
             <td><a href="datadump.html">数据备份</td>
           </tr>
         </table>
         </div>
-      <div class="span9">
+      <div class="span8">
         <div>
-          <table class="table table-hover" >
+          <table class="table" >
             <tr>
-              <td align="center">仿真类型</td>
+              <td align="center">模型类型</td>
               <td align="center">
                 <select name="utype">
-                  <option >数据仿真</option>
+                  <option value="1">海洋环境</option>
+                  <option value="2">潜艇</option>
+                  <option value="3">水面舰</option>
+                  <option value="4">鱼类</option>
                 </select>
               </td>
-              <td align="center">选择实例数据</td>
+              <td align="center">仿真对象</td>
               <td align="center">
-                <input type="file">
+                <select name="utype">
+                  <option value="1">001</option>
+                  <option value="2">054A</option>
+                  <option value="3">039</option>
+                  <option value="4">鱼－7A</option>
+                  <option value="5">鱼－10</option>
+                </select>
               </td>
-              <td colspan="2"><input type="button" class="btn btn-success" value="开始仿真" onClick="showData();"></td>
+            </tr>
+            <tr>
+              <td align="center">声学模型</td>
+              <td align="center">
+                <select name="utype">
+                  <option >舰艇自噪声</option>
+                  <option >高频模型</option>
+                  <option >舰艇目标声反射</option>
+                  <option >鱼类辐射</option>
+                </select>
+              </td>
+              <td align="center">数据类型</td>
+              <td align="center">
+                <select name="utype">
+                  <option >仿真数据</option><option ></option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">全文检索</td>
+              <td align="center">
+                <input type="text" >
+              </td>
+              <td colspan="2"><input type="button" class="btn btn-success" value="查询"></td>
             </tr>
               
           
@@ -57,68 +89,79 @@
           </table>
         </div>
 
-        <!-- 输入tab页面  begin-->
-        <ul class="nav nav-tabs" id="myTab">
-          <li class="active" ><a href="#tab1" data-toggle="tab">舰艇声反射</a></li>
-          <li><a href="#tab2" data-toggle="tab">高频混响</a></li>
-          <li><a href="#tab3" data-toggle="tab">舰艇辐射</a></li>
-          <li><a href="#tab4" data-toggle="tab">鱼雷</a></li>
-          <li><a href="#tab5" data-toggle="tab">舰艇自噪声</a></li>
-          <li><a href="#tab6" data-toggle="tab">鱼雷自噪声</a></li>
-          <li><a href="#tab7" data-toggle="tab">海洋环境</a></li>
-          <li><a href="#tab8" data-toggle="tab">声传播</a></li>
-        </ul>
-         
-        <div class="tab-content">
-          <div class="active tab-pane" id="tab1">
-            目标三维模型 : <input type="file"><br>
-            仿真类型：
-            <select name="utype">
-              <option >潜艇</option>
-            </select>
-            <select name="utype">
-              <option >001</option>
-            </select>
-            <br>
-            采样频率KHz：<input type="text">
-            检测域dB：<input type="text">
-            <br>
-            距离：<input type="text">
-            
-            声速m/s：<input type="text">
-            <br>
-            仿真总时间：<input type="text">
-            发射信号形式： <select name="utype">
-              <option >CW</option>
-            </select>
-            <br>
-            声源级dB：<input type="text">
-            仿真开始时刻：<input type="text">
-          </div>
-          <div class="tab-pane" id="tab2">2</div>
-          <div class="tab-pane" id="tab3">3</div>
-          <div class="tab-pane" id="tab4">4</div>
-          <div class="tab-pane" id="tab5">5</div>
-          <div class="tab-pane" id="tab6">6</div>
-          <div class="tab-pane" id="tab7">7</div>
-          <div class="tab-pane" id="tab8">8</div>
+        <div>
+          <a href="cal.html" role="button" class="btn btn-info" >新建仿真</a>
+          <input type="button" class="btn btn-warning" value="删除记录">
         </div>
-        <!-- end -->
         <br>
         
-        <div>
-          <hr>
-          <font color="blue">输入参数：</font><br>
-          <div id="input"></div>
-          <hr>
-          <font color="blue">输出结果：</font><br>
-          <div id="output"></div>
-          <hr>
-        </div>
-        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
         <div id="main" style="height:400px;display:none"></div>
 
-        
+        <div>
+          <font color="blue">点击记录查看输入输出数据及线谱</font><br>
+          <table class="table" >
+            <tr style="background-color:#0088CC">
+              <td align="center"><input type="checkbox"><font color="white">全选</font></td>
+              <td align="center"><font color="white">序号</font></td>
+              <td align="center"><font color="white">名称</font></td>
+              <td align="center"><font color="white">修改时间</font></td>
+              <td align="center"><font color="white">修改人</font></td>
+              <td align="center"><font color="white">所属对象</font></td>
+              <td align="center"><font color="white">数据类型</font></td>
+              <td align="center"><font color="white">模型特性</font></td>
+            </tr>
+            <tr onClick="showData();" >
+              <td><input type="checkbox"></td>
+              <td>1</td>
+              <td>仿真</td>
+              <td>2015-11-14</td>
+              <td>admin</td>
+              <td>039</td>
+              <td>仿真</td>
+              <td>噪声</td>
+            </tr>
+            <tr onClick="showData();">
+              <td><input type="checkbox"></td>
+              <td>1</td>
+              <td>仿真</td>
+              <td>2015-11-14</td>
+              <td>admin</td>
+              <td>039</td>
+              <td>仿真</td>
+              <td>噪声</td>
+            </tr>
+            <tr onClick="showData();">
+             <td><input type="checkbox"></td>
+              <td>1</td>
+              <td>仿真</td>
+              <td>2015-11-14</td>
+              <td>admin</td>
+              <td>039</td>
+              <td>仿真</td>
+              <td>噪声</td>
+            </tr>
+            <tr onClick="showData();">
+              <td><input type="checkbox"></td>
+              <td>1</td>
+              <td>仿真</td>
+              <td>2015-11-14</td>
+              <td>admin</td>
+              <td>039</td>
+              <td>仿真</td>
+              <td>噪声</td>
+            </tr>
+          </table> 
+        </div>
+        <div class="pagination">
+          <ul>
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li ><a href="#">2</a></li>
+            <li ><a href="#">3</a></li>
+            <li ><a href="#">4</a></li>
+            <li ><a href="#">5</a></li>
+          </ul>
+        </div>
 
         
         <!-- ECharts单文件引入 -->
@@ -137,8 +180,10 @@
     </div>
     <script>
       function showData(){
-        var input = "吨位：0，吃水：0 ... ...";
-        var output = "线谱频率：";
+        var input = "吨位：4000.00，吃水：6.00 ，航速：18.00，输出频率：100-1000，采样率：20.00 ，增益：80.00<br>\
+        灵敏度：－200.00，阵元：48.00，总声级：166.00 ,轴频：1.80，螺旋桨数：5.00\
+        ";
+        var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
 
         $("#input").html(input);
         $("#output").html(output);

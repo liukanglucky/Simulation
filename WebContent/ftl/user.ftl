@@ -119,7 +119,7 @@
             <td><a href="#">模型管理</td>
           </tr>
           <tr >
-            <td><a href="#">仿真查询</td>
+            <td><a href="querySim.do">仿真查询</td>
           </tr>
           <tr>
             <td><a href="calManage.do">仿真计算</td>

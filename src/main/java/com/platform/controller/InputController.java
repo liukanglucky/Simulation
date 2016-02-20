@@ -13,24 +13,36 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
+import com.platform.report.send.DATAFactory;
 import com.platform.util.ObjectToFile;
 
 @Controller
 @RequestMapping("/input")
 public class InputController extends BaseJsonAction{
+	ObjectToFile otf = new ObjectToFile();
 	
-	@RequestMapping("/defaultData2")
+	@RequestMapping("/defaultData")
 	public void defaultData1(HttpServletRequest request){
 		
-		ObjectToFile otf = new ObjectToFile();
+		String dataNum = (String) request.getParameter("id");
 		
-		DATA2 data2 = new DATA2();
+		if(dataNum == null){
+			this.setData(null);
+			
+			this.outPut();
+		}
 		
-		String path = request.getSession().getServletContext().getRealPath("data/data2.txt");
+		int num = Integer.parseInt(dataNum);
 		
-		data2 = (DATA2)otf.objectDeSerialize(path);
+		Object input = null;
+		String path = "";
 		
-		Map<String,Object> map =  otf.objectToMap(data2);
+		input = DATAFactory.getData(dataNum);
+		path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
+		input = input.getClass().cast(otf.objectDeSerialize(path));
+		
+		
+		Map<String,Object> map =  otf.objectToMap(input);
 		
 		Iterator entries = map.entrySet().iterator();  
 		  
@@ -54,6 +66,69 @@ public class InputController extends BaseJsonAction{
 		//return map;
 	}
 	
+	
+	@RequestMapping("/saveData")
+	public void saveData(HttpServletRequest request){
+		String str = request.getParameter("data");
+		String dataNum = (String) request.getParameter("id");
+		
+		if(dataNum == null){
+			this.setData(null);
+			
+			this.outPut();
+		}
+		
+		//int num = Integer.parseInt(dataNum);
+		
+		Object input = null;
+		String path = "";
+		
+		input = DATAFactory.getData(dataNum);
+		path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
+		
+		if(!dataNum.equals("2")){
+			otf.objectSerialize(otf.mapToObject(otf.stringToMap(str), input), path);
+			System.out.println("=============================");
+		}else{
+//			input = DATAFactory.getData(dataNum);
+//			path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
+			Map<String,String> data2Map = otf.stringToMap(str);
+			input = otf.mapToObject(data2Map, input);
+			//二维数组
+			if(data2Map.containsKey("slocx")){
+				float[][] slocx = new float[36][3];
+				String[] slocx_value = data2Map.get("slocx").split(",");
+				if(slocx_value.length == 108){
+					System.out.println("===============");
+					for(int si = 0;si<36;si++){
+						for(int sj = 0;sj<3;sj++){
+							System.out.println("========"+slocx_value[3*si+sj]);
+							slocx[si][sj]=Float.parseFloat(slocx_value[3*si+sj]);
+						}
+					}
+					//利用反射赋值
+					Class c = input.getClass();
+					try {
+						Field f = c.getDeclaredField("slocx");
+						f.setAccessible(true);
+						f.set(input, slocx);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			
+			otf.objectSerialize(input,path);
+		}
+		
+			
+		
+		this.setData("保存成功");
+		
+		this.outPut();
+	}
 	
 	
 	

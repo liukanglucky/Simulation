@@ -1,5 +1,4 @@
 <div class="tab-pane" id="tab2">
-    <form id="form-tab2">
     <div margin:0 auto>
       请输入模型类型：
        <select name="type1" style="width:100px;  height:20px">
@@ -294,5 +293,8 @@
         <td></td>
       </tr>
       </table>
-      <form>
+     <input type="button" class="btn btn-warning" value="保存数据"
+							onClick="autoGetVal('tab2',2);">
+						<input type="button" class="btn btn-success" value="开始仿真"
+							onClick="showData('tab1');">
   </div>
