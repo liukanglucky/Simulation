@@ -25,6 +25,8 @@ public class InputController extends BaseJsonAction{
 	public void defaultData1(HttpServletRequest request){
 		
 		String dataNum = (String) request.getParameter("id");
+		String fileNum = (String) request.getParameter("fileid");
+		System.out.println("fileNum=========="+fileNum);
 		
 		if(dataNum == null){
 			this.setData(null);
@@ -32,15 +34,20 @@ public class InputController extends BaseJsonAction{
 			this.outPut();
 		}
 		
-		int num = Integer.parseInt(dataNum);
-		
 		Object input = null;
 		String path = "";
 		
 		input = DATAFactory.getData(dataNum);
-		path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
+		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
 		input = input.getClass().cast(otf.objectDeSerialize(path));
 		
+		if(input == null){
+			this.setData("");
+			
+			this.outPut();
+			
+			return;
+		}
 		
 		Map<String,Object> map =  otf.objectToMap(input);
 		
@@ -70,7 +77,10 @@ public class InputController extends BaseJsonAction{
 	@RequestMapping("/saveData")
 	public void saveData(HttpServletRequest request){
 		String str = request.getParameter("data");
+		
 		String dataNum = (String) request.getParameter("id");
+		String fileNum = (String) request.getParameter("fileid");
+		
 		
 		if(dataNum == null){
 			this.setData(null);
@@ -84,7 +94,7 @@ public class InputController extends BaseJsonAction{
 		String path = "";
 		
 		input = DATAFactory.getData(dataNum);
-		path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
+		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
 		
 		if(!dataNum.equals("2")){
 			otf.objectSerialize(otf.mapToObject(otf.stringToMap(str), input), path);

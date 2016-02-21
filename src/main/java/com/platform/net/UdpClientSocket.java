@@ -216,8 +216,8 @@ public class UdpClientSocket {
         Struct1 struct1 = new Struct1('a',f1,c1);
         
         DATA1 data1 = new DATA1();
-        data1.s1 = 'a';
-        data1.file2 = c1;
+        data1.setS1('a');
+        data1.setFile1(c1);
         
        // data = JavaStruct.pack(data1);
         

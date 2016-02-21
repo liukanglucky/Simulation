@@ -60,8 +60,8 @@
           <li><a href="#" onclick="tabgo4()" id="tab-4">鱼雷</a></li>
           <li><a href="#" onclick="tabgo5()" id="tab-5">舰艇自噪声</a></li>
           <li><a href="#" onclick="tabgo6()" id="tab-6">鱼雷自噪声</a></li>
-          <li><a href="#tab7" data-toggle="tab">海洋环境</a></li>
-          <li><a href="#tab8" data-toggle="tab">声传播</a></li>
+          <li><a href="#tab7" onclick="tabgo7()" id="tab-7">海洋环境</a></li>
+          <li><a href="#tab8" onclick="tabgo8()" id="tab-8">声传播</a></li>
         </ul>
          
         <div class="tab-content" id="tabContent">
