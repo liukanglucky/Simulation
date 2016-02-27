@@ -77,7 +77,7 @@
               <td align="center">数据类型</td>
               <td align="center">
                 <select name="utype">
-                  <option >仿真数据</option><option ></option>
+                  <option >仿真数据</option><option >分析数据</option>
                 </select>
               </td>
             </tr>
@@ -95,7 +95,7 @@
         </div>
 
         <div>
-          <a href="cal.html" role="button" class="btn btn-info" >新建仿真</a>
+          <a href="calManage.do" role="button" class="btn btn-info" >新建仿真</a>
           <input type="button" class="btn btn-warning" value="删除记录">
         </div>
         <br>
