@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.platform.dao.ModelDataDao">
+
+	<insert id="insertData1" parameterType="modelData1">
+		insert into modeldata (dataindex,date1,cy,dt,mt,sim,stype,time1,it1,it2,it3,it4,it5,
+		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,
+		out1,out2,out3,out4)
+		values
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{dt},#{type2},#{type3},#{mt},#{sim},
+		#{speed},#{ang},#{fre},#{bre},#{cre},#{distence},#{ang1},#{ang2},#{time},#{cy1},#{ss},#{ang3},#{ang4},
+		#{out1},#{out2},#{out3},#{out4})
+	</insert>
+	
+	<insert id="insertData1B" parameterType="modelData1">
+		insert into modeldata (dataindex,date1,cy,dt,mt,sim,stype,time1,
+		if1,if2,if3,if4,if5,if6,if7)
+		values
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},
+		#{speed},#{ang},#{fre},#{bre},#{cre},#{distence})
+	</insert>
+    
+    
+	
+	<insert id="insertData3A" parameterType="modelData3A">
+		insert into modeldata (dataindex,if1,if2)
+		values
+		(1,
+		<foreach collection="fre1" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>
+		)
+	</insert>
+	
+	<delete id="deleteData" parameterType="int">
+    	delete modeldata where id=#{id}
+	</delete>
+    
+</mapper>
