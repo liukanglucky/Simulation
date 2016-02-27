@@ -188,43 +188,51 @@ public class UdpClientSocket {
         
         byte[] data = null;
         
-//        char c = 'c';
-//        
-//        byte[] a = {0,0,0};
-//        
-//        byte[] cb = String.valueOf(c).getBytes();
-//        
-//        float[] f = {(float)1,(float)2}; 
-//        
-//        byte[] fb =client.arraycat(client.float2byte(f[0]),client.float2byte(f[1]));
-//        
-//        String  s ="tes";     
-//        
-//        data = client.arraycat(data, cb);
-//        data = client.arraycat(data, a);
-//        data = client.arraycat(data, fb);
-//        data = client.arraycat(data, s.getBytes());
+        char c = 127;
         
-       // System.out.println("shujuchangdu:"+data.length);
+        byte[] a = {0,0,0};
         
-//        for (int i = 0; i < data.length; i++) {
-//          	 System.out.println(data[i]);
-//   		}
+        byte[] cb = String.valueOf(c).getBytes();
+        
+        float[] f = {(float)1,(float)2}; 
+        
+        byte[] fb =client.arraycat(client.float2byte(f[0]),client.float2byte(f[1]));
+        
+        String  s ="tes";     
+        
+        data = client.arraycat(data, cb);
+        data = client.arraycat(data, a);
+        data = client.arraycat(data, fb);
+        data = client.arraycat(data, s.getBytes());
+        
+       System.out.println("数据长度:"+data.length);
+        
+        for (int i = 0; i < data.length; i++) {
+          	 System.out.println(data[i]);
+   		}
         float[] f1 = {1.9f, 2.9f};
         char[] c1 = {'b','c','d'};
-         
-        Struct1 struct1 = new Struct1('a',f1,c1);
-        
-        DATA1 data1 = new DATA1();
-        data1.setS1('a');
-        data1.setFile1(c1);
-        
-       // data = JavaStruct.pack(data1);
-        
-        System.out.println(ByteOrder.nativeOrder());
-        data = JavaStruct.pack(data1, ByteOrder.BIG_ENDIAN);
-        
-        System.out.println(data.length);
+//         
+//        Struct1 struct1 = new Struct1('a',f1,c1);
+//        
+//        DATA1 data1 = new DATA1();
+//        
+//        char s1 = 100;
+//        
+//        data1.setS1(s1);
+//        data1.setType1(s1);
+//        data1.setAng1(1f);
+//        data1.setSpeed(2f);
+//        data1.setFile1(c1);
+//      
+//        
+//        System.out.println(ByteOrder.nativeOrder());
+//        data = JavaStruct.pack(data1, ByteOrder.LITTLE_ENDIAN);
+//        
+//        for (int i = 0; i < data.length; i++) {
+//        	 System.out.println(data[i]);
+//		}
+       
         
         client.send(serverHost, serverPort, data,new OneSend());  
         byte[] info = client.receive(serverHost, serverPort);  
