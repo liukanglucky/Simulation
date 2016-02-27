@@ -1,8 +1,8 @@
 package com.platform.model;
 
-import com.platform.report.send.DATA2;
+import com.platform.report.send.DATA1;
 
-public class Data1 extends DATA2{
+public class Data1 extends DATA1{
 	/**
 	 * 
 	 */
