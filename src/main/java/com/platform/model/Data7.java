@@ -1,8 +1,8 @@
 package com.platform.model;
 
-import com.platform.report.send.DATA2;
+import com.platform.report.send.DATA7;
 
-public class Data1 extends DATA2{
+public class Data7 extends DATA7{
 	/**
 	 * 
 	 */
@@ -94,6 +94,4 @@ public class Data1 extends DATA2{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 }

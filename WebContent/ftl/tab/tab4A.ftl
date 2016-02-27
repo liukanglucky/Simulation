@@ -63,4 +63,8 @@
                 </tr>
               </tbody>
             </table>
+            <input type="button" class="btn btn-warning" value="保存数据"
+							onClick="autoGetVal('tab4A','3A','4A');">
+						<input type="button" class="btn btn-success" value="开始仿真"
+							onClick="showData('tab4A');">
           </div>

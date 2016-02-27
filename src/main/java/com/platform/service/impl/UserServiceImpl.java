@@ -50,6 +50,12 @@ public class UserServiceImpl implements UserService{
 		
 		return userDao.findUserByNameAndPwd(user);
 	}
+
+	@Override
+	public void dataDump() {
+		userDao.dataDump();
+		
+	}
 	
 	
 }

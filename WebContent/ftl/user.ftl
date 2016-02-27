@@ -104,7 +104,9 @@
   </script>
   </head>
   <body>
-
+	<#if Session["user"]?exists>
+    <#assign userSession = Session["user"]>
+	</#if>
     <#include "head.ftl"/>
     <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
     <div class = "span4">
@@ -115,9 +117,11 @@
           <tr class="info">
             <td><a href="userManage.do">用户管理</a></td>
           </tr>
+          <#if userSession.type = 1>
           <tr>
             <td><a href="#">模型管理</td>
           </tr>
+          </#if>
           <tr >
             <td><a href="querySim.do">仿真查询</td>
           </tr>
@@ -125,15 +129,18 @@
             <td><a href="calManage.do">仿真计算</td>
           </tr>
           <tr>
-            <td><a href="#">数据备份</td>
+            <td><a href="dumpData.do">数据备份</td>
           </tr>
         </table>
       </div> 
       <div class="span8">
-        <div>
+      	<#if userSession.type = 1>
+      	<div>
           <a href="#myModal" role="button" class="btn btn-info" data-toggle="modal">增加用户</a>
           <input type="button" class="btn btn-warning" value="删除用户" onclick="deleteUsers()">
         </div>
+   		</#if>
+        
         <br>
         <div>
           <table class="table"  id="usrTable">
@@ -142,7 +149,9 @@
               <td align="center"><font color="white">序号</font></td>
               <td align="center"><font color="white">用户名</font></td>
               <td align="center"><font color="white">类型</font></td>
+              <#if userSession.type = 1>
               <td align="center"><font color="white">操作</font></td>
+              </#if>
             </tr>
             <#list userDo as user>
             <#--这是一段注释-->
@@ -151,7 +160,9 @@
         		<td>${user.id}</td>
         		<td>${user.name}</td>
         		<td><#if user.type = 1>管理员</#if><#if user.type = 2>普通用户</#if></td>
+        		<#if userSession.type = 1>
         		<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser(${user.id})">更新</button></td>
+        		</#if>
       		</tr>
       		</#list>
           </table> 

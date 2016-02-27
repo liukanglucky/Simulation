@@ -1,8 +1,8 @@
 package com.platform.model;
 
-import com.platform.report.send.DATA2;
+import com.platform.report.send.DATA3A;
 
-public class Data1 extends DATA2{
+public class Data3A extends DATA3A{
 	/**
 	 * 
 	 */
@@ -13,23 +13,25 @@ public class Data1 extends DATA2{
 	private int sim;
 	private int stype;
 	private int date1;
-	private int time1;
+	private int time;//与DATA3A中数据启始时刻（time1）冲突，改为time
 	private int operator; 
 	private String out1;
 	private String out2;
 	private String out3;
 	private String out4;
+	
+	
 	public int getDate1() {
 		return date1;
 	}
 	public void setDate1(int date1) {
 		this.date1 = date1;
 	}
-	public int getTime1() {
-		return time1;
+	public int getTime() {
+		return time;
 	}
-	public void setTime1(int time1) {
-		this.time1 = time1;
+	public void setTime(int time) {
+		this.time = time;
 	}
 	public int getOperator() {
 		return operator;
@@ -94,6 +96,4 @@ public class Data1 extends DATA2{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
 }

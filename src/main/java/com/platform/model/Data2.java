@@ -2,7 +2,7 @@ package com.platform.model;
 
 import com.platform.report.send.DATA2;
 
-public class Data1 extends DATA2{
+public class Data2 extends DATA2{
 	/**
 	 * 
 	 */

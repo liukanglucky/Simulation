@@ -8,6 +8,15 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
          <typeAlias alias="User" type="com.platform.model.User"/>  
          <typeAlias alias="page" type="com.platform.model.PageBean"/> 
          <typeAlias alias="count" type="com.platform.model.Count"/> 
+         <typeAlias alias="modelData1" type="com.platform.model.Data1"/>
+         <typeAlias alias="modelData2" type="com.platform.model.Data2"/>
+         <typeAlias alias="modelData3A" type="com.platform.model.Data3A"/>
+         <typeAlias alias="modelData3B" type="com.platform.model.Data3B"/>
+         <typeAlias alias="modelData5A" type="com.platform.model.Data5A"/>
+         <typeAlias alias="modelData5B" type="com.platform.model.Data5B"/>
+         <typeAlias alias="modelData7" type="com.platform.model.Data7"/>
+         <typeAlias alias="modelData8" type="com.platform.model.Data8"/>
+         
     </typeAliases>
  
     <!-- 映射map -->

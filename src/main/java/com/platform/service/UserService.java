@@ -15,4 +15,5 @@ public interface UserService {
 	public List<User> findUsersByPage(PageBean page);
 	public List<User> findUserByNameAndPwd(User user);
 	public User findUserById(int id);
+	public void dataDump();
 }

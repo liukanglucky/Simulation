@@ -221,5 +221,9 @@
                   </tr>
                 </tbody>
               </table>
+              <input type="button" class="btn btn-warning" value="保存数据"
+							onClick="autoGetVal('tab5B','5B','5B');">
+						<input type="button" class="btn btn-success" value="开始仿真"
+							onClick="showData('tab5B');">
             </div>
           </div>

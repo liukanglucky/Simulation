@@ -34,6 +34,9 @@
     <delete id="deleteUser" parameterType="int">
     	delete userlog where id=#{id}
     </delete>
+    <select  id="dataDump">
+    	exp system/Aa123456@XE file=daochu.dmp tables=(modeldata)
+    </select> 
     
     
 </mapper>
