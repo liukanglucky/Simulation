@@ -3,6 +3,7 @@ package com.platform.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.platform.model.Data3A;
 import com.platform.model.PageBean;
 import com.platform.model.User;
 import com.platform.net.UdpClientSocket;
+import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.service.impl.UserServiceImpl;
 
 @Controller
@@ -20,6 +23,8 @@ import com.platform.service.impl.UserServiceImpl;
 public class UserController extends BaseJsonAction{
 	@Autowired
 	private UserServiceImpl usi;
+	@Autowired
+	private ModelDataServiceImpl msi;
 	
 	@RequestMapping("welcome")
 	public ModelAndView welcome(){
@@ -27,7 +32,7 @@ public class UserController extends BaseJsonAction{
 	}
 	
 	@RequestMapping("login")
-	public ModelAndView login(String name,String pwd,ModelMap modelMap){
+	public ModelAndView login(String name,String pwd,ModelMap modelMap,HttpSession session){
 		User user =new User();
 		user.setName(name);
 		user.setPassword(pwd);
@@ -36,16 +41,13 @@ public class UserController extends BaseJsonAction{
 			modelMap.addAttribute("info", "用户名或密码不正确！");
 			return new ModelAndView("login");
 		}else{
-			if(list.get(0).getType()==1){
-				int recordCount = usi.countUser().getRecordCount();
-				PageBean page =new PageBean(recordCount,5,1);
-				modelMap.addAttribute("page",page);
-				List<User> userList = usi.findUsersByPage(page); 
-				modelMap.addAttribute("userDo",userList);
-				return new ModelAndView("user");
-			}else{
-				return new ModelAndView("cal-normal");
-			}
+			session.setAttribute("user", user);
+			int recordCount = usi.countUser().getRecordCount();
+			PageBean page =new PageBean(recordCount,5,1);
+			modelMap.addAttribute("page",page);
+			List<User> userList = usi.findUsersByPage(page); 
+			modelMap.addAttribute("userDo",userList);
+			return new ModelAndView("user");
 		}
 	}
 	
@@ -124,4 +126,27 @@ public class UserController extends BaseJsonAction{
         this.outPutPage();
     }
 	
+	@RequestMapping("dumpData") 
+	public ModelAndView userManage(){
+        return new ModelAndView("datadump");
+    }
+
+	@RequestMapping("dataDump")
+	 public int dataDump(){
+		Data3A data = new Data3A();
+		float[] fre1 =new float[2];
+		fre1[0] = 1f;
+		fre1[1] = 2f;
+		data.setFre1(fre1);
+		data.setDate1(0);
+		data.setCy(0);
+		data.setDepth(0);
+		data.setDt(0);
+		data.setMt(0);
+		data.setWeight(0);
+		data.setSim(0);
+		data.setStype(0);
+		data.setTime(0);
+		return msi.insertData3A(data);
+	}
 }
