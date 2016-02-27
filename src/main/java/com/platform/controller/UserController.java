@@ -41,7 +41,7 @@ public class UserController extends BaseJsonAction{
 			modelMap.addAttribute("info", "用户名或密码不正确！");
 			return new ModelAndView("login");
 		}else{
-			session.setAttribute("user", user);
+			session.setAttribute("user", list.get(0));
 			int recordCount = usi.countUser().getRecordCount();
 			PageBean page =new PageBean(recordCount,5,1);
 			modelMap.addAttribute("page",page);
