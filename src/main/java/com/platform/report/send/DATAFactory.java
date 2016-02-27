@@ -4,6 +4,7 @@ package com.platform.report.send;
  * 
  * @author liukang
  * 实例化输入参数工厂方法
+ * 
  */
 public class DATAFactory {
 	public static Object getData(String dataType){
