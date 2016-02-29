@@ -11,10 +11,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.platform.model.Data3A;
 import com.platform.model.PageBean;
 import com.platform.model.User;
 import com.platform.net.UdpClientSocket;
+import com.platform.report.send.DATA3A;
 import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.service.impl.UserServiceImpl;
 
@@ -133,7 +133,7 @@ public class UserController extends BaseJsonAction{
 
 	@RequestMapping("dataDump")
 	 public int dataDump(){
-		Data3A data = new Data3A();
+		DATA3A data = new DATA3A();
 		float[] fre1 =new float[2];
 		fre1[0] = 1f;
 		fre1[1] = 2f;

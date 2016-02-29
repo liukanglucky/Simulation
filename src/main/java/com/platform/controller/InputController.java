@@ -6,19 +6,26 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.platform.dao.ModelDataDao;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
+import com.platform.report.send.DATA3A;
 import com.platform.report.send.DATAFactory;
+import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.util.ObjectToFile;
 
 @Controller
 @RequestMapping("/input")
 public class InputController extends BaseJsonAction{
+	@Autowired
+	ModelDataServiceImpl mdsi = new ModelDataServiceImpl();
+	
 	ObjectToFile otf = new ObjectToFile();
 	
 	@RequestMapping("/defaultData")
@@ -27,7 +34,7 @@ public class InputController extends BaseJsonAction{
 		String dataNum = (String) request.getParameter("id");
 		String fileNum = (String) request.getParameter("fileid");
 		System.out.println("fileNum=========="+fileNum);
-		
+				
 		if(dataNum == null){
 			this.setData(null);
 			
