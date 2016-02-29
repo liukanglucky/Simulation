@@ -17,6 +17,7 @@ public interface ModelDataDao {
 	public int insertData5B(DATA5B data);
 	public int insertData7(DATA7 data);
 	public int insertData8(DATA8 data);
+	public int findMaxId();
 	public Count countUser();
 	public List<DATA1> findDatasByPage(PageBean page);
 	public DATA1 findDatasById(int id);

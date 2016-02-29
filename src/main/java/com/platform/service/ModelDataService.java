@@ -13,4 +13,5 @@ public interface ModelDataService {
 	public int insertData5B(DATA5B data);
 	public int insertData7(DATA7 data);
 	public int insertData8(DATA8 data);
+	public int findMaxId();
 }

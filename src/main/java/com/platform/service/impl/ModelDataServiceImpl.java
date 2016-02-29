@@ -101,5 +101,10 @@ public class ModelDataServiceImpl implements ModelDataService{
 		//mybatis sql 执行成功返回1 不成功返回0 无对应方法返回2
 		return 2;
 	}
+
+	@Override
+	public int findMaxId() {
+		return modelDataDao.findMaxId();
+	}
 	
 }

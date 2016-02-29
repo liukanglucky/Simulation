@@ -93,7 +93,7 @@
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,
 		out1,out2,out3,out4)
 		values
-		(1,,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
@@ -111,7 +111,7 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,
 		out1,out2,out3,out4)
 		values
-		(1,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
@@ -135,7 +135,7 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,
 		out1,out2,out3,out4)
 		values
-		(1,,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
@@ -158,7 +158,7 @@
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,
 		out1,out2,out3,out4)
 		values
-		(1,,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
@@ -216,7 +216,10 @@
 	</insert>
 	
 	<delete id="deleteData" parameterType="int">
-    	delete modeldata where id=#{id}
+    	delete modeldata where id=#{dataindex}
 	</delete>
     
+    <select id="findMaxId" resultType="int">
+    	SELECT MAX(dataindex) FROM modeldata;
+    </select>
 </mapper>
