@@ -104,8 +104,10 @@ public class InputController extends BaseJsonAction{
 		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
 		
 		if(!dataNum.equals("2")){
-			otf.objectSerialize(otf.mapToObject(otf.stringToMap(str), input), path);
-			System.out.println("=============================");
+			input = otf.mapToObject(otf.stringToMap(str), input);
+			otf.objectSerialize(input, path);
+			System.out.println("=============================save Data success!");
+			
 		}else{
 //			input = DATAFactory.getData(dataNum);
 //			path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
@@ -140,7 +142,8 @@ public class InputController extends BaseJsonAction{
 			otf.objectSerialize(input,path);
 		}
 		
-			
+		
+		mdsi.insertFactory(dataNum, input);
 		
 		this.setData("保存成功");
 		

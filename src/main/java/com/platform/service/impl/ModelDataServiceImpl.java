@@ -65,4 +65,41 @@ public class ModelDataServiceImpl implements ModelDataService{
 	}
 	
 	
+	public int insertFactory(String dataType,Object data){
+		if(dataType.equals("1")){
+			return this.insertData1((DATA1)data);
+		}
+		
+		if(dataType.equals("2")){
+			return this.insertData2((DATA2)data);
+		}
+		
+		if(dataType.equals("3A")){
+			return this.insertData3A((DATA3A)data);
+		}
+		
+		if(dataType.equals("3B")){
+			return this.insertData3B((DATA3B)data);
+		}
+		
+		if(dataType.equals("5A")){
+			return this.insertData5A((DATA5A)data);
+		}
+		
+		if(dataType.equals("5B")){
+			return this.insertData5B((DATA5B)data);
+		}
+		
+		if(dataType.equals("7")){
+			return this.insertData7((DATA7)data);
+		}
+		
+		if(dataType.equals("8")){
+			return this.insertData8((DATA8)data);
+		}
+		
+		//mybatis sql 执行成功返回1 不成功返回0 无对应方法返回2
+		return 2;
+	}
+	
 }
