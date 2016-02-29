@@ -184,7 +184,7 @@ public class DATA1 implements Serializable{
 		this.file2 = file2;
 	}
 	
-	
+	private int dataindex;
 	private int cy;
 	private int dt;
 	private int mt;
@@ -268,6 +268,12 @@ public class DATA1 implements Serializable{
 	}
 	public void setOut4(String out4) {
 		this.out4 = out4;
+	}
+	public int getDataindex() {
+		return dataindex;
+	}
+	public void setDataindex(int dataindex) {
+		this.dataindex = dataindex;
 	}
 	
 	

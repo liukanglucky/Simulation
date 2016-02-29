@@ -154,7 +154,7 @@ public class DATA5A implements Serializable{
 	public void setFile(char[] file) {
 		this.file = file;
 	}
-	
+	private int dataindex;
 	private int cy;
 	private int dt;
 	private int mt;
@@ -238,6 +238,12 @@ public class DATA5A implements Serializable{
 	}
 	public void setOut4(String out4) {
 		this.out4 = out4;
+	}
+	public int getDataindex() {
+		return dataindex;
+	}
+	public void setDataindex(int dataindex) {
+		this.dataindex = dataindex;
 	}
 	
 }
