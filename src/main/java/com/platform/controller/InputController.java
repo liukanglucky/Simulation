@@ -143,7 +143,27 @@ public class InputController extends BaseJsonAction{
 		}
 		
 		
-		mdsi.insertFactory(dataNum, input);
+		try {
+			int maxid = mdsi.findMaxId();
+			System.out.println("========maxid is "+maxid );
+			Field dataindex = input.getClass().getDeclaredField("dataindex");
+			dataindex.setAccessible(true);
+			dataindex.set(input, maxid+1);
+			mdsi.insertFactory(dataNum, input);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		this.setData("保存成功");
 		

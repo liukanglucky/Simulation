@@ -220,6 +220,6 @@
 	</delete>
     
     <select id="findMaxId" resultType="int">
-    	SELECT MAX(dataindex) FROM modeldata;
+    	SELECT MAX(dataindex) FROM modeldata
     </select>
 </mapper>
