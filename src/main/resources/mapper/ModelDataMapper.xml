@@ -33,7 +33,7 @@
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,if113,if114,if115,if116,if117,if118,
 		if119,if120,if121,if122,if123,if124,if125,if126,if127,if128,if129,if130,if131,if132,if133,if134,if135,if136,if137,if138,if139,
 		if140,if141,if142,if143,if144,if145,if146,if147,if148,if149,if150,if151,if152,if153,if154,if155,if156,if157,if158,if159,if160,
-		if161,if162,if163,if164,
+		if161,if162,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{type1},
@@ -47,7 +47,7 @@
 		<foreach collection="d2" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,#{num1},#{pu1},#{pu2},
-		<foreach collection="wind3" item="item" separator="," >
+		<foreach collection="wind" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,
 		<foreach collection="fspeed" item="item" separator="," >
@@ -93,7 +93,7 @@
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
@@ -111,7 +111,7 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}

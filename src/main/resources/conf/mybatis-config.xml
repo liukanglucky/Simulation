@@ -3,6 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<settings>
+     <!--设置但JDBC类型为空时,某些驱动程序 要指定值,default:OTHER --> 
+
+    <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
     <!-- 命名空间 -->
     <typeAliases>
          <typeAlias alias="User" type="com.platform.model.User"/>  
