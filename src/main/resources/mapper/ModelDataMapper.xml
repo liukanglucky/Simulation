@@ -100,7 +100,7 @@
 		</foreach>,#{cy1},#{zy1},#{lm1},#{num},#{ss},
 		<foreach collection="fre2" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,#{tim1},#{tim2},#{zy2},#{lm2},
+		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -156,9 +156,10 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
 		if74,if75,if76,if77,if78,if79,if80,if81,if82,if83,if84,if85,if86,if87,if88,if89,if90,if91,if92,if93,if94,if95,if96,if97,
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,
+		if113,if114,if115,if116,if117,if118,if119,if120,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}

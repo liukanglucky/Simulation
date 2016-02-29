@@ -96,8 +96,9 @@ function autoGetVal(id, dataid, fileid) {
 
 	for (var i = 0; i < dom.size(); i++) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
+		//alert($(dom[i]).val());
 	}
-
+	//alert(result);
 	$.ajax({
 		url : "input/saveData.do",
 		type : "post",

@@ -247,7 +247,7 @@ public class ObjectToFile {
 		if(str.length()<=1)
 			return null;
 		if(str.endsWith(","))
-			str = str.substring(0,str.length()-2);
+			str = str.substring(0,str.length()-1);
 		
 		String[] kvs = str.split(",");
 		
@@ -278,25 +278,25 @@ public class ObjectToFile {
 //		
 //		data2 = (DATA2)otf.objectDeSerialize("WebContent/data/data2.txt");
 		
-//		Map<String,String> map =  otf.stringToMap("speed1:2,pu1:3,speed2:0,pu2:0,jz:0,wind:0.0,wind:0.0,wind:0.0,num1:0,fspeed:0.0,fspeed:0.0,fspeed:0.0,depth:0,d2:0.0,d2:0.0,d2:0.0,d2:0.0,num2:0,speed3:0,d1:0.0,d1:0.0,d1:0.0,d1:0.0,ang1:1.0,pu3:0,d3:0.0,d3:0.0,d3:0.0,d3:0.0,ang1:2.0,ang2:0.0,ang2:0.0,ang3:0.0,ang3:0.0,slocx:1.0,slocx:2.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:3.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,ang4:0.0,cy1:0,dk1:0.0,dk1:0.0,dk1:0.0,dk1:0.0,ang4:0.0,mk1:0,fre1:0.0,fre1:0.0,fre1:0.0,fre1:0.0,ss:0,num:,loc:0.0,loc:0.0,loc:0.0,pu4:0,lm1:0,speed:0.0,speed:0.0,speed:0.0,utype:海洋环境,type2:1,type2:1,type2:1,type2:1,");
-//		
-//		Iterator entries = map.entrySet().iterator();  
-//		  
-//		while (entries.hasNext()) {  
-//		  
-//		    Map.Entry entry = (Map.Entry) entries.next();  
-//		  
-//		    String key = (String)entry.getKey();  
-//		  
-//		    String value = (String) entry.getValue();  
-//		  
-//		    System.out.println("Key = " + key + ", Value = " + value);  
-//		  
-//		}
+		Map<String,String> map =  otf.stringToMap("speed1:1,pu1:3,speed2:1,pu2:2,jz:0,wind:0.0,wind:0.0,wind:0.0,num1:0,fspeed:0.0,fspeed:0.0,fspeed:0.0,depth:0,d2:0.0,d2:0.0,d2:0.0,d2:0.0,num2:0,speed3:0,d1:0.0,d1:0.0,d1:0.0,d1:0.0,ang1:0.0,pu3:0,d3:0.0,d3:0.0,d3:0.0,d3:0.0,ang1:0.0,ang2:0.0,ang2:0.0,ang3:0.0,ang3:0.0,slocx:1.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:108.0,ang4:0.0,cy1:0,dk1:0.0,dk1:0.0,dk1:0.0,dk1:0.0,ang4:0.0,mk1:0,fre1:0.0,fre1:0.0,fre1:0.0,fre1:0.0,ss:0,num: ,loc:0.0,loc:0.0,loc:0.0,pu4:0,lm1:0,speed:0.0,speed:0.0,speed:0.0,type1:3,type2:1,type2:1,type2:1,type2:1,");
+		
+		Iterator entries = map.entrySet().iterator();  
+		  
+		while (entries.hasNext()) {  
+		  
+		    Map.Entry entry = (Map.Entry) entries.next();  
+		  
+		    String key = (String)entry.getKey();  
+		  
+		    String value = (String) entry.getValue();  
+		  
+		    System.out.println("Key = " + key + ", Value = " + value);  
+		  
+		}
 		
 //		System.out.println(data2.getSpeed1());
 		
-		DATA1 data1 = new DATA1();
+//		DATA1 data1 = new DATA1();
 //		data1.setCy1(1.4f);
 //		data1.setType1('0');
 //		data1.setType2('0');
@@ -319,7 +319,7 @@ public class ObjectToFile {
 		
 //		String json1 = JSON.toJSONString(data1);
 //		System.out.println(json1);
-		
+	
 	}
 	
 	

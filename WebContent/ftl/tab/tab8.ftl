@@ -4,7 +4,7 @@
                 <tr>
                   <td>海底地貌</td>
                   <td><select name="type1" style="width:60px;  height:20px">
-                        <option >斜坡</option>
+                        <option value="1">斜坡</option>
                 </select></td>
                   <td>海底衰减系数</td>
                   <td><input name="ss2" style="width:60px;" type="text"></td>
@@ -20,7 +20,7 @@
                   <td>&nbsp;</td>
                   <td>接收阵信息</td>
                   <td><select name="type5" style="width:60px;  height:20px">
-                        <option >单元发射</option>
+                        <option value="1">单元发射</option>
                 </select></td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                 <tr>
                   <td>发射阵信息</td>
                   <td><select name="type3" style="width:60px;  height:20px">
-                        <option >单元级</option>
+                        <option value="1">单元级</option>
                 </select></td>
                   <td>收发间距</td>
                   <td><input name="len3" style="width:60px;" type="text"></td>
@@ -55,14 +55,14 @@
                 <tr>
                   <td>发射信号形式</td>
                   <td><select name="type4" style="width:60px;  height:20px">
-                        <option >带宽</option>
+                        <option value="1">带宽</option>
                 </select></td>
                   <td>海况</td>
                   <td><input name="type2" style="width:60px;" type="text"></td>
                   <td>&nbsp;</td>
                   <td>海底底质类型</td>
                   <td><select name="type6" style="width:60px;  height:20px">
-                        <option >粘土</option>
+                        <option value="1">粘土</option>
                 </select></td>
                 </tr>
                 <tr>
