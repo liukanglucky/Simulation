@@ -81,7 +81,9 @@
 			#{item,jdbcType=REAL}
 		</foreach>,#{mk1},
 		<foreach collection="slocx" item="item" separator="," >
-			#{item,jdbcType=REAL}
+			<foreach collection="item" item="item1" separator="," >
+			#{item1,jdbcType=REAL}
+		</foreach>
 		</foreach>,
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
@@ -109,7 +111,7 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,
 		out1,out2,out3,out4)
 		values
-		(1,,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
+		(1,#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
