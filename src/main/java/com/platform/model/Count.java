@@ -10,4 +10,5 @@ public class Count {
 	public void setRecordCount(int recordCount) {
 		this.recordCount = recordCount;
 	}
+	
 }
