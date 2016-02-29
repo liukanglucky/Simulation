@@ -148,6 +148,68 @@ public class InputController extends BaseJsonAction{
 	}
 	
 	
+	/**
+	 * 调用仿真模型
+	 * @param request
+	 */
+	@RequestMapping("run")
+	public void run(HttpServletRequest request){
+		String str = request.getParameter("data");
+		
+		String dataNum = (String) request.getParameter("id");
+		String fileNum = (String) request.getParameter("fileid");
+		
+		
+		if(dataNum == null){
+			this.setData(null);
+			
+			this.outPut();
+		}
+		
+		//int num = Integer.parseInt(dataNum);
+		
+		Object input = null;
+		
+		input = DATAFactory.getData(dataNum);
+		
+		if(!dataNum.equals("2")){
+			otf.mapToObject(otf.stringToMap(str), input);
+		}else{
+			Map<String,String> data2Map = otf.stringToMap(str);
+			input = otf.mapToObject(data2Map, input);
+			//二维数组
+			if(data2Map.containsKey("slocx")){
+				float[][] slocx = new float[36][3];
+				String[] slocx_value = data2Map.get("slocx").split(",");
+				if(slocx_value.length == 108){
+					for(int si = 0;si<36;si++){
+						for(int sj = 0;sj<3;sj++){
+							slocx[si][sj]=Float.parseFloat(slocx_value[3*si+sj]);
+						}
+					}
+					//利用反射赋值
+					Class c = input.getClass();
+					try {
+						Field f = c.getDeclaredField("slocx");
+						f.setAccessible(true);
+						f.set(input, slocx);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			
+			//otf.objectSerialize(input,path);
+		}
+		
+			
+		
+		this.setData("执行成功");
+		
+		this.outPut();
+	}
 	
 	public static void main(String[] args) throws SecurityException, ClassNotFoundException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		ObjectToFile otf = new ObjectToFile();
