@@ -36,12 +36,12 @@
   				var  list = eval(json);
 				var data=list[0].data;
 				show(data);
-				currentPage=list[0].page.currentPage;
+				_currentPage=list[0].page.currentPage;
 	            totalPage=list[0].page.totalPage;
 	            prePage=list[0].page.prePage;
 				nextPage=list[0].page.nextPage;
 	            $("#page").empty();
-	            page(totalPage,currentPage,prePage,nextPage);
+	            page(totalPage,_currentPage,prePage,nextPage);
 	            },
   			error : function() {  
 	              alert("异常！");
@@ -60,7 +60,7 @@
         $.post("deleteModelDatas.do",
         {idList:str},
         function(){
-        	queryByPage(1);
+        	queryByPage(_currentPage);
         }
         );
     }
@@ -92,12 +92,12 @@
   				var  list = eval(json);
 				var data=list[0].data;
 				show(data);
-				currentPage=list[0].page.currentPage;
+				_currentPage=list[0].page.currentPage;
 	            totalPage=list[0].page.totalPage;
 	            prePage=list[0].page.prePage;
 				nextPage=list[0].page.nextPage;
 	            $("#page").empty();
-	            page(totalPage,currentPage,prePage,nextPage);
+	            page(totalPage,_currentPage,prePage,nextPage);
 	            },
   			error : function() {  
 	              alert("异常！");
