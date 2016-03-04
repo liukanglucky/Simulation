@@ -56,6 +56,11 @@ public class UserServiceImpl implements UserService{
 		userDao.dataDump();
 		
 	}
+
+	@Override
+	public int findMaxId() {
+		return userDao.findMaxId();
+	}
 	
 	
 }

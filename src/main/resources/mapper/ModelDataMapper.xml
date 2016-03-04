@@ -216,11 +216,32 @@
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
-	<delete id="deleteData" parameterType="int">
-    	delete modeldata where id=#{dataindex}
+	<delete id="deleteData">
+    	delete modeldata where dataindex in 
+    	<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+    	#{item,jdbcType=REAL}
+    	</foreach>
 	</delete>
     
     <select id="findMaxId" resultType="int">
     	SELECT MAX(dataindex) FROM modeldata
+    </select>
+    
+    <select id="querySim" parameterType="queryParameter" resultType="modelData">
+    	select dataindex,date1,time1,dt,mt,sim,stype,operator from 
+    	(select rownum as rn,t.* from 
+    	(select dataindex,date1,time1,dt,mt,sim,stype,operator from modeldata 
+    	where dt = #{dt} and mt=#{mt} and sim=#{sim} and stype=#{stype}) 
+    	t where rownum &lt; = #{P1} order by t.dataindex asc) 
+    	where rn  &gt; #{P2}
+    </select>
+    
+    <select id="querySimById" parameterType="int" resultType="modelData">
+    	select * where dataindex=#{id} from modeldata
+    </select>
+    
+    <select id="countModelData" parameterType="queryParameter" resultType="count">
+    	select count(*) as recordCount from modeldata 
+    	where dt = #{dt} and mt=#{mt} and sim=#{sim} and stype=#{stype}
     </select>
 </mapper>

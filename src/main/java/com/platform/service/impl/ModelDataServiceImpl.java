@@ -1,9 +1,14 @@
 package com.platform.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.platform.dao.ModelDataDao;
+import com.platform.model.Count;
+import com.platform.model.ModelData;
+import com.platform.model.QueryParameter;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 import com.platform.report.send.DATA3A;
@@ -105,6 +110,26 @@ public class ModelDataServiceImpl implements ModelDataService{
 	@Override
 	public int findMaxId() {
 		return modelDataDao.findMaxId();
+	}
+
+	@Override
+	public Count countModelData(QueryParameter queryParameter) {
+		return modelDataDao.countModelData(queryParameter);
+	}
+
+	@Override
+	public List<ModelData> querySim(QueryParameter queryParameter) {
+		return modelDataDao.querySim(queryParameter);
+	}
+
+	@Override
+	public ModelData querySimById(int id) {
+		return modelDataDao.querySimById(id);
+	}
+
+	@Override
+	public int deleteData(int[] ids) {
+		return modelDataDao.deleteData(ids);
 	}
 	
 }

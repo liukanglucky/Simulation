@@ -2,8 +2,11 @@ package com.platform.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.platform.model.Count;
-import com.platform.model.PageBean;
+import com.platform.model.ModelData;
+import com.platform.model.QueryParameter;
 import com.platform.report.send.*;
 
 public interface ModelDataDao {
@@ -18,9 +21,9 @@ public interface ModelDataDao {
 	public int insertData7(DATA7 data);
 	public int insertData8(DATA8 data);
 	public int findMaxId();
-	public Count countUser();
-	public List<DATA1> findDatasByPage(PageBean page);
-	public DATA1 findDatasById(int id);
-	public int deleteData(int id);
+	public Count countModelData(QueryParameter queryParameter);
+	public List<ModelData> querySim(QueryParameter queryParameter);
+	public ModelData querySimById(int id);
+	public int deleteData(@Param("ids")int ids[]);
 }
 

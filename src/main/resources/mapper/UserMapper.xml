@@ -7,7 +7,7 @@
 	<insert id="insertUser" parameterType="User" keyProperty="id">
 		insert into userlog (id,name,type,password)
 		values
-		(s_users.nextval,#{name},#{type},#{password})
+		(#{id},#{name},#{type},#{password})
 	</insert>
 	
 	<update id="updateUser" parameterType="User">
@@ -37,6 +37,8 @@
     <select  id="dataDump">
     	exp system/Aa123456@XE file=daochu.dmp tables=(modeldata)
     </select> 
-    
+    <select id="findMaxId" resultType="int">
+    	SELECT MAX(id) FROM userlog
+    </select>
     
 </mapper>

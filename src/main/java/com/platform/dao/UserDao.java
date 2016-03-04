@@ -15,5 +15,6 @@ public interface UserDao {
 	public List<User> findUserByNameAndPwd(User user);
 	public User findUsersById(int id);
 	public int deleteUser(int id);
+	public int findMaxId();
 	public void dataDump();
 }

@@ -13,6 +13,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
          <typeAlias alias="User" type="com.platform.model.User"/>  
          <typeAlias alias="page" type="com.platform.model.PageBean"/> 
          <typeAlias alias="count" type="com.platform.model.Count"/> 
+         <typeAlias alias="queryParameter" type="com.platform.model.QueryParameter"/>
+         <typeAlias alias="modelData" type="com.platform.model.ModelData"/>
          <typeAlias alias="modelData1" type="com.platform.report.send.DATA1"/>
          <typeAlias alias="modelData2" type="com.platform.report.send.DATA2"/>
          <typeAlias alias="modelData3A" type="com.platform.report.send.DATA3A"/>

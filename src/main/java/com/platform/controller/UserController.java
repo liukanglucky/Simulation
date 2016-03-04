@@ -74,6 +74,7 @@ public class UserController extends BaseJsonAction{
 	@RequestMapping("addUser")
     public ModelAndView addUser(String name,int type,String password,ModelMap modelMap){
 		User user=new User();
+		user.setId(usi.findMaxId()+1);
 		user.setName(name);
 		user.setType(type);
 		user.setPassword(password);

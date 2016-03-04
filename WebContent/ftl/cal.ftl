@@ -11,6 +11,9 @@
 
   </head>
   <body>
+  	<#if Session["user"]?exists>
+    <#assign userSession = Session["user"]>
+	</#if>
     <#include "head.ftl"/>
     <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
       <div class = "span6">
@@ -22,11 +25,13 @@
           <tr>
             <td><a href="userManage.do">用户管理</a></td>
           </tr>
+          <#if userSession.type = 1>
           <tr>
             <td><a href="#">模型管理</td>
           </tr>
+          </#if>
           <tr >
-            <td><a href="querySim.do">仿真查询</td>
+            <td><a href="query.do">仿真查询</td>
           </tr>
           <tr class="info">
             <td><a href="calManage.do">仿真计算</td>

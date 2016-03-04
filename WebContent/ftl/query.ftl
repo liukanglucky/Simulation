@@ -4,13 +4,108 @@
     <title>test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <#include "common-js.ftl"/>
+    <#include "page.ftl"/>
+    <#include "checkbox.ftl"/>
 
   </head>
   <body>
+  <script>
+  		var _dt = '';
+	  	var _mt = '';
+	  	var _sim = '';
+	  	var _stype = '';
+	  	var _comments= '';
+	  	var _currentPage= '';
+	  	var _pageSize = '';
+	  <#--根据查询条件查询ModelData-->
+	function queryModelData(){
+	  	_dt = $("select[name='dt']").val();
+	  	_mt = $("select[name='mt']").val(); 
+	  	_sim = $("select[name='sim']").val();
+	  	_stype = $("select[name='stype']").val();
+	  	_comments= $("input[name='comments']").val();
+	  	_currentPage= 1;
+	  	_pageSize = 5;
+	  	$.ajax({
+  			type:"post",
+  			url:"querySim.do",
+  			data:{dt:_dt,mt:_mt,sim:_sim,stype:_stype,comments:_comments,currentPage:_currentPage,pageSize:_pageSize},
+  			dataType:"json",
+  			success:function(json){
+  				var  list = eval(json);
+				var data=list[0].data;
+				show(data);
+				currentPage=list[0].page.currentPage;
+	            totalPage=list[0].page.totalPage;
+	            prePage=list[0].page.prePage;
+				nextPage=list[0].page.nextPage;
+	            $("#page").empty();
+	            page(totalPage,currentPage,prePage,nextPage);
+	            },
+  			error : function() {  
+	              alert("异常！");
+	        }
+  		}
+  		);
+	  }
+  	<#--deleteUsers-->
+	function deleteModelDatas() {
+        var str="";
+        $("input[id='subcheck']:checkbox").each(function(){ 
+            if($(this).attr("checked")){
+                str += $(this).val()+","
+            }
+        });
+        $.post("deleteModelDatas.do",
+        {idList:str},
+        function(){
+        	queryByPage(1);
+        }
+        );
+    }
+    function show(list){  	
+        	$(".modelDataList").empty();
+        	for(i=0;i<list.length;i++){
+        	var appendStr="";
+        	appendStr+="<tr class='modelDataList'>"+
+      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>"+
+        		"<td>"+list[i].dataindex+"</td>"+
+        		"<td>"+list[i].opertor+"</td>"+
+        		"<td>"+list[i].data1+"</td>"+
+        		"<td>"+list[i].dt+"</td>>"+
+        		"<td>"+list[i].mt+"</td>"+
+        		"<td>"+list[i].sim+"</td>"+
+        		"<td>"+list[i].stype+"</td></tr>";
+        		$("#modelDataTable").append(appendStr);
+        	}
+    }
+    <#--分页条-->
+	function queryByPage(current){
+	  	_currentPage= current;
+	  	$.ajax({
+  			type:"post",
+  			url:"querySim.do",
+  			data:{dt:_dt,mt:_mt,sim:_sim,stype:_stype,comments:_comments,currentPage:_currentPage,pageSize:_pageSize},
+  			dataType:"json",
+  			success:function(json){
+  				var  list = eval(json);
+				var data=list[0].data;
+				show(data);
+				currentPage=list[0].page.currentPage;
+	            totalPage=list[0].page.totalPage;
+	            prePage=list[0].page.prePage;
+				nextPage=list[0].page.nextPage;
+	            $("#page").empty();
+	            page(totalPage,currentPage,prePage,nextPage);
+	            },
+  			error : function() {  
+	              alert("异常！");
+	        }
+  		}
+  		);
+	}
+  </script>
  	<#if Session["user"]?exists>
     <#assign userSession = Session["user"]>
 	</#if>
@@ -30,7 +125,7 @@
           </tr>
           </#if>
           <tr class="info">
-            <td><a href="querySim.do">仿真查询</td>
+            <td><a href="query.do">仿真查询</td>
           </tr>
           <tr>
             <td><a href="calManage.do">仿真计算</td>
@@ -46,7 +141,7 @@
             <tr>
               <td align="center">模型类型</td>
               <td align="center">
-                <select name="utype">
+                <select name="mt">
                   <option value="1">海洋环境</option>
                   <option value="2">潜艇</option>
                   <option value="3">水面舰</option>
@@ -55,7 +150,7 @@
               </td>
               <td align="center">仿真对象</td>
               <td align="center">
-                <select name="utype">
+                <select name="sim">
                   <option value="1">001</option>
                   <option value="2">054A</option>
                   <option value="3">039</option>
@@ -67,36 +162,35 @@
             <tr>
               <td align="center">声学模型</td>
               <td align="center">
-                <select name="utype">
-                  <option >舰艇自噪声</option>
-                  <option >高频模型</option>
-                  <option >舰艇目标声反射</option>
-                  <option >鱼类辐射</option>
+                <select name="stype">
+                  <option value="1">舰艇自噪声</option>
+                  <option value="2">高频模型</option>
+                  <option value="3">舰艇目标声反射</option>
+                  <option value="4">鱼类辐射</option>
                 </select>
               </td>
               <td align="center">数据类型</td>
               <td align="center">
-                <select name="utype">
-                  <option >仿真数据</option><option >分析数据</option>
+                <select name="dt">
+                  <option value="1">仿真数据</option><option value="2">分析数据</option>
                 </select>
               </td>
             </tr>
             <tr>
               <td align="center">全文检索</td>
               <td align="center">
-                <input type="text" >
+                <input type="text" name="comments">
               </td>
-              <td colspan="2"><input type="button" class="btn btn-success" value="查询"></td>
+              <td colspan="2"><input type="button" class="btn btn-success" value="查询" onclick="queryModelData()"></td>
             </tr>
-              
-          
-            
           </table>
         </div>
 
         <div>
           <a href="calManage.do" role="button" class="btn btn-info" >新建仿真</a>
-          <input type="button" class="btn btn-warning" value="删除记录">
+          <#if userSession.type = 1>
+              <input type="button" class="btn btn-warning" value="删除记录" onclick="deleteModelDatas()">
+          </#if>
         </div>
         <br>
         
@@ -104,67 +198,23 @@
 
         <div>
           <font color="blue">点击记录查看输入输出数据及线谱</font><br>
-          <table class="table" >
+          <table class="table" id="modelDataTable">
             <tr style="background-color:#0088CC">
-              <td align="center"><input type="checkbox"><font color="white">全选</font></td>
+              <td align="center"><input type="checkbox" id="SelectAll" onclick="selectAll()"><font color="white">全选</font></td>
               <td align="center"><font color="white">序号</font></td>
-              <td align="center"><font color="white">名称</font></td>
               <td align="center"><font color="white">修改时间</font></td>
               <td align="center"><font color="white">修改人</font></td>
-              <td align="center"><font color="white">所属对象</font></td>
-              <td align="center"><font color="white">数据类型</font></td>
-              <td align="center"><font color="white">模型特性</font></td>
+              <td align="center"><font color="white">仿真类型</font></td>
+              <td align="center"><font color="white">模型类型</font></td>
+              <td align="center"><font color="white">仿真对象</font></td>
+              <td align="center"><font color="white">声学特性</font></td>
             </tr>
-            <tr onClick="showData();" >
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-             <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
-            </tr>
-            <tr onClick="showData();">
-              <td><input type="checkbox"></td>
-              <td>1</td>
-              <td>仿真</td>
-              <td>2015-11-14</td>
-              <td>admin</td>
-              <td>039</td>
-              <td>仿真</td>
-              <td>噪声</td>
+            <tr class = "modelDataList">
             </tr>
           </table> 
         </div>
-        <div class="pagination">
-          <ul>
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li ><a href="#">2</a></li>
-            <li ><a href="#">3</a></li>
-            <li ><a href="#">4</a></li>
-            <li ><a href="#">5</a></li>
+        <div class="pagination pagination-centered" >
+          <ul id="page">
           </ul>
         </div>
 
