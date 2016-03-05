@@ -28,12 +28,11 @@ public class QueryController extends BaseJsonAction{
 	@RequestMapping("querySim")
     public void querySim(int dt,int mt,int sim,int stype,String comments,int currentPage,int pageSize){
 		QueryParameter queryParameter = new QueryParameter(1, pageSize, currentPage);
-		System.out.println("========================QueryController31======================="+dt+mt+sim+stype+comments);
+		System.out.println("========================QueryController======================="+dt+mt+sim+stype+comments);
 		queryParameter.setDt(dt);
 		queryParameter.setMt(mt);
 		queryParameter.setSim(sim);
 		queryParameter.setStype(stype);
-		System.out.println(queryParameter);
 		int recordCount = mdsi.countModelData(queryParameter).getRecordCount();
 		QueryParameter parameter = new  QueryParameter(recordCount, pageSize, currentPage);
 		PageBean page =new PageBean(recordCount, pageSize, currentPage);
