@@ -4,22 +4,80 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import com.platform.net.UdpClientSocket;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 
 public class ObjectToFile {
-	
-	
+	public  byte[] arraycat(byte[] buf1,byte[] buf2)
+    {
+	    byte[] bufret=null;
+	    int len1=0;
+	    int len2=0;
+	    if(buf1!=null)
+	    	len1=buf1.length;
+	    if(buf2!=null)
+	    	len2=buf2.length;
+	    if(len1+len2>0)
+	    	bufret=new byte[len1+len2];
+	    
+	    for (int i = 0; i < len1; i++) {
+	    	bufret[i] = buf1[i];
+		}
+	    
+	    for (int j = 0; j < len2; j++) {
+			bufret[len1+j] = buf2[j];
+		}
+	    
+	    return bufret;
+    }
+    
+    public  byte[] float2byte(float f) {  
+        
+        // 把float转换为byte[]  
+        int fbit = Float.floatToIntBits(f);  
+          
+        byte[] b = new byte[4];    
+        for (int i = 0; i < 4; i++) {    
+            b[i] = (byte) (fbit >> (24 - i * 8));    
+        }   
+          
+        // 翻转数组  
+        int len = b.length;  
+        // 建立一个与源数组元素类型相同的数组  
+        byte[] dest = new byte[len];  
+        // 为了防止修改源数组，将源数组拷贝一份副本  
+        System.arraycopy(b, 0, dest, 0, len);  
+        byte temp;  
+        // 将顺位第i个与倒数第i个交换  
+        for (int i = 0; i < len / 2; ++i) {  
+            temp = dest[i];  
+            dest[i] = dest[len - i - 1];  
+            dest[len - i - 1] = temp;  
+        }  
+          
+        return dest;  
+          
+    }
+    
+    public  byte[] charToByte(char c) {
+        byte[] b = new byte[2];
+        b[0] = (byte) ((c & 0xFF00) >> 8);
+        b[1] = (byte) (c & 0xFF);
+        return b;
+    }
 	/**
 	 * 序列化对象
 	 * @param object
@@ -265,41 +323,156 @@ public class ObjectToFile {
 		return map;
 	}
 	
+	/**
+	 * object to byte array
+	 * use for udp connect
+	 * @param obj
+	 * @return
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 */
+	public byte[] objectToByteArray(Object obj){
+		byte[] res =null;
+		Class c = obj.getClass();
+		Field[] fields = c.getDeclaredFields();
+		if(fields.length <= 14 )
+			return res;
+		String type = "";
+		try{
+			for (int i = 1; i < fields.length-13; i++) {
+				//System.out.println(fields[i].getName());
+				type = fields[i].getType().getSimpleName();
+				//访问private方法
+				fields[i].setAccessible(true);
+				
+				System.out.println(fields[i].getName()+" is "+type+" value:"+fields[i].get(obj));
+				
+				if(type.equals("char")){
+					res = this.arraycat(res,this.charToByte(fields[i].getChar(obj)));
+				}
+				
+				if(type.equals("float")){
+					res = this.arraycat(res,this.float2byte(fields[i].getFloat(obj)));
+				}
+				
+				if(type.equals("char[]")){
+					Object temp  = fields[i].get(obj);
+					if(temp.getClass().isArray()){
+						char[] temp2  = (char[])temp;
+						for (int j = 0; j < temp2.length; j++) {
+							res = this.arraycat(res,this.charToByte(temp2[j]));
+						}
+					}
+				}
+				
+				if(type.equals("float[]")){
+					Object temp  = fields[i].get(obj);
+					if(temp.getClass().isArray()){
+						float[] temp2  = (float[])temp;
+						for (int j = 0; j < temp2.length; j++) {
+							res = this.arraycat(res,this.float2byte(temp2[j]));
+						}
+					}
+				}
+				
+				if(type.equals("float[][]")){
+					Object temp  = fields[i].get(obj);
+					if(temp.getClass().isArray()){
+						float[][] temp2  = (float[][])temp;
+						for (int j = 0; j < temp2.length; j++) {
+							for (int k = 0; k < temp2[j].length; k++) {
+								res = this.arraycat(res,this.float2byte(temp2[j][k]));
+							}
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	
+	
+	public boolean MapToFile(Map<String,Object> map,String path){
+		boolean flag = false;
+		File file = new File(path);
+		if(!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(file);
+			Iterator<Map.Entry<String,Object>> entries = map.entrySet().iterator(); 
+			String key = "";
+			String value = "";
+			while(entries.hasNext()){
+			    Map.Entry<String,Object> entry = (Map.Entry<String,Object>) entries.next();  
+			  
+			    key = (String)entry.getKey();  
+			  
+			    value = (String) entry.getValue(); 
+			    
+			    fw.write(key+":"+value+"\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return flag;
+	}
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		ObjectToFile otf = new ObjectToFile();
 		
-//		DATA2 data2 = new DATA2();
-//		data2.setS1('a');
-//		data2.setSpeed1(2f);
-//		char[] type2 = {'1','1','1','1'};
-//		data2.setType2(type2);
+		DATA2 data2 = new DATA2();
+		data2.setS1('a');
+		data2.setSpeed1(2f);
+		char[] type2 = {'c','1','1','1'};
+		data2.setType2(type2);
 //		
 //		System.out.println(otf.objectSerialize(data2, "WebContent/data/data2.txt"));
 //		
 //		data2 = (DATA2)otf.objectDeSerialize("WebContent/data/data2.txt");
 		
-		Map<String,String> map =  otf.stringToMap("speed1:1,pu1:3,speed2:1,pu2:2,jz:0,wind:0.0,wind:0.0,wind:0.0,num1:0,fspeed:0.0,fspeed:0.0,fspeed:0.0,depth:0,d2:0.0,d2:0.0,d2:0.0,d2:0.0,num2:0,speed3:0,d1:0.0,d1:0.0,d1:0.0,d1:0.0,ang1:0.0,pu3:0,d3:0.0,d3:0.0,d3:0.0,d3:0.0,ang1:0.0,ang2:0.0,ang2:0.0,ang3:0.0,ang3:0.0,slocx:1.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:108.0,ang4:0.0,cy1:0,dk1:0.0,dk1:0.0,dk1:0.0,dk1:0.0,ang4:0.0,mk1:0,fre1:0.0,fre1:0.0,fre1:0.0,fre1:0.0,ss:0,num: ,loc:0.0,loc:0.0,loc:0.0,pu4:0,lm1:0,speed:0.0,speed:0.0,speed:0.0,type1:3,type2:1,type2:1,type2:1,type2:1,");
-		
-		Iterator entries = map.entrySet().iterator();  
-		  
-		while (entries.hasNext()) {  
-		  
-		    Map.Entry entry = (Map.Entry) entries.next();  
-		  
-		    String key = (String)entry.getKey();  
-		  
-		    String value = (String) entry.getValue();  
-		  
-		    System.out.println("Key = " + key + ", Value = " + value);  
-		  
-		}
+//		Map<String,String> map =  otf.stringToMap("speed1:1,pu1:3,speed2:1,pu2:2,jz:0,wind:0.0,wind:0.0,wind:0.0,num1:0,fspeed:0.0,fspeed:0.0,fspeed:0.0,depth:0,d2:0.0,d2:0.0,d2:0.0,d2:0.0,num2:0,speed3:0,d1:0.0,d1:0.0,d1:0.0,d1:0.0,ang1:0.0,pu3:0,d3:0.0,d3:0.0,d3:0.0,d3:0.0,ang1:0.0,ang2:0.0,ang2:0.0,ang3:0.0,ang3:0.0,slocx:1.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:0.0,slocx:108.0,ang4:0.0,cy1:0,dk1:0.0,dk1:0.0,dk1:0.0,dk1:0.0,ang4:0.0,mk1:0,fre1:0.0,fre1:0.0,fre1:0.0,fre1:0.0,ss:0,num: ,loc:0.0,loc:0.0,loc:0.0,pu4:0,lm1:0,speed:0.0,speed:0.0,speed:0.0,type1:3,type2:1,type2:1,type2:1,type2:1,");
+//		
+//		Iterator entries = map.entrySet().iterator();  
+//		  
+//		while (entries.hasNext()) {  
+//		  
+//		    Map.Entry entry = (Map.Entry) entries.next();  
+//		  
+//		    String key = (String)entry.getKey();  
+//		  
+//		    String value = (String) entry.getValue();  
+//		  
+//		    System.out.println("Key = " + key + ", Value = " + value);  
+//		  
+//		}
 		
 //		System.out.println(data2.getSpeed1());
 		
 //		DATA1 data1 = new DATA1();
 //		data1.setCy1(1.4f);
-//		data1.setType1('0');
-//		data1.setType2('0');
+//		data1.setType1('c');
+//		data1.setType2('d');
 //		System.out.println(otf.objectSerialize(data1, "WebContent/data/data1.txt"));
 		
 		
@@ -319,7 +492,17 @@ public class ObjectToFile {
 		
 //		String json1 = JSON.toJSONString(data1);
 //		System.out.println(json1);
-	
+		
+		System.out.println(data2.getSpeed1());
+		
+		byte[] byteofdata2 = otf.objectToByteArray(data2);
+		
+		System.out.println(byteofdata2.length);
+		for (int i = 0; i < byteofdata2.length; i++) {
+			System.out.println(byteofdata2[i]);
+		}
+		
+		System.out.println(otf.float2byte(2f)[1]);
 	}
 	
 	
