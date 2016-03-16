@@ -10,9 +10,17 @@ extern "C" {
 /*
  * Class:     com_platform_jni_Model1
  * Method:    getmodel1
- * Signature: (Lcom/platform/report/send/DATA1;)V
+ * Signature: (CF[C)V
  */
 JNIEXPORT void JNICALL Java_com_platform_jni_Model1_getmodel1
+  (JNIEnv *, jobject, jchar, jfloat, jcharArray);
+
+/*
+ * Class:     com_platform_jni_Model1
+ * Method:    getmodel1Object
+ * Signature: (Lcom/platform/report/send/DATA1;)V
+ */
+JNIEXPORT void JNICALL Java_com_platform_jni_Model1_getmodel1Object
   (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus

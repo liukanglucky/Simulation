@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.dao.ModelDataDao;
+import com.platform.jni.NativeFactory;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 import com.platform.report.send.DATA3A;
@@ -227,7 +228,7 @@ public class InputController extends BaseJsonAction{
 			//otf.objectSerialize(input,path);
 		}
 		
-			
+		NativeFactory.getNativeMethod(dataNum, input);
 		
 		this.setData("执行成功");
 		
