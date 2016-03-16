@@ -22,16 +22,20 @@
           <tr style="background-color:#0088CC">
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
-          <tr>
-            <td><a href="userManage.do">用户管理</a></td>
-          </tr>
-          
-          <tr >
-            <td><a href="query.do">仿真查询</td>
-          </tr>
           <tr class="info">
             <td><a href="calManage.do">仿真计算</td>
           </tr>
+          <tr >
+            <td><a href="query.do">仿真查询</td>
+          </tr>
+          <tr>
+            <td><a href="userManage.do">用户管理</a></td>
+          </tr>
+          <#if userSession.type = 1>
+          <tr>
+            <td><a href="#">模型管理</td>
+          </tr>
+          </#if>
           <tr>
             <td><a href="#">数据备份</td>
           </tr>
@@ -41,8 +45,8 @@
           <tr>
             <td align="center">仿真类型：</td>
             <td align="center">
-              <select name="utype" style="width:90px; height:20px" id="simType" onChange="changeType();">
-                <option value="1">数据仿真</option>
+              <select name="s1" style="width:90px; height:20px" id="simType" onChange="changeType();">
+                <option value="1">模拟仿真</option>
                 <option value="0">分析数据</option>
               </select>
             </td>
