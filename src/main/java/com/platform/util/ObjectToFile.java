@@ -253,7 +253,7 @@ public class ObjectToFile {
 					//访问private方法
 					fields[i].setAccessible(true);
 					
-					//System.out.println("fieldType is "+type);
+					System.out.println(fields[i].getName()+",fieldType is "+type+",value is "+map.get(key).charAt(0));
 					
 					if(type.equals("char")){
 						fields[i].set(obj, map.get(key).charAt(0));
@@ -317,6 +317,8 @@ public class ObjectToFile {
 				}else{
 					map.put(kv[0], kv[1]);
 				}
+				
+				System.out.println(kv[0]+":===="+map.get(kv[0]));
 			}
 		}
 		

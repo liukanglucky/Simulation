@@ -14,11 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.dao.ModelDataDao;
 import com.platform.jni.NativeFactory;
+import com.platform.net.ConvertResult;
+import com.platform.net.UdpServerSocket;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 import com.platform.report.send.DATA3A;
 import com.platform.report.send.DATAFactory;
 import com.platform.service.impl.ModelDataServiceImpl;
+import com.platform.util.FileUtil;
 import com.platform.util.ObjectToFile;
 
 @Controller
@@ -103,7 +106,7 @@ public class InputController extends BaseJsonAction{
 		
 		input = DATAFactory.getData(dataNum);
 		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
-		
+		System.out.println("=============="+path);
 		if(!dataNum.equals("2")){
 			input = otf.mapToObject(otf.stringToMap(str), input);
 			otf.objectSerialize(input, path);
@@ -119,10 +122,10 @@ public class InputController extends BaseJsonAction{
 				float[][] slocx = new float[36][3];
 				String[] slocx_value = data2Map.get("slocx").split(",");
 				if(slocx_value.length == 108){
-					System.out.println("===============");
+					//System.out.println("===============");
 					for(int si = 0;si<36;si++){
 						for(int sj = 0;sj<3;sj++){
-							System.out.println("========"+slocx_value[3*si+sj]);
+							//System.out.println("========"+slocx_value[3*si+sj]);
 							slocx[si][sj]=Float.parseFloat(slocx_value[3*si+sj]);
 						}
 					}
@@ -227,11 +230,44 @@ public class InputController extends BaseJsonAction{
 			
 			//otf.objectSerialize(input,path);
 		}
-		
+		//发送数据
 		NativeFactory.getNativeMethod(dataNum, input);
 		
-		this.setData("执行成功");
-		
+		//等待执行成功信号
+		String serverHost = "127.0.0.1";  
+        int serverPort = 3344;  
+        UdpServerSocket udpServerSocket = null;
+		try {
+			udpServerSocket = new UdpServerSocket(serverHost, serverPort);
+			long start = System.currentTimeMillis();
+			long now = 0L;
+			
+			while (true) { 
+				now = System.currentTimeMillis();
+				//执行超时 5分钟超时
+				if((now - start) / (1000*60) >= 5){
+					this.setData("执行超时");
+					this.outPut();
+					return;
+				}
+	            
+				byte[] rcv1 = udpServerSocket.receive();  
+				
+	            break;
+	        }
+			
+			//读取文件
+			//String[] result = ConvertResult.convert(FileUtil.readFile("", "utf-8"));
+			
+			this.setData("执行成功");
+			
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			this.setData("执行失败"+e.toString());
+		}finally{
+			udpServerSocket.close();
+		}
 		this.outPut();
 	}
 	

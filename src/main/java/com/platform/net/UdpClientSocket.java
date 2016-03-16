@@ -10,6 +10,7 @@ import com.platform.report.receive.OneSend;
 import com.platform.report.receive.Response1;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.Struct1;
+import com.platform.util.ByteUtil;
   
 /**    
  * UDP客户端程序，用于对服务端发送数据，并接收服务端的回应信息. 
@@ -18,7 +19,7 @@ import com.platform.report.send.Struct1;
 public class UdpClientSocket {  
 	
 	//接收buffer
-    private byte[] buffer = new byte[270];  
+    private byte[] buffer = new byte[1200];  
   
     private DatagramSocket ds = null;  
   
@@ -62,25 +63,8 @@ public class UdpClientSocket {
      * @throws IOException 
      */  
     public final DatagramPacket send(final String host, final int port,  
-            final byte[] bytes,Object object) throws IOException { 
+            final byte[] bytes) throws IOException { 
     	
-    	ByteArrayOutputStream bout=new ByteArrayOutputStream();
-        ObjectOutputStream oout = null;
-        
-        try {
-            oout = new ObjectOutputStream(bout);
-            oout.writeObject(object);
-            oout.flush();
-        } catch (IOException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-        }        //序列化对象
-        
-        byte[] sendBuff=bout.toByteArray();       //转化为字节数组
-    	
-    	
-        //DatagramPacket dp = new DatagramPacket(sendBuff, sendBuff.length, InetAddress.getByName(host), port);  
-        
         DatagramPacket dp = new DatagramPacket(bytes, bytes.length, InetAddress  
                 .getByName(host), port); 
         
@@ -184,80 +168,33 @@ public class UdpClientSocket {
     public static void main(String[] args) throws Exception {  
         UdpClientSocket client = new UdpClientSocket();  
         String serverHost = "127.0.0.1";  
-        int serverPort = 1111;  
+        int serverPort = 3344;  
         
-        byte[] data = null;
+        byte[] data = {2,3};
         
-        char c = 127;
         
-        byte[] a = {0,0,0};
+        client.send(serverHost, serverPort, data);  
         
-        byte[] cb = String.valueOf(c).getBytes();
-        
-        float[] f = {(float)1,(float)2}; 
-        
-        byte[] fb =client.arraycat(client.float2byte(f[0]),client.float2byte(f[1]));
-        
-        String  s ="tes";     
-        
-        data = client.arraycat(data, cb);
-        data = client.arraycat(data, a);
-        data = client.arraycat(data, fb);
-        data = client.arraycat(data, s.getBytes());
-        
-       System.out.println("数据长度:"+data.length);
-        
-        for (int i = 0; i < data.length; i++) {
-          	 System.out.println(data[i]);
-   		}
-        float[] f1 = {1.9f, 2.9f};
-        char[] c1 = {'b','c','d'};
-//         
-//        Struct1 struct1 = new Struct1('a',f1,c1);
-//        
-//        DATA1 data1 = new DATA1();
-//        
-//        char s1 = 100;
-//        
-//        data1.setS1(s1);
-//        data1.setType1(s1);
-//        data1.setAng1(1f);
-//        data1.setSpeed(2f);
-//        data1.setFile1(c1);
-//      
-//        
-//        System.out.println(ByteOrder.nativeOrder());
-//        data = JavaStruct.pack(data1, ByteOrder.LITTLE_ENDIAN);
-//        
-//        for (int i = 0; i < data.length; i++) {
-//        	 System.out.println(data[i]);
-//		}
-       
-        
-        client.send(serverHost, serverPort, data,new OneSend());  
         byte[] info = client.receive(serverHost, serverPort);  
-        
         
         System.out.println(info.length);
         
-        Response1 rep1 = new Response1();
-        rep1.a = c1;
-        rep1.f = f1;
-        
-        //JavaStruct.unpack(rep1, info);
-        
-        JavaStruct.unpack(rep1, info, ByteOrder.LITTLE_ENDIAN);
-        
-        
-        System.out.println((int)rep1.a[0]);
-        
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 1010; i++) {
         	System.out.println("服务端回应数据："+i+"======" + info[i]);  
 		}
         
+        client.send(serverHost, serverPort, data);
         
-//        byte[] c ={55,'a','c',20,30};
-//        byte a =10;
-//        System.out.println(c[0]);
+        info = client.receive(serverHost, serverPort);  
+        
+        System.out.println(info.length);
+        
+        for (int i = 0; i < 1010; i++) {
+        	System.out.println("服务端回应数据："+i+"======" + info[i]);  
+		}
+        
+        byte[] bytearray={0,0,-56,66};
+        System.out.println(ByteUtil.getFloat(bytearray));
+        
     }  
 } 

@@ -62,7 +62,7 @@ public class TestUdp {
 	        String serverHost = "127.0.0.1";  
 	        int serverPort = 3344;  
 	        
-	        client.send(serverHost, serverPort, (oneSend.toString()).getBytes(),oneSend);  
+	        client.send(serverHost, serverPort, (oneSend.toString()).getBytes());  
 	        byte[] info = client.receive(serverHost, serverPort);  
 	        System.out.println("服务端回应数据：" + info);  
 		}

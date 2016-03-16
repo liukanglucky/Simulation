@@ -78,18 +78,21 @@ public class UdpServerSocket {
      * @throws IOException  
      * @throws ClassNotFoundException 
      */  
-    public final String receive() throws IOException, ClassNotFoundException {  
+    public final byte[] receive() throws IOException, ClassNotFoundException {  
         packet = new DatagramPacket(buffer, buffer.length);  
         ds.receive(packet);  
-//        orgIp = packet.getAddress().getHostAddress();  
+        orgIp = packet.getAddress().getHostAddress(); 
+        System.out.println(orgIp);
+        return buffer;
 //        String info = new String(packet.getData(), 0, packet.getLength());  
 //        System.out.println("接收信息：" + info);
-        OneSend message = new OneSend();
-        ByteArrayInputStream bint=new ByteArrayInputStream(buffer);
-        ObjectInputStream oint=new ObjectInputStream(bint);
-        message=(OneSend)oint.readObject();       //反序列化，恢复对象
-        System.out.println("接收信息：" + message.toString());
-        return message.toString();  
+//        return info;
+//        OneSend message = new OneSend();
+//        ByteArrayInputStream bint=new ByteArrayInputStream(buffer);
+//        ObjectInputStream oint=new ObjectInputStream(bint);
+//        message=oint.readObject();       //反序列化，恢复对象
+//        System.out.println("接收信息：" + message.toString());
+//        return message.toString();  
     }  
   
     /** 
