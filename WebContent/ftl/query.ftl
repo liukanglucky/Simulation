@@ -69,14 +69,78 @@
         	for(i=0;i<list.length;i++){
         	var appendStr="";
         	appendStr+="<tr class='modelDataList'>"+
-      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>"+
-        		"<td>"+list[i].dataindex+"</td>"+
-        		"<td>"+list[i].opertor+"</td>"+
-        		"<td>"+list[i].data1+"</td>"+
-        		"<td>"+list[i].dt+"</td>>"+
-        		"<td>"+list[i].mt+"</td>"+
-        		"<td>"+list[i].sim+"</td>"+
-        		"<td>"+list[i].stype+"</td></tr>";
+      			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>";
+      			if(list[i].dt==1){
+      				appendStr+="<td>仿真</td>";
+      			}else{
+      				appendStr+="<td>分析</td>";
+      			}
+      			switch(list[i].stype){
+      				case 1 :
+      					appendStr+="<td>舰艇声反射</td>";
+      					break;
+      				case 2 :
+      					appendStr+="<td>高频混响</td>";
+      					break;
+      				case 3 :
+      					appendStr+="<td>舰艇辐射</td>";
+      					break;
+      				case 4 :
+      					appendStr+="<td>鱼雷辐射</td>";
+      					break;
+      				case 5 :
+      					appendStr+="<td>舰艇自噪声</td>";
+      					break;
+      				case 6 :
+      					appendStr+="<td>鱼雷自噪声</td>";
+      					break;
+      				case 7 :
+      					appendStr+="<td>海洋环境</td>";
+      					break;
+      				case 8 :
+      					appendStr+="<td>声传播</td>";
+      					break;
+      				default:
+      					appendStr+="<td>uuu</td>";
+      			}
+      			switch(list[i].sim){
+      				case 1 :
+      					appendStr+="<td>001</td>";
+      					break;
+      				case 2 :
+      					appendStr+="<td>039</td>";
+      					break;
+      				case 3 :
+      					appendStr+="<td>054A</td>";
+      					break;
+      				case 4 :
+      					appendStr+="<td>鱼－10</td>";
+      					break;
+      				case 5 :
+      					appendStr+="<td>鱼－7A</td>";
+      					break;
+      				default:
+      					appendStr+="<td>uuu</td>";
+      			}
+      			switch(list[i].mt){
+      				case 1 :
+      					appendStr+="<td>海洋环境</td>";
+      					break;
+      				case 2 :
+      					appendStr+="<td>潜艇</td>";
+      					break;
+      				case 3 :
+      					appendStr+="<td>水面舰</td>";
+      					break;
+      				case 4 :
+      					appendStr+="<td>鱼雷</td>";
+      					break;
+      				default:
+      					appendStr+="<td>uuu</td>";
+      			}
+      			appendStr+=
+        		"<td>"+list[i].date1+"-"+list[i].time1+"</td>"+
+        		"</tr>";
         		$("#modelDataTable").append(appendStr);
         	}
     }
@@ -111,10 +175,17 @@
 	</#if>
     <#include "head.ftl"/>
     <div class="row-fluid" style="width:100%;margin-left:auto;margin-right:auto;">
-    <div class = "span4">
+    <div class = "span6">
+    	<div class = "span8">
    	 	<table class="table" >
           <tr style="background-color:#0088CC">
             <td align="center"><font color="white">功能列表</font></td>
+          </tr>
+          <tr>
+            <td><a href="calManage.do">仿真计算</td>
+          </tr>
+          <tr class="info">
+            <td><a href="query.do">仿真查询</td>
           </tr>
           <tr>
             <td><a href="userManage.do">用户管理</a></td>
@@ -124,18 +195,12 @@
             <td><a href="#">模型管理</td>
           </tr>
           </#if>
-          <tr class="info">
-            <td><a href="query.do">仿真查询</td>
-          </tr>
-          <tr>
-            <td><a href="calManage.do">仿真计算</td>
-          </tr>
           <tr>
             <td><a href="datadump.html">数据备份</td>
           </tr>
         </table>
-        </div>
-      <div class="span8">
+       </div>
+        
         <div>
           <table class="table" >
             <tr>
@@ -201,13 +266,11 @@
           <table class="table" id="modelDataTable">
             <tr style="background-color:#0088CC">
               <td align="center"><input type="checkbox" id="SelectAll" onclick="selectAll()"><font color="white">全选</font></td>
-              <td align="center"><font color="white">序号</font></td>
-              <td align="center"><font color="white">修改时间</font></td>
-              <td align="center"><font color="white">修改人</font></td>
-              <td align="center"><font color="white">仿真类型</font></td>
-              <td align="center"><font color="white">模型类型</font></td>
-              <td align="center"><font color="white">仿真对象</font></td>
+              <td align="center"><font color="white">类型</font></td>          
               <td align="center"><font color="white">声学特性</font></td>
+              <td align="center"><font color="white">仿真对象</font></td>
+              <td align="center"><font color="white">模型类型</font></td>
+              <td align="center"><font color="white">仿真时间</font></td>
             </tr>
             <tr class = "modelDataList">
             </tr>
@@ -217,6 +280,32 @@
           <ul id="page">
           </ul>
         </div>
+      </div>
+      <div class="span6">
+      <div>
+          <font color="blue">输入参数：</font><br>
+          <div id="input"></div>
+          <hr>
+          <font color="blue">输出结果：</font><br>
+          <div id="output"></div>
+          <hr>
+        </div>
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div id="main" style="height:200px;display:none" class="chart"></div>
+        <div id="main2" style="height:200px;display:none" class="chart"></div>
+        <div id="main3" style="height:200px;display:none" class="chart"></div>
+        <!-- ECharts单文件引入 -->
+        <script src="js/echarts.js"></script>
+        <script type="text/javascript">
+            // 路径配置
+            require.config({
+                paths: {
+                    echarts: 'js'
+                }
+            });
+            
+        </script>
+        
 
         
         <!-- ECharts单文件引入 -->

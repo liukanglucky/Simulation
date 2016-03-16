@@ -18,7 +18,12 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>信号形式1</td>
-        <td><select name="type2" style="width:75px;  height:20px"><option value="1">1</option></select></td>
+        <td><select name="type2" style="width:75px;  height:20px">
+				  <option value="1">CW</option>
+	              <option value="2">HFM</option>
+	              <option value="3">LFM</option>
+	              <option value="4">自定义</option>
+			</select></td>
       </tr>
       <tr>
         <td>横波声速</td>
@@ -29,7 +34,12 @@
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>信号形式2</td>
-        <td><select name="type2" style="width:75px;  height:20px"><option value="1">1</option></select></td>
+        <td><select name="type2" style="width:75px;  height:20px">
+				  <option value="1">CW</option>
+	              <option value="2">HFM</option>
+	              <option value="3">LFM</option>
+	              <option value="4">自定义</option>
+			</select></td>
       </tr>
       <tr>
         <td>介质密度</td>
@@ -40,7 +50,12 @@
         <td><input name="wind" style="width:75px;" type="text"></td>
         <td></td>
         <td>信号形式3</td>
-        <td><select name="type2" style="width:75px;  height:20px"><option value="1">1</option></select></td>
+        <td><select name="type2" style="width:75px;  height:20px">
+				  <option value="1">CW</option>
+	              <option value="2">HFM</option>
+	              <option value="3">LFM</option>
+	              <option value="4">自定义</option>
+			</select></td>
       </tr>
       <tr>
         <td>海底散射点</td>
@@ -51,7 +66,12 @@
         <td><input name="fspeed" style="width:75px;" type="text"></td>
         <td></td>
         <td>信号形式4</td>
-        <td><select name="type2" style="width:75px; height:20px"><option value="1">1</option></select></td>
+        <td><select name="type2" style="width:75px;  height:20px">
+				  <option value="1">CW</option>
+	              <option value="2">HFM</option>
+	              <option value="3">LFM</option>
+	              <option value="4">自定义</option>
+			</select></td>
       </tr>
       <tr>
         <td>海水深度m</td>
@@ -92,7 +112,7 @@
         <td>垂直角2</td>
         <td><input name="ang2" style="width:75px;" type="text"></td>
         <td>&nbsp;</td>
-        <td>方位角</td>
+        <td>方位角1</td>
         <td><input name="ang3" style="width:75px;" type="text"></td>
         <td>水平角3</td>
         <td><input name="ang3" style="width:75px;" type="text"></td>

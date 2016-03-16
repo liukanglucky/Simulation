@@ -1,19 +1,19 @@
 <div class="tab-pane" id="tab1">
-    目标三维模型 : <input type="file"><br>
+    目标三维模型 : <input type="file">
     仿真类型：
     <select name="type1" style="width:90px; height:20px">
       <option value="1">海洋环境</option>
       <option value="2">潜艇</option>
       <option value="3">水面舰</option>
-      <option value="4">鱼类</option>
+      <option value="4">鱼雷</option>
     </select>
+    
     <select name="type2" style="width:90px; height:20px">
       <option value="1">001</option>
-      <option value="2">054A</option>
-      <option value="3">039</option>
-      <option value="4">鱼－7A</option>
-      <option value="5">鱼－10</option>
+      <option value="2">039</option>
+      <option value="3">054A</option>
     </select>
+    <input name="s1"  type="text" id="s1">
     <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
       <tbody>
         <tr>
@@ -21,20 +21,21 @@
           <td><input name="speed" style="width:75px;" type="text"></td>
           <td>检测域dB：</td>
           <td><input name="bre" style="width:75px;" type="text"></td>
-          <td>距离：</td>
-          <td><input name="ang1" style="width:75px;" type="text"></td>
+          <td>发射信号形式：</td>
+          <td><select name="type3" style="width:75px;  height:20px">
+		      <option value="1">CW</option>
+              <option value="2">HFM</option>
+              <option value="3">LFM</option>
+              <option value="4">自定义</option>
+		    </select></td>
         </tr>
         <tr>
           <td>声速m/s：</td>
           <td><input name="ang" style="width:75px;" type="text"></td>
           <td>仿真总时间：</td>
           <td><input name="cre" style="width:75px;" type="text"></td>
-          <td>发射信号形式：</td>
-          <td><select name="type3" style="width:75px;  height:20px">
-		      <option value="1">CW</option>
-              <option value="2">LFM</option>
-              <option value="3">其他</option>
-		    </select></td>
+          <td>距离：</td>
+          <td><input name="ang1" style="width:75px;" type="text"></td>
         </tr>
         <tr>
           <td>声源级dB：</td>

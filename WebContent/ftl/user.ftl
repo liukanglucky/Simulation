@@ -71,7 +71,7 @@
       			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].id+"></td>"+
         		"<td>"+list[i].id+"</td>"+
         		"<td>"+list[i].name+"</td>";
-	        		if(list[i].auth==1){
+	        		if(list[i].type==1){
 	        			appendStr+="<td>管理员</td>";
 	        		}else{
 	        			appendStr+="<td>普通用户</td>";
@@ -114,6 +114,12 @@
           <tr style="background-color:#0088CC">
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
+          <tr>
+            <td><a href="calManage.do">仿真计算</td>
+          </tr>
+          <tr >
+            <td><a href="query.do">仿真查询</td>
+          </tr>
           <tr class="info">
             <td><a href="userManage.do">用户管理</a></td>
           </tr>
@@ -122,12 +128,6 @@
             <td><a href="#">模型管理</td>
           </tr>
           </#if>
-          <tr >
-            <td><a href="query.do">仿真查询</td>
-          </tr>
-          <tr>
-            <td><a href="calManage.do">仿真计算</td>
-          </tr>
           <tr>
             <td><a href="dumpData.do">数据备份</td>
           </tr>

@@ -4,7 +4,10 @@
                 <tr>
                   <td>海底地貌</td>
                   <td><select name="type1" style="width:60px;  height:20px">
-                        <option value="1">斜坡</option>
+                        <option value="1">海沟</option>
+                        <option value="2">海山</option>
+                        <option value="3">平底</option>
+                        <option value="4">斜坡</option>
                 </select></td>
                   <td>海底衰减系数</td>
                   <td><input name="ss2" style="width:60px;" type="text"></td>
@@ -21,6 +24,8 @@
                   <td>接收阵信息</td>
                   <td><select name="type5" style="width:60px;  height:20px">
                         <option value="1">单元发射</option>
+                        <option value="2">面阵</option>
+                        <option value="3">线阵列</option>
                 </select></td>
                 </tr>
                 <tr>
@@ -44,7 +49,9 @@
                 <tr>
                   <td>发射阵信息</td>
                   <td><select name="type3" style="width:60px;  height:20px">
-                        <option value="1">单元级</option>
+                        <option value="1">单元发射</option>
+                        <option value="2">面阵</option>
+                        <option value="3">线阵列</option>
                 </select></td>
                   <td>收发间距</td>
                   <td><input name="len3" style="width:60px;" type="text"></td>
@@ -55,14 +62,21 @@
                 <tr>
                   <td>发射信号形式</td>
                   <td><select name="type4" style="width:60px;  height:20px">
-                        <option value="1">带宽</option>
+                        <option value="1">CW</option>
+                        <option value="2">带宽噪声</option>
                 </select></td>
                   <td>海况</td>
                   <td><input name="type2" style="width:60px;" type="text"></td>
                   <td>&nbsp;</td>
                   <td>海底底质类型</td>
                   <td><select name="type6" style="width:60px;  height:20px">
-                        <option value="1">粘土</option>
+                        <option value="1">白垩</option>
+                        <option value="2">粉沙</option>
+                        <option value="3">砾石</option>
+                        <option value="4">砂石</option>
+                        <option value="5">石灰石</option>
+                        <option value="6">玄武岩</option>
+                        <option value="7">粘土</option>
                 </select></td>
                 </tr>
                 <tr>

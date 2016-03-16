@@ -14,6 +14,8 @@
                   <td>目标类型</td>
                   <td><select name="type2" style="width:75px; height:20px">
                       <option value="1">001</option>
+                      <option value="2">039</option>
+                      <option value="3">054A</option>
                     </select>
                   </td>
                   <td>输出频率范围</td>
@@ -37,7 +39,7 @@
                   <td>带通滤波频率</td>
                   <td><input name="fre2" style="width:60px;" type="text"></td>
                   <td><input name="fre2" style="width:60px;" type="text"></td>
-                  <td>模拟灵敏度</td>
+                  <td>模拟灵敏度/dB</td>
                   <td><input name="lm2" style="width:60px;" type="text"></td>
                 </tr>
                 <tr>
@@ -50,7 +52,7 @@
                 <tr>
                   <td>数据总长度</td>
                   <td><input name="time2" style="width:60px;" type="text"></td>
-                  <td>增益</td>
+                  <td>增益/dB</td>
                   <td><input name="zy1" style="width:60px;" type="text"></td>
                   <td></td>
                 </tr>

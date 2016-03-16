@@ -17,17 +17,17 @@
           <tr style="background-color:#0088CC">
             <td align="center"><font color="white">功能列表</font></td>
           </tr>
+          <tr>
+            <td><a href="calManage.do">仿真计算</td>
+          </tr>
+          <tr >
+            <td><a href="query.do">仿真查询</td>
+          </tr>
          <tr>
             <td><a href="userManage.do">用户管理</a></td>
           </tr>
           <tr>
             <td><a href="#">模型管理</td>
-          </tr>
-          <tr >
-            <td><a href="query.do">仿真查询</td>
-          </tr>
-          <tr>
-            <td><a href="calManage.do">仿真计算</td>
           </tr>
           <tr  class="info">
             <td><a href="dumpData.do">数据备份</td>
