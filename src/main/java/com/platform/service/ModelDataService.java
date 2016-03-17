@@ -23,4 +23,11 @@ public interface ModelDataService {
 	public List<ModelData> querySim(QueryParameter queryParameter);
 	public ModelData querySimById(int id);
 	public int deleteData(int ids[]);
+	
+	public int backupModelData(String tableName);
+	public int addPrimaryKey(String tableName);
+	public int deleteCurTableContent(String tableName);
+	public int importBackupTable(String tableName);
+	public int dropBackupTable(String tableName);
+	public List<String>getTableList();
 }

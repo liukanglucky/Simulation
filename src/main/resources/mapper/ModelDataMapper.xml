@@ -33,7 +33,7 @@
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,if113,if114,if115,if116,if117,if118,
 		if119,if120,if121,if122,if123,if124,if125,if126,if127,if128,if129,if130,if131,if132,if133,if134,if135,if136,if137,if138,if139,
 		if140,if141,if142,if143,if144,if145,if146,if147,if148,if149,if150,if151,if152,if153,if154,if155,if156,if157,if158,if159,if160,
-		if161,if162,
+		if161,if162,if163,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},#{type1},
@@ -244,4 +244,28 @@
     	select count(*) as recordCount from modeldata 
     	where dt = #{dt} and mt=#{mt} and sim=#{sim} and stype=#{stype}
     </select>
+    
+    <update id="backupModelData">
+		create table ${tableName} as (select * from modeldata)
+	</update>
+	
+	<update id="addPrimaryKey" parameterType="String">
+		alter table ${tableName} add primary key(DATAINDEX)  
+	</update>
+	
+	<update id="deleteCurTableContent">
+		delete ${tableName} 
+	</update>
+	
+	<insert id="importBackupTable">
+		insert into modeldata select * from ${tableName}
+	</insert>
+	
+	<update id="dropBackupTable">
+		drop table ${tableName}
+	</update>
+	
+	<select id="getTableList" resultType="String">
+		select TABLE_NAME from all_all_tables where table_name like 'MD_20%' order by substr(table_name,3,16) DESC
+	</select>
 </mapper>

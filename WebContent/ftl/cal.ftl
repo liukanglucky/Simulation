@@ -37,7 +37,7 @@
           </tr>
           </#if>
           <tr>
-            <td><a href="#">数据备份</td>
+            <td><a href="dumpData.do">数据备份</td>
           </tr>
         </table> 
       </div>

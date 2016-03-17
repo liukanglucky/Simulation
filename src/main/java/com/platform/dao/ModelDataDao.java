@@ -25,5 +25,13 @@ public interface ModelDataDao {
 	public List<ModelData> querySim(QueryParameter queryParameter);
 	public ModelData querySimById(int id);
 	public int deleteData(@Param("ids")int ids[]);
+	
+	public int backupModelData(@Param("tableName") String tableName);
+	public int addPrimaryKey(@Param("tableName") String tableName);
+	public int deleteCurTableContent(@Param("tableName")String tableName);
+	public int importBackupTable(@Param("tableName") String tableName);
+	public int dropBackupTable(@Param("tableName") String tableName);
+	public List<String>getTableList();
+	
 }
 

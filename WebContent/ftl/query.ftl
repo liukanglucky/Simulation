@@ -196,7 +196,7 @@
           </tr>
           </#if>
           <tr>
-            <td><a href="datadump.html">数据备份</td>
+            <td><a href="dumpData.do">数据备份</td>
           </tr>
         </table>
        </div>
@@ -228,10 +228,14 @@
               <td align="center">声学模型</td>
               <td align="center">
                 <select name="stype">
-                  <option value="1">舰艇自噪声</option>
+                  <option value="1">舰艇目标声反射</option>
                   <option value="2">高频模型</option>
-                  <option value="3">舰艇目标声反射</option>
-                  <option value="4">鱼类辐射</option>
+                  <option value="3">舰艇辐射</option>
+                  <option value="4">鱼雷辐射</option>
+                  <option value="5">舰艇自噪声</option>
+                  <option value="6">鱼雷自噪声</option>
+                  <option value="7">海洋环境</option>
+                  <option value="8">声传播</option>
                 </select>
               </td>
               <td align="center">数据类型</td>

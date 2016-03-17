@@ -86,11 +86,12 @@ function autoGetVal(id, dataid, fileid) {
 	var dom = $("#" + id + " input:text");
 
 	var result = "";
-
 	for (var i = 0; i < dom.size(); i++) {
 
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
+		//alert($(dom[i]).val());
 	}
+	//alert(result);
 
 	dom = $("#" + id + " select");
 

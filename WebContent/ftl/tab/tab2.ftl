@@ -1,12 +1,12 @@
 <div class="tab-pane" id="tab2">
     <div margin:0 auto>
       请输入模型类型：
-       <select name="type1" style="width:100px;  height:20px">
-                <option value="1">海洋环境</option>
-                <option value="2">潜艇</option>
-                <option value="3">水面舰</option>
-                <option value="4">鱼雷</option>
-        </select>
+       <select name="type1" style="width:90px; height:20px">
+	      <option value="1">潜艇</option>
+	      <option value="2">水面舰</option>
+	      <option value="3">鱼雷</option>
+	      <option value="4">海洋环境</option>
+	    </select>
     </div>
     <table border="0" cellpadding="1" cellspacing="1" style="width: 100%; font-size:8px;">
       <tr>
@@ -20,8 +20,8 @@
         <td>信号形式1</td>
         <td><select name="type2" style="width:75px;  height:20px">
 				  <option value="1">CW</option>
-	              <option value="2">HFM</option>
-	              <option value="3">LFM</option>
+	              <option value="2">LFM</option>
+              	  <option value="3">HFM</option>
 	              <option value="4">自定义</option>
 			</select></td>
       </tr>

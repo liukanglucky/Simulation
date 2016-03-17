@@ -25,11 +25,6 @@ public class UserController extends BaseJsonAction{
 	@Autowired
 	private ModelDataServiceImpl msi;
 	
-	@RequestMapping("welcome")
-	public ModelAndView welcome(){
-		return new ModelAndView("login");
-	}
-	
 	@RequestMapping("login")
 	public ModelAndView login(String name,String pwd,ModelMap modelMap,HttpSession session){
 		User user =new User();
@@ -41,12 +36,7 @@ public class UserController extends BaseJsonAction{
 			return new ModelAndView("login");
 		}else{
 			session.setAttribute("user", list.get(0));
-			int recordCount = usi.countUser().getRecordCount();
-			PageBean page =new PageBean(recordCount,5,1);
-			modelMap.addAttribute("page",page);
-			List<User> userList = usi.findUsersByPage(page); 
-			modelMap.addAttribute("userDo",userList);
-			return new ModelAndView("user");
+			return new ModelAndView("query");
 		}
 	}
 	
@@ -126,27 +116,5 @@ public class UserController extends BaseJsonAction{
         this.outPutPage();
     }
 	
-	@RequestMapping("dumpData") 
-	public ModelAndView userManage(){
-        return new ModelAndView("datadump");
-    }
 
-	@RequestMapping("dataDump")
-	 public int dataDump(){
-		DATA3A data = new DATA3A();
-		float[] fre1 =new float[2];
-		fre1[0] = 1f;
-		fre1[1] = 2f;
-		data.setFre1(fre1);
-		data.setDate1(0);
-		data.setCy(0);
-		data.setDepth(0);
-		data.setDt(0);
-		data.setMt(0);
-		data.setWeight(0);
-		data.setSim(0);
-		data.setStype(0);
-		data.setTime(0);
-		return msi.insertData3A(data);
-	}
 }

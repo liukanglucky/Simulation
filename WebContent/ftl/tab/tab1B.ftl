@@ -2,15 +2,17 @@
     目标三维模型 : <input type="file">
     仿真类型：
     <select name="type1" style="width:90px; height:20px">
-      <option value="1">海洋环境</option>
-      <option value="2">潜艇</option>
-      <option value="3">水面舰</option>
-      <option value="4">鱼雷</option>
+      <option value="1">潜艇</option>
+      <option value="2">水面舰</option>
+      <option value="3">鱼雷</option>
+      <option value="4">海洋环境</option>
     </select>
     <select name="type2" style="width:90px; height:20px">
       <option value="1">001</option>
-      <option value="2">039</option>
-      <option value="3">054A</option>
+      <option value="2">054A</option>
+      <option value="3">039</option>
+      <option value="4">鱼7A</option>
+      <option value="5">鱼10</option>
     </select>
     <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
       <tbody>
@@ -22,8 +24,8 @@
           <td>发射信号形式：</td>
           <td><select name="type3" style="width:75px;  height:20px">
               <option value="1">CW</option>
-              <option value="2">HFM</option>
-              <option value="3">LFM</option>
+              <option value="2">LFM</option>
+              <option value="3">HFM</option>
               <option value="4">自定义</option>
             </select></td>
         </tr>

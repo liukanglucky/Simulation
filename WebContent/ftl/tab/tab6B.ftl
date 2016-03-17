@@ -3,11 +3,11 @@
             <div margin:0 auto>
               请输入模型类型：
                <select name="type1" style="width:100px;  height:20px">
-                        <option value="1">海洋环境</option>
-                        <option value="2">潜艇</option>
-                        <option value="3">水面舰</option>
-                        <option value="4">鱼雷</option>
-                </select>
+                       <option value="1">潜艇</option>
+			      <option value="2">水面舰</option>
+			      <option value="3">鱼雷</option>
+			      <option value="4">海洋环境</option>
+			    </select>
             </div>
             <table border="0" style="width: 500px;">
               <tbody>

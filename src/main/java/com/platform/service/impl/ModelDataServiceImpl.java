@@ -131,5 +131,41 @@ public class ModelDataServiceImpl implements ModelDataService{
 	public int deleteData(int[] ids) {
 		return modelDataDao.deleteData(ids);
 	}
+
+	@Override
+	public int backupModelData(String tableName) {
+		// TODO Auto-generated method stub
+		return modelDataDao.backupModelData(tableName);
+	}
+
+	@Override
+	public int addPrimaryKey(String tableName) {
+		// TODO Auto-generated method stub
+		return modelDataDao.addPrimaryKey(tableName);
+	}
+
+	@Override
+	public int deleteCurTableContent(String tableName) {
+		// TODO Auto-generated method stub
+		return modelDataDao.deleteCurTableContent(tableName);
+	}
+
+	@Override
+	public int importBackupTable(String tableName) {
+		// TODO Auto-generated method stub
+		return modelDataDao.importBackupTable(tableName);
+	}
+
+	@Override
+	public int dropBackupTable(String tableName) {
+		// TODO Auto-generated method stub
+		return modelDataDao.dropBackupTable(tableName);
+	}
+
+	@Override
+	public List<String> getTableList() {
+		// TODO Auto-generated method stub
+		return modelDataDao.getTableList();
+	}
 	
 }
