@@ -283,8 +283,25 @@ function run(id, dataid){
 			"id" : dataid,
 		},
 		success : function(data) {
-			alert(data);
-			showData();
+			if(data.indexOf("Exec_error") >0){
+				alert(data);
+			}else{
+				data = eval(data);
+				for(var i=0; i < data.length; i++){
+					alert(data[i]);
+				}
+				
+				//model1-2 绘制四条曲线
+				
+				//model3-6 三条曲线 加输出参数
+				
+				//model7
+				
+				//model8
+				
+				showData();
+			}
+			
 		},
 		error : function(err) {
 			alert("调用仿真模型失败");

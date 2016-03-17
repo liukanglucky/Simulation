@@ -8,8 +8,11 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;  
 import java.net.InetSocketAddress;  
 import java.net.SocketException;  
+import java.util.ArrayList;
+import java.util.List;
 
 import com.platform.report.receive.OneSend;
+import com.platform.report.send.RecvNum;
   
 /**      
  * UTP服务类.      
@@ -151,12 +154,30 @@ public class UdpServerSocket {
      */  
     public static void main(String[] args) throws Exception {  
         String serverHost = "127.0.0.1";  
-        int serverPort = 3344;  
-        UdpServerSocket udpServerSocket = new UdpServerSocket(serverHost, serverPort);  
+        int serverPort = 1111;  
+        UdpServerSocket udpServerSocket = new UdpServerSocket(serverHost, serverPort); 
+        List<byte[]> result = new ArrayList<byte[]>();
         while (true) {  
-            udpServerSocket.receive();  
-            udpServerSocket.response("你好,liukang!");  
+        	if(result.size() >= RecvNum.recvNum("7") ){
+				break;
+			}
+        	
+            byte[] info = new byte[1200];
+            info = udpServerSocket.receive();  
+            result.add(info.clone());
+            System.out.println("=============================================="+info[0]);
+            for (int i = 0; i < result.size(); i++) {
+    			System.out.println("++++++"+i+"===="+result.get(i)[0]);
+    		}
+            //udpServerSocket.response("你好,liukang!");  
               
-        }  
+        } 
+        
+        
+        
+        List<String> r = ConvertFactory.convert("7", result);
+        for (int i = 0; i < r.size(); i++) {
+			System.out.println(r.get(i));
+		}
     }  
 } 

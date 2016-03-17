@@ -168,33 +168,22 @@ public class UdpClientSocket {
     public static void main(String[] args) throws Exception {  
         UdpClientSocket client = new UdpClientSocket();  
         String serverHost = "127.0.0.1";  
-        int serverPort = 3344;  
+        int serverPort = 1111;  
         
         byte[] data = {2,3};
         
         
         client.send(serverHost, serverPort, data);  
+        while(true){
+	        byte[] info = client.receive(serverHost, serverPort);  
+	        
+	        System.out.println(info.length);
+	        
+	        for (int i = 0; i < 1010; i++) {
+	        	System.out.println("服务端回应数据："+i+"======" + info[i]);  
+			}
         
-        byte[] info = client.receive(serverHost, serverPort);  
-        
-        System.out.println(info.length);
-        
-        for (int i = 0; i < 1010; i++) {
-        	System.out.println("服务端回应数据："+i+"======" + info[i]);  
-		}
-        
-        client.send(serverHost, serverPort, data);
-        
-        info = client.receive(serverHost, serverPort);  
-        
-        System.out.println(info.length);
-        
-        for (int i = 0; i < 1010; i++) {
-        	System.out.println("服务端回应数据："+i+"======" + info[i]);  
-		}
-        
-        byte[] bytearray={0,0,-56,66};
-        System.out.println(ByteUtil.getFloat(bytearray));
+        }
         
     }  
 } 

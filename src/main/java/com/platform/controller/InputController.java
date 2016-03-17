@@ -1,10 +1,14 @@
 package com.platform.controller;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.dao.ModelDataDao;
 import com.platform.jni.NativeFactory;
+import com.platform.net.ConvertFactory;
 import com.platform.net.ConvertResult;
 import com.platform.net.UdpServerSocket;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
 import com.platform.report.send.DATA3A;
 import com.platform.report.send.DATAFactory;
+import com.platform.report.send.RecvNum;
 import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.util.FileUtil;
 import com.platform.util.ObjectToFile;
@@ -232,39 +238,47 @@ public class InputController extends BaseJsonAction{
 		}
 		//发送数据
 		NativeFactory.getNativeMethod(dataNum, input);
-		
 		//等待执行成功信号
 		String serverHost = "127.0.0.1";  
-        int serverPort = 3344;  
+        int serverPort = 1111;  
         UdpServerSocket udpServerSocket = null;
 		try {
 			udpServerSocket = new UdpServerSocket(serverHost, serverPort);
 			long start = System.currentTimeMillis();
 			long now = 0L;
 			
+			List<byte[]> result = new ArrayList<byte[]>();
+			//根据模型ID获得应该接收参数个数
+			int num = RecvNum.recvNum(dataNum);
 			while (true) { 
 				now = System.currentTimeMillis();
 				//执行超时 5分钟超时
 				if((now - start) / (1000*60) >= 5){
-					this.setData("执行超时");
+					this.setData("Exec_error:执行超时");
 					this.outPut();
 					return;
 				}
 	            
-				byte[] rcv1 = udpServerSocket.receive();  
+				if(result.size() >= num ){
+					break;
+				}
 				
-	            break;
+				byte[] rcv1 = new byte[1200];
+				rcv1 = udpServerSocket.receive();  
+				//rcv1指向同一个地址
+				result.add(rcv1.clone());
+				
 	        }
 			
-			//读取文件
-			//String[] result = ConvertResult.convert(FileUtil.readFile("", "utf-8"));
-			
-			this.setData("执行成功");
+			//解析byte数组
+			List<String> r = ConvertFactory.convert(dataNum, result);
+			this.setData(r);
+			//this.setData("执行成功");
 			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			this.setData("执行失败"+e.toString());
+			this.setData("Exec_error:执行失败"+e.toString());
 		}finally{
 			udpServerSocket.close();
 		}

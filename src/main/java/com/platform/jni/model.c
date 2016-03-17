@@ -8,6 +8,8 @@
 #include<arpa/inet.h>
 #include<stdio.h>
 #include<unistd.h>
+#define PORT 1111
+#define IP "127.0.0.1"
 
 struct DATA1
 {
@@ -420,6 +422,31 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model1
             data2.file2[i] = file2[i];
     }
 	/*获得char数组结束*/
+
+	/**发送开始**/
+
+	struct sockaddr_in out;
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr(IP);
+
+
+	int s;
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+	printf("can not create socket\n");
+	}
+
+	int flag = sendto(s,(char*)&data2,sizeof(data2),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+	printf("socket wrong!\n");
+	}
+	/**发送结束**/
   }
 
 
@@ -740,7 +767,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
 	data2.len = clen;
 	/*获取char结束*/
 
-	/*获得char数组开始*/
+	/*获得char数组开始 file*/
 	jfieldID ffile = (*env)->GetFieldID(env,class,"file","[C");//获得属性
 	jcharArray  afile = (jcharArray)(*env)->GetObjectField(env,obj2,ffile);//获得参数值
 	len = (*env)->GetArrayLength(env,afile);
@@ -751,6 +778,31 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
             data2.file[i] = file[i];
     }
 	/*获得char数组结束*/
+
+	/**发送开始**/
+
+	struct sockaddr_in out;
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr(IP);
+
+
+	int s;
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+	printf("can not create socket\n");
+	}
+
+	int flag = sendto(s,(char*)&data2,sizeof(data2),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+	printf("socket wrong!\n");
+	}
+	/**发送结束**/
 
 }
 
@@ -769,6 +821,24 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3A
 		data3a.s1 = s1;
 		/*获取char结束*/
 
+		/*获取float开始 weight*/
+		jfieldID weightid = (*env)->GetFieldID(env,class,"weight","F");
+		jfloat weight = (*env)->GetFloatField(env,obj2,weightid);
+		data3a.weight = weight;
+		/*获取float结束*/
+
+		/*获取float开始 depth*/
+		jfieldID depthid = (*env)->GetFieldID(env,class,"depth","F");
+		jfloat depth = (*env)->GetFloatField(env,obj2,depthid);
+		data3a.depth = depth;
+		/*获取float结束*/
+
+		/*获取float开始 speed*/
+		jfieldID speedid = (*env)->GetFieldID(env,class,"speed","F");
+		jfloat speed = (*env)->GetFloatField(env,obj2,speedid);
+		data3a.speed = speed;
+		/*获取float结束*/
+
 		/*获得float数组开始 fre1*/
 		jfieldID fre1id = (*env)->GetFieldID(env,class,"fre1","[F");//获得属性
 		jfloatArray  fre1array = (jfloatArray)(*env)->GetObjectField(env,obj2,fre1id);//获得参数值
@@ -782,26 +852,113 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3A
 		}
 		/*获得float数组结束*/
 
-		struct sockaddr_in sin;
+		/*获取float开始 cy1*/
+		jfieldID cy1id = (*env)->GetFieldID(env,class,"cy1","F");
+		jfloat cy1 = (*env)->GetFloatField(env,obj2,cy1id);
+		data3a.cy1 = cy1;
+		/*获取float结束*/
+
+		/*获取float开始 zy1*/
+		jfieldID zy1id = (*env)->GetFieldID(env,class,"zy1","F");
+		jfloat zy1 = (*env)->GetFloatField(env,obj2,zy1id);
+		data3a.zy1 = zy1;
+		/*获取float结束*/
+
+		/*获取float开始 lm1*/
+		jfieldID lm1id = (*env)->GetFieldID(env,class,"lm1","F");
+		jfloat lm1 = (*env)->GetFloatField(env,obj2,lm1id);
+		data3a.lm1 = lm1;
+		/*获取float结束*/
+
+		/*获取float开始 num*/
+		jfieldID numid = (*env)->GetFieldID(env,class,"num","F");
+		jfloat num = (*env)->GetFloatField(env,obj2,numid);
+		data3a.num = num;
+		/*获取float结束*/
+
+		/*获取float开始 ss*/
+		jfieldID ssid = (*env)->GetFieldID(env,class,"ss","F");
+		jfloat ss = (*env)->GetFloatField(env,obj2,ssid);
+		data3a.ss = ss;
+		/*获取float结束*/
+
+
+		/*获得float数组开始 fre2*/
+		jfieldID fre2id = (*env)->GetFieldID(env,class,"fre2","[F");//获得属性
+		jfloatArray  fre2array = (jfloatArray)(*env)->GetObjectField(env,obj2,fre2id);//获得参数值
+		len = (*env)->GetArrayLength(env,fre2array);
+		jfloat fre2[len];//float数组 wind长度为3
+		(*env)->GetFloatArrayRegion(env,fre2array,0,len,fre2);
+
+		for( i = 0 ;i<2;i++){
+		        printf("%f\n",fre2[i]);
+		        data3a.fre2[i] = fre2[i];
+		}
+		/*获得float数组结束*/
+
+		/*获取float开始 time1*/
+		jfieldID time1id = (*env)->GetFieldID(env,class,"time1","F");
+		jfloat time1 = (*env)->GetFloatField(env,obj2,time1id);
+		data3a.time1 = time1;
+		/*获取float结束*/
+
+		/*获取float开始 time2*/
+		jfieldID time2id = (*env)->GetFieldID(env,class,"time2","F");
+		jfloat time2 = (*env)->GetFloatField(env,obj2,time2id);
+		data3a.time2 = time2;
+		/*获取float结束*/
+
+		/*获取float开始 zy2*/
+		jfieldID zy2id = (*env)->GetFieldID(env,class,"zy2","F");
+		jfloat zy2 = (*env)->GetFloatField(env,obj2,zy2id);
+		data3a.zy2 = zy2;
+		/*获取float结束*/
+
+		/*获取float开始 lm2*/
+		jfieldID lm2id = (*env)->GetFieldID(env,class,"lm2","F");
+		jfloat lm2 = (*env)->GetFloatField(env,obj2,lm2id);
+		data3a.lm2 = lm2;
+		/*获取float结束*/
+
+		/*获取char开始 type1*/
+		jfieldID type1id = (*env)->GetFieldID(env,class,"type1","C");
+		jchar type1 = (*env)->GetCharField(env,obj2,type1id);
+		data3a.type1 = type1;
+		/*获取char结束*/
+
+		/*获取char开始 type2*/
+		jfieldID type2id = (*env)->GetFieldID(env,class,"type2","C");
+		jchar type2 = (*env)->GetCharField(env,obj2,type2id);
+		data3a.type2 = type2;
+		/*获取char结束*/
+
+		/*获取char开始 len*/
+		jfieldID lenid = (*env)->GetFieldID(env,class,"len","C");
+		jchar lenf = (*env)->GetCharField(env,obj2,lenid);
+		data3a.len = lenf;
+		/*获取char结束*/
+
+		/*获得char数组开始 file*/
+		jfieldID ffile = (*env)->GetFieldID(env,class,"file","[C");//获得属性
+		jcharArray  afile = (jcharArray)(*env)->GetObjectField(env,obj2,ffile);//获得参数值
+		len = (*env)->GetArrayLength(env,afile);
+		jchar file[len];//char数组
+		(*env)->GetCharArrayRegion(env,afile,0,len,file);
+	    for( i = 0 ;i<len;i++){
+	            printf("%c\n",file[i]);
+	            data3a.file[i] = file[i];
+	    }
+		/*获得char数组结束*/
+
+	    /**发送开始**/
+		
 		struct sockaddr_in out;
-		struct sockaddr_in rep;
-		char read_buf[1600];
-
-
-		memset(&sin,0,sizeof(sin));
-		sin.sin_family = AF_INET;
-		sin.sin_port  = htons(1112);
-		sin.sin_addr.s_addr = htonl(INADDR_ANY);
-
+	
 		memset(&out,0,sizeof(out));
 		out.sin_family = AF_INET;
-		out.sin_port  = htons(1111);
-		out.sin_addr.s_addr = inet_addr("127.0.0.1");
+		out.sin_port  = htons(PORT);
+		out.sin_addr.s_addr = inet_addr(IP);
 
-		memset(&rep,0,sizeof(out));
-		rep.sin_family = AF_INET;
-		rep.sin_port  = htons(1111);
-		rep.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 		int s;
 
@@ -811,28 +968,12 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3A
 		if(s == -1){
 			printf("can not create socket\n");
 		}
-		if(bind(s,(struct sockaddr* )&sin,sizeof(struct sockaddr))<0){
-			perror("bind error\n");
-			return;
-		}
 
 		int flag = sendto(s,(char*)&data3a,sizeof(data3a),0,(struct sockaddr *)&out,len);
 		if(flag == -1){
 			printf("socket wrong!\n");
 		}
-		printf("wait response\n");
-		int nbytes;
-		//while(1){
-			if(recvfrom(s,read_buf,sizeof(read_buf),0,(struct sockaddr*)&rep,&len)==-1){
-				perror("read fail\n");
-			}
-			if(read_buf[0] == 1){
-				for( j = 1; j<100;j++){
-					printf("%c\n", read_buf[j]);
-				}
-			}
-			sleep(1);	
-	  	//}
+		/**发送结束**/
 	}
 
 
