@@ -253,10 +253,10 @@ public class ObjectToFile {
 					//访问private方法
 					fields[i].setAccessible(true);
 					
-					System.out.println(fields[i].getName()+",fieldType is "+type+",value is "+map.get(key).charAt(0));
+					System.out.println(fields[i].getName()+",fieldType is "+type+",value is "+map.get(key));
 					
 					if(type.equals("char")){
-						fields[i].set(obj, map.get(key).charAt(0));
+						fields[i].set(obj, (char)map.get(key).charAt(0));
 					}
 					
 					if(type.equals("float")){

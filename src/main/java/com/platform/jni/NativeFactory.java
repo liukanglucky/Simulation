@@ -10,10 +10,10 @@ import com.platform.report.send.DATA7;
 import com.platform.report.send.DATA8;
 
 public class NativeFactory {
-	public static Object getNativeMethod(String dataType,Object data){
+	public static void getNativeMethod(String dataType,Object data){
 		Model m = new Model();
 		
-		Object obj = null;
+		//Object obj = null;
 		
 		if(dataType.equals("1")){
 			m.model1((DATA1) data);
@@ -24,11 +24,14 @@ public class NativeFactory {
 		}
 		
 		if(dataType.equals("3A")){
-			obj = new DATA3A();
+			m.model3A((DATA3A) data);
 		}
 		
 		if(dataType.equals("3B")){
-			m.model3B((DATA3B) data);
+			DATA3B d3 = (DATA3B) data;
+			System.out.println("这是调用native方法之前："+d3.getType1()+"___"+d3.getType2()+"------"+d3.getFre1()
+					[0]);
+			m.model3B(d3);
 		}
 		
 		if(dataType.equals("5A")){
@@ -48,6 +51,6 @@ public class NativeFactory {
 		}
 		
 		
-		return obj;
+		//return obj;
 	}
 }

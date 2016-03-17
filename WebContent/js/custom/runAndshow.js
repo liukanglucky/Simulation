@@ -273,7 +273,9 @@ function run(id, dataid){
 	for (var i = 0; i < dom.size(); i++) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 	}
-
+	
+	alert(result);
+	
 	$.ajax({
 		url : "input/run.do",
 		type : "post",

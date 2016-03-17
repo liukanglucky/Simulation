@@ -1,4 +1,5 @@
 <div class="tab-pane" id="tab3B">
+		S1<input type="text" name="s1">
             <div margin:0 auto>
               请输入模型类型：
                <select name="type1" style="width:100px;  height:20px">

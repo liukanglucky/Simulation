@@ -1,6 +1,7 @@
 package com.platform.jni;
 
 import com.platform.report.send.*;
+import com.platform.util.ObjectToFile;
 
 public class TestJNI {
 	public static void main(String[] args) {
@@ -38,12 +39,43 @@ public class TestJNI {
 		
 		//Object o = new Object();
 		
-		
-		DATA3A d3a = new DATA3A();
-		char s1 = 1;
+		ObjectToFile otf = new ObjectToFile();
+		DATA3B d3a = new DATA3B();
+		DATA3B d3a2 = new DATA3B();
+		//直接赋值好使
+		char s1 = 2;
 		d3a.setS1(s1);
-		float[] fre1 = {2f,3f};
+		d3a.setWeight(100);
+		d3a.setSpeed(50);
+		d3a.setDepth(100);
+		d3a.setCy1(1f);
+		d3a.setZy1(2f);
+		d3a.setLm1(1f);
+		d3a.setNum1(3f);
+		d3a.setSs(4f);
+		d3a.setNum1(5f);
+		d3a.setNum2(7f);
+		d3a.setFre2(6f);
+		d3a.setType1((char)1);d3a.setType2((char)1);
+		float[] xp = {100f,100f,15f,15f,15f,15f,15f,15f,15f,100f,100f,15f,15f,15f,15f,15f,15f,15f};
+		d3a.setXp1(xp);
+		d3a.setXp2(xp);
+		d3a.setDe(xp);
+		float[] fre1 = {100f,8000f};
 		d3a.setFre1(fre1);
-		m.model3A(d3a);
+		char type1 =1;
+		d3a.setType1(type1);
+		
+		//反序列化，强转不好使
+		DATA3B d = (DATA3B) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data3B.txt");
+		System.out.println(d.getFre1()[0]);
+		char t = d.getType1();
+		float[] f = new float[2];
+		f = d3a.getFre1();
+		d3a2.setType1(t);
+		d3a2.setFre1(f);
+		
+		m.model3B(d3a); //native
+		m.model3B(d3a2); //native
 	}
 }

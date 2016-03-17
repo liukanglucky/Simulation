@@ -8,8 +8,8 @@
 #include<arpa/inet.h>
 #include<stdio.h>
 #include<unistd.h>
-#define PORT 1111
-#define IP "127.0.0.1"
+#define PORT 21168
+#define IP "192.168.220.13"
 
 struct DATA1
 {
@@ -949,7 +949,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3A
 	            data3a.file[i] = file[i];
 	    }
 		/*获得char数组结束*/
-
+	    printf("%d\n", sizeof(data3a));
 	    /**发送开始**/
 		
 		struct sockaddr_in out;
@@ -1112,6 +1112,33 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3B
 	jchar type2 = (*env)->GetCharField(env,obj2,type2id);
 	data3b.type2 = type2;
 	/*获取char结束*/
+	printf("%d\n", sizeof(data3b));
+	
+    /**发送开始**/
+	data3b.s1 = 2;
+	struct sockaddr_in out;
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr(IP);
+
+
+	int s;
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+		printf("can not create socket\n");
+	}
+
+	int flag = sendto(s,(char*)&data3b,sizeof(data3b),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+		printf("socket wrong!\n");
+	}
+	/**发送结束**/
+
   }
 
 
@@ -1268,6 +1295,8 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
             data5a.file[i] = file[i];
     }
 	/*获得char数组结束*/
+
+
   }
 
 
