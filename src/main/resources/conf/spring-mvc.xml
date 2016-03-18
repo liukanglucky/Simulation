@@ -15,7 +15,8 @@
     <mvc:interceptors >     
         <mvc:interceptor> 
         	 <mvc:mapping path="/**" />    
-        	 <mvc:exclude-mapping path="/login.do"/>  
+        	 <mvc:exclude-mapping path="/login.do"/>
+        	 <mvc:exclude-mapping path="/newLogin.do"/>  
             <mvc:exclude-mapping path="/css/**"/> 
             <mvc:exclude-mapping path="/ftl/**"/> 
             <mvc:exclude-mapping path="/js/**"/> 

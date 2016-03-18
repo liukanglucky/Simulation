@@ -13,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.model.PageBean;
 import com.platform.model.User;
-import com.platform.report.send.DATA3A;
-import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.service.impl.UserServiceImpl;
 
 @Controller
@@ -22,8 +20,6 @@ import com.platform.service.impl.UserServiceImpl;
 public class UserController extends BaseJsonAction{
 	@Autowired
 	private UserServiceImpl usi;
-	@Autowired
-	private ModelDataServiceImpl msi;
 	
 	@RequestMapping("login")
 	public ModelAndView login(String name,String pwd,ModelMap modelMap,HttpSession session){
@@ -39,7 +35,10 @@ public class UserController extends BaseJsonAction{
 			return new ModelAndView("query");
 		}
 	}
-	
+	@RequestMapping("newLogin")
+	public ModelAndView reLogin(ModelMap modelMap){
+		return new ModelAndView("login");
+	}
 	@RequestMapping("userManage")
     public ModelAndView userManage(ModelMap modelMap){
 		int recordCount = usi.countUser().getRecordCount();

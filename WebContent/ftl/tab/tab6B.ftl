@@ -2,7 +2,7 @@
 
             <div margin:0 auto>
               请输入模型类型：
-               <select name="type1" style="width:100px;  height:20px">
+               <select name="mt" style="width:100px;  height:20px">
                        <option value="1">潜艇</option>
 			      <option value="2">水面舰</option>
 			      <option value="3">鱼雷</option>

@@ -25,6 +25,7 @@
         $.post("deleteBackups.do",
         {nameList:str}
         );
+        $.post("dumpData.do");
     }
      <#--function showUser(list){  	
         	$(".backupList").empty();

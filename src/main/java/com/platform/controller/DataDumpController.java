@@ -88,7 +88,10 @@ public class DataDumpController extends BaseJsonAction{
 				back.setOperater(split[2]);
 				backupList.add(back);
 			}
+			System.out.println("执行删除＋＋＋＋＋＋＋＋＋");
 			modelMap.addAttribute("backupList",backupList);
+			this.setData(backupList);
+			this.outPut();
 	        return new ModelAndView("datadump");
 		}
 	
