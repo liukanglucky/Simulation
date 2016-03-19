@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.platform.model.Count;
 import com.platform.model.ModelData;
+import com.platform.model.PageBean;
 import com.platform.model.QueryParameter;
 import com.platform.report.send.*;
 
@@ -32,6 +33,8 @@ public interface ModelDataDao {
 	public int importBackupTable(@Param("tableName") String tableName);
 	public int dropBackupTable(@Param("tableName") String tableName);
 	public List<String>getTableList();
+	public List<String>getTableListByPage(PageBean page);
+	public Count countBackup();
 	
 }
 

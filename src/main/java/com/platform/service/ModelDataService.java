@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.platform.model.Count;
 import com.platform.model.ModelData;
+import com.platform.model.PageBean;
 import com.platform.model.QueryParameter;
 import com.platform.report.send.*;
 
@@ -30,4 +31,6 @@ public interface ModelDataService {
 	public int importBackupTable(String tableName);
 	public int dropBackupTable(String tableName);
 	public List<String>getTableList();
+	public List<String>getTableListByPage(PageBean page);
+	public Count countBackup();
 }

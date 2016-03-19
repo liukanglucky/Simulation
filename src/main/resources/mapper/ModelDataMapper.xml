@@ -268,4 +268,16 @@
 	<select id="getTableList" resultType="String">
 		select TABLE_NAME from all_all_tables where table_name like 'MD_20%' order by substr(table_name,3,16) DESC
 	</select>
+	
+	<select id="getTableListByPage" resultType="String" parameterType="page">
+		select TABLE_NAME from 
+		(select  rownum as rn,t.TABLE_NAME from 
+		(select TABLE_NAME from all_all_tables where table_name like 'MD_20%') 
+		t where rownum &lt; = #{P1} order by substr(t.TABLE_NAME,3,16) DESC)  
+		where rn  &gt; #{P2} 
+	</select>
+	
+	<select id="countBackup" resultType="count">
+		select count(*) as recordCount from all_all_tables where table_name like 'MD_20%'
+    </select>
 </mapper>

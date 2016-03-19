@@ -3,17 +3,34 @@
     <meta charset="utf8">
     <title>test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-  </head>
-  <body>
- 	<#include "checkbox.ftl"/>
- 	    <script>
-    	<#--deleteBackups-->
+    <#include "common-js.ftl"/>
+    <#include "page.ftl"/>
+    <#include "checkbox.ftl"/>
+    <script>
+    $(document).ready(function(){
+		var currentPage=${page.currentPage};
+		var totalPage=${page.totalPage};
+		var prePage=${page.prePage};
+		var nextPage=${page.nextPage};
+		page(totalPage,currentPage,prePage,nextPage);
+	})
+	function backup(){
+		$.post(
+			"backup.do",
+			function(data){
+				var  list = eval(data);
+				var userList=list[0].data;
+	        	showBackupList(userList);
+	        	currentPage=list[0].page.currentPage;
+	            totalPage=list[0].page.totalPage;
+	            prePage=list[0].page.prePage;
+				nextPage=list[0].page.nextPage;
+	            $("#page").empty();
+	            page(totalPage,currentPage,prePage,nextPage);
+			}
+			)
+	}
+	<#--deleteBackups-->
 	function deleteBackups() {
         var str="";
         $("input[id='subcheck']:checkbox").each(function(){ 
@@ -21,13 +38,15 @@
                 str += $(this).val()+","
             }
         });
-        alert(str);
         $.post("deleteBackups.do",
-        {nameList:str}
+        {nameList:str},
+        function(){
+        	queryByPage(1);
+        }
         );
         $.post("dumpData.do");
     }
-     <#--function showUser(list){  	
+     function showBackupList(list){  	
         	$(".backupList").empty();
         	for(i=0;i<list.length;i++){
         	var appendStr="";
@@ -36,10 +55,12 @@
         		"<td>"+list[i].id+"</td>"+
         		"<td>"+list[i].date+"</td>"+
 	        	"<td>"+list[i].operater+"</td>"+
-        		"<td><button class="btn btn-info" data-toggle="modal" onclick="updateUser(list[i].name)">恢复</button></td><tr>";
+        		"<td><button class='btn btn-info' data-toggle='modal'"+
+        		"onclick='resumeBackup("+list[i].name+
+        		")'>恢复</button></td><tr>";
         		$("#backupTable").append(appendStr);
         	}
-    }-->
+    }
     function resumeBackup(name){
     	$.post("resume.do",
         {backName:name},
@@ -48,7 +69,29 @@
         }
         );
     }
+     <#--分页条-->
+	function queryByPage(current){
+		$.post("queryBackupByPage.do",
+		{	
+			currentPage:current,
+			pageSize:10
+		},
+		function(json){
+			var  list = eval(json);
+			var data=list[0].data;
+            showBackupList(data);
+            currentPage=list[0].page.currentPage;
+            totalPage=list[0].page.totalPage;
+            prePage=list[0].page.prePage;
+			nextPage=list[0].page.nextPage;
+            $("#page").empty();
+            page(totalPage,currentPage,prePage,nextPage);
+            }
+		);
+	}
     </script>
+  </head>
+  <body>
   	<#if Session["user"]?exists>
     <#assign userSession = Session["user"]>
 	</#if>
@@ -81,7 +124,7 @@
       <div class="span8">
       <#if userSession.type = 1>
       	<div>
-          <a href="backup.do" role="button" class="btn btn-info">备份</a>
+          <input type="button" class="btn btn-warning" value="备份" onclick="backup()">
           <input type="button" class="btn btn-warning" value="删除" onclick="deleteBackups()">
         </div>
    		</#if>
