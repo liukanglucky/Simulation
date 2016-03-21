@@ -6,6 +6,8 @@ function showData(data1,data2,data3,text) {
         灵敏度：－200.00，阵元：48.00，总声级：166.00 ,轴频：1.80，螺旋桨数：5.00\
         ";
 	var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
+	
+	output = text;
 
 	$("#input").html(input);
 	$("#output").html(output);
