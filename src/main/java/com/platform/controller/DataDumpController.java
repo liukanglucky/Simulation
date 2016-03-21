@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.model.Backup;
+import com.platform.model.PageBean;
 import com.platform.model.User;
 import com.platform.service.impl.ModelDataServiceImpl;
 
@@ -27,8 +28,10 @@ public class DataDumpController extends BaseJsonAction{
 	ModelDataServiceImpl mdsi = new ModelDataServiceImpl();
 	
 	@RequestMapping("dumpData") 
-	public ModelAndView dumpData(ModelMap modelMap){
-		List<String> list=mdsi.getTableList();
+	public ModelAndView dumpDataP(ModelMap modelMap){
+		int recordCount = mdsi.countBackup().getRecordCount();
+		PageBean page =new PageBean(recordCount,10,1);
+		List<String> list=mdsi.getTableListByPage(page);
 		List<Backup> backupList = new ArrayList<Backup>();
 		for (int i = 0; i < list.size(); i++) {
 			Backup back = new Backup();
@@ -40,13 +43,35 @@ public class DataDumpController extends BaseJsonAction{
 			back.setOperater(split[2]);
 			backupList.add(back);
 		}
+		modelMap.addAttribute("page",page);
 		modelMap.addAttribute("backupList",backupList);
         return new ModelAndView("datadump");
     }
 	
+	@RequestMapping("queryBackupByPage") 
+	public void queryBackupByPage(int currentPage,int pageSize){
+		int recordCount = mdsi.countBackup().getRecordCount();
+		PageBean page =new PageBean(recordCount,pageSize,currentPage);
+		List<String> list=mdsi.getTableListByPage(page);
+		List<Backup> backupList = new ArrayList<Backup>();
+		for (int i = 0; i < list.size(); i++) {
+			Backup back = new Backup();
+			
+			String [] split=list.get(i).split("_");
+			back.setName(list.get(i));
+			back.setId(i+1);
+			back.setDate(split[1]);
+			back.setOperater(split[2]);
+			backupList.add(back);
+		}
+		this.setData(backupList);
+		this.setPage(page);
+		this.outPutPage();
+		
+    }
 	
 	@RequestMapping("backup")
-	public ModelAndView backup(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap,HttpSession session){
+	public void backup(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		User user=(User) request.getSession().getAttribute("user");
 		String tableName = "MD_";
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -54,24 +79,11 @@ public class DataDumpController extends BaseJsonAction{
 		tableName+="_"+user.getName().toUpperCase();
 		mdsi.backupModelData(tableName);
 		mdsi.addPrimaryKey(tableName);
-		List<String> list=mdsi.getTableList();
-		List<Backup> backupList = new ArrayList<Backup>();
-		for (int i = 0; i < list.size(); i++) {
-			Backup back = new Backup();
-			
-			String [] split=list.get(i).split("_");
-			back.setName(list.get(i));
-			back.setId(i+1);
-			back.setDate(split[1]);
-			back.setOperater(split[2]);
-			backupList.add(back);
-		}
-		modelMap.addAttribute("backupList",backupList);
-        return new ModelAndView("datadump");
+		queryBackupByPage(1,10);
 	}
 	
 	@RequestMapping("deleteBackups")
-		public ModelAndView deleteBackups(String nameList, ModelMap modelMap){
+		public void deleteBackups(String nameList){
 			String names[] =nameList.split(",");
 			for (int i = 0; i < names.length; i++) {
 				mdsi.dropBackupTable(names[i]);
@@ -89,10 +101,6 @@ public class DataDumpController extends BaseJsonAction{
 				backupList.add(back);
 			}
 			System.out.println("执行删除＋＋＋＋＋＋＋＋＋");
-			modelMap.addAttribute("backupList",backupList);
-			this.setData(backupList);
-			this.outPut();
-	        return new ModelAndView("datadump");
 		}
 	
 	@RequestMapping("resume")

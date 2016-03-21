@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.platform.dao.ModelDataDao;
 import com.platform.model.Count;
 import com.platform.model.ModelData;
+import com.platform.model.PageBean;
 import com.platform.model.QueryParameter;
 import com.platform.report.send.DATA1;
 import com.platform.report.send.DATA2;
@@ -166,6 +167,18 @@ public class ModelDataServiceImpl implements ModelDataService{
 	public List<String> getTableList() {
 		// TODO Auto-generated method stub
 		return modelDataDao.getTableList();
+	}
+
+	@Override
+	public List<String> getTableListByPage(PageBean page) {
+		// TODO Auto-generated method stub
+		return modelDataDao.getTableListByPage(page);
+	}
+
+	@Override
+	public Count countBackup() {
+		// TODO Auto-generated method stub
+		return modelDataDao.countBackup();
 	}
 	
 }
