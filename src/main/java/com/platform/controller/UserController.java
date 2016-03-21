@@ -1,8 +1,10 @@
 package com.platform.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class UserController extends BaseJsonAction{
 	private UserServiceImpl usi;
 	
 	@RequestMapping("login")
-	public ModelAndView login(String name,String pwd,ModelMap modelMap,HttpSession session){
+	public ModelAndView login(String name,String pwd,ModelMap modelMap,HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException{
 		User user =new User();
 		user.setName(name);
 		user.setPassword(pwd);
@@ -32,6 +34,7 @@ public class UserController extends BaseJsonAction{
 			return new ModelAndView("login");
 		}else{
 			session.setAttribute("user", list.get(0));
+			response.sendRedirect("query.do"); 
 			return new ModelAndView("query");
 		}
 	}

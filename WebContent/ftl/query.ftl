@@ -10,6 +10,7 @@
 
   </head>
   <body>
+  <script src="js/custom/runAndshow.js"></script>
   <script>
   		var _dt = '';
 	  	var _mt = '';
@@ -71,75 +72,75 @@
         	appendStr+="<tr class='modelDataList'>"+
       			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>";
       			if(list[i].dt==1){
-      				appendStr+="<td>仿真</td>";
+      				appendStr+="<td onclick='showData("+list[i].dataindex+")'>仿真</td>";
       			}else{
-      				appendStr+="<td>分析</td>";
+      				appendStr+="<td onclick='showData("+list[i].dataindex+")'>分析</td>";
       			}
       			switch(list[i].stype){
       				case 1 :
-      					appendStr+="<td>舰艇声反射</td>";
+      					appendStr+="<td  onclick='showData("+list[i].dataindex+")'>舰艇声反射</td>";
       					break;
       				case 2 :
-      					appendStr+="<td>高频混响</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>高频混响</td>";
       					break;
       				case 3 :
-      					appendStr+="<td>舰艇辐射</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>舰艇辐射</td>";
       					break;
       				case 4 :
-      					appendStr+="<td>鱼雷辐射</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷辐射</td>";
       					break;
       				case 5 :
-      					appendStr+="<td>舰艇自噪声</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>舰艇自噪声</td>";
       					break;
       				case 6 :
-      					appendStr+="<td>鱼雷自噪声</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷自噪声</td>";
       					break;
       				case 7 :
-      					appendStr+="<td>海洋环境</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>海洋环境</td>";
       					break;
       				case 8 :
-      					appendStr+="<td>声传播</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>声传播</td>";
       					break;
       				default:
-      					appendStr+="<td>uuu</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>未知</td>";
       			}
       			switch(list[i].sim){
       				case 1 :
-      					appendStr+="<td>001</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>001</td>";
       					break;
       				case 2 :
-      					appendStr+="<td>039</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>039</td>";
       					break;
       				case 3 :
-      					appendStr+="<td>054A</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>054A</td>";
       					break;
       				case 4 :
-      					appendStr+="<td>鱼－10</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼－10</td>";
       					break;
       				case 5 :
-      					appendStr+="<td>鱼－7A</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼－7A</td>";
       					break;
       				default:
-      					appendStr+="<td>uuu</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>未知</td>";
       			}
       			switch(list[i].mt){
       				case 1 :
-      					appendStr+="<td>海洋环境</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>海洋环境</td>";
       					break;
       				case 2 :
-      					appendStr+="<td>潜艇</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>潜艇</td>";
       					break;
       				case 3 :
-      					appendStr+="<td>水面舰</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>水面舰</td>";
       					break;
       				case 4 :
-      					appendStr+="<td>鱼雷</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷</td>";
       					break;
       				default:
-      					appendStr+="<td>uuu</td>";
+      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>uuu</td>";
       			}
       			appendStr+=
-        		"<td>"+list[i].date1+"-"+list[i].time1+"</td>"+
+        		"<td onclick='showData("+list[i].dataindex+")'>"+list[i].date1+"-"+list[i].time1+"</td>"+
         		"</tr>";
         		$("#modelDataTable").append(appendStr);
         	}
@@ -162,6 +163,42 @@
 				nextPage=list[0].page.nextPage;
 	            $("#page").empty();
 	            page(totalPage,_currentPage,prePage,nextPage);
+	            },
+  			error : function() {  
+	              alert("异常！");
+	        }
+  		}
+  		);
+	}
+	function showData(dataindex){
+	
+		$.ajax({
+  			type:"post",
+  			url:"querySimById.do",
+  			data:{id:dataindex},
+  			dataType:"json",
+  			success:function(json){
+  				var  data = eval(json);
+				var input = "吨位："+data.if1+"，吃水："+data.if2+" ，航速："+data.if3+"，输出频率："+data.if4+"-"+data.if5+"，采样率："+data.if6+" ，增益："+data.if7+"<br>\
+		        灵敏度："+data.if8+"，阵元："+data.if9+"，总声级："+data.if10+" ,轴频："+data.if11+"，螺旋桨数："+data.if12+"\
+		        ";
+		        var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
+		
+		        $("#input").html(input);
+		        $("#output").html(output);
+        		var out1=new Array();
+        		ou1=data.out1;
+        		var out2=data.out2;
+        		var out3=data.out3;
+        		var line1 = new Array();
+				var line2 = new Array();
+				var line3 = new Array();
+        		for(i=0;i<(out1.length)/3;)
+        		{
+        			line1[i]=out1.substr(i,3);
+        			i+=3;
+        		}
+        		alert("显示数据id为"+data.dataindex+"曲线");
 	            },
   			error : function() {  
 	              alert("异常！");
@@ -207,6 +244,7 @@
               <td align="center">模型类型</td>
               <td align="center">
                 <select name="mt">
+                  <option value="0">未知</option>
                   <option value="1">海洋环境</option>
                   <option value="2">潜艇</option>
                   <option value="3">水面舰</option>
@@ -216,6 +254,7 @@
               <td align="center">仿真对象</td>
               <td align="center">
                 <select name="sim">
+                 <option value="0">未知</option>
                   <option value="1">001</option>
                   <option value="2">054A</option>
                   <option value="3">039</option>
@@ -228,6 +267,7 @@
               <td align="center">声学模型</td>
               <td align="center">
                 <select name="stype">
+                <option value="0">未知</option>
                   <option value="1">舰艇目标声反射</option>
                   <option value="2">高频模型</option>
                   <option value="3">舰艇辐射</option>
@@ -241,7 +281,9 @@
               <td align="center">数据类型</td>
               <td align="center">
                 <select name="dt">
-                  <option value="1">仿真数据</option><option value="2">分析数据</option>
+                  <option value="0">未知</option>
+                  <option value="1">仿真数据</option>
+                  <option value="2">分析数据</option>
                 </select>
               </td>
             </tr>
@@ -327,7 +369,7 @@
       </div>
     </div>
     <script>
-      function showData(){
+      function showDatas(){
         var input = "吨位：4000.00，吃水：6.00 ，航速：18.00，输出频率：100-1000，采样率：20.00 ，增益：80.00<br>\
         灵敏度：－200.00，阵元：48.00，总声级：166.00 ,轴频：1.80，螺旋桨数：5.00\
         ";

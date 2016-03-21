@@ -231,18 +231,28 @@
     	select dataindex,date1,time1,dt,mt,sim,stype,operator from 
     	(select rownum as rn,t.* from 
     	(select dataindex,date1,time1,dt,mt,sim,stype,operator from modeldata 
-    	where dt = #{dt} and mt=#{mt} and sim=#{sim} and stype=#{stype}) 
-    	t where rownum &lt; = #{P1} order by t.dataindex asc) 
+    	<where>
+    		<if test="dt!=0">and dt = #{dt} </if>
+    		<if test="mt!=0">and mt=#{mt} </if>
+    		<if test="sim!=0">and sim=#{sim} </if>
+    		<if test="stype!=0">and stype=#{stype} </if>
+    	</where>
+    	) t where rownum &lt; = #{P1} order by t.dataindex asc) 
     	where rn  &gt; #{P2}
     </select>
     
     <select id="querySimById" parameterType="int" resultType="modelData">
-    	select * where dataindex=#{id} from modeldata
+    	select * from modeldata where dataindex=#{id} 
     </select>
     
     <select id="countModelData" parameterType="queryParameter" resultType="count">
     	select count(*) as recordCount from modeldata 
-    	where dt = #{dt} and mt=#{mt} and sim=#{sim} and stype=#{stype}
+    	<where>
+    		<if test="dt!=0">and dt = #{dt} </if>
+    		<if test="mt!=0">and mt=#{mt} </if>
+    		<if test="sim!=0">and sim=#{sim} </if>
+    		<if test="stype!=0">and stype=#{stype} </if>
+    	</where>
     </select>
     
     <update id="backupModelData">
