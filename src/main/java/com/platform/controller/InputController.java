@@ -239,7 +239,9 @@ public class InputController extends BaseJsonAction{
 		//发送数据
 		NativeFactory.getNativeMethod(dataNum, input);
 		//等待执行成功信号
-		String serverHost = "192.168.220.200";  
+//		String serverHost = "192.168.220.202";  
+//        int serverPort = 21168;  
+        String serverHost = "127.0.0.1";  
         int serverPort = 1111;  
         UdpServerSocket udpServerSocket = null;
 		try {
@@ -253,7 +255,7 @@ public class InputController extends BaseJsonAction{
 			while (true) { 
 				now = System.currentTimeMillis();
 				//执行超时 5分钟超时
-				if((now - start) / (1000*60) >= 1){
+				if((now - start) / (1000*60) >= 3){
 					this.setData("Exec_error:执行超时");
 					this.outPut();
 					return;
@@ -272,6 +274,11 @@ public class InputController extends BaseJsonAction{
 			
 			//解析byte数组
 			List<String> r = ConvertFactory.convert(dataNum, result);
+			
+			for (int i = 0; i < r.size(); i++) {
+				System.out.println("Result is ============="+r.get(i));
+			}
+			
 			this.setData(r);
 			//this.setData("执行成功");
 			

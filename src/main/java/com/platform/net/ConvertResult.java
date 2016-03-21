@@ -17,15 +17,25 @@ public class ConvertResult {
 	 * @param s
 	 * @return
 	 */
+	//如果char是unsigned char（0-255的数字）
+	//先末位加3个0变成byte数组 再ByteUtil.getInt
 	public static String convertStruct1(byte[] recv){
 		StringBuilder result = new StringBuilder();
-		result.append("{s1:"+recv[0]+",data:");
+		result.append(recv[0]+",");
+		//高位
+		byte[] temp = new byte[4];
+		temp[1] = 0;
+		temp[2] = 0;
+		temp[3] = 0;
+		
 		for(int i = 1;i < 1001 ; i++){
-			result.append((int)recv[i]);
+			temp[0] = recv[i];
+			
+			System.out.println(recv[i]+"");
+			
+			result.append(ByteUtil.getInt(temp));
 			if(i!=1000)
 				result.append("_");
-			else
-				result.append("}");
 		}
 		
 		return result.toString();
@@ -34,7 +44,7 @@ public class ConvertResult {
 	public static String convertStruct2(byte[] recv){
 		StringBuilder result = new StringBuilder();
 		
-		result.append("{s1:"+(int)recv[0]+",data:");
+		result.append((int)recv[0]+",");
 		
 		for(int i = 4; i<252 ; i += 4){
 			byte[] temp = new byte[4];
@@ -46,17 +56,16 @@ public class ConvertResult {
 			result.append("_");
 		}
 		
-		result.append((int)recv[253]);
+		result.append((int)recv[252]);
 		result.append("_");
-		result.append((int)recv[254]);
-		result.append("}");
+		result.append((int)recv[253]);
 		
 		return result.toString();
 	}
 	
 	public static String convertStruct3(byte[] recv){
 		StringBuilder result = new StringBuilder();
-		result.append("{s1:"+(int)recv[0]+",data:");
+		result.append(""+(int)recv[0]+",");
 		for(int i = 4; i<12 ; i += 4){
 			byte[] temp = new byte[4];
 			temp[0] = recv[i];
@@ -79,8 +88,6 @@ public class ConvertResult {
 			result.append((char)recv[i]);
 			if(i!=1015)
 				result.append("_");
-			else
-				result.append("}");
 		}
 		
 		return result.toString();

@@ -10,11 +10,11 @@ public class RecvNum {
 		int num = 0;
 		
 		if(dataType.equals("1")){
-			num = 4;
+			num = 3;
 		}
 		
 		if(dataType.equals("2")){
-			num = 4;
+			num = 3;
 		}
 		
 		if(dataType.equals("3A")){

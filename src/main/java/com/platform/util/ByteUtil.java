@@ -146,5 +146,19 @@ public class ByteUtil
         System.out.println(a[1]);
         System.out.println(a[2]);
         System.out.println(a[3]);
+        
+        System.out.println(getBytes(3)[0]);
+        System.out.println(getBytes(3)[1]);
+        System.out.println(getBytes(3)[2]);
+        System.out.println(getBytes(3)[3]);
+        char cc = 254;
+        byte[] cca ={0,0,0,0};
+        cca[0]= getBytes(cc)[0];
+        cca[1] = getBytes(cc)[1];
+ 
+        System.out.println(getInt(cca));
+        
+        
+        
     }  
 } 

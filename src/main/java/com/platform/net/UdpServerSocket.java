@@ -15,7 +15,7 @@ import com.platform.report.receive.OneSend;
 import com.platform.report.send.RecvNum;
   
 /**      
- * UTP服务类.      
+ * UDP服务类.      
  * @author liukang
  */  
 public class UdpServerSocket {  
@@ -86,16 +86,7 @@ public class UdpServerSocket {
         ds.receive(packet);  
         orgIp = packet.getAddress().getHostAddress(); 
         System.out.println(orgIp);
-        return buffer;
-//        String info = new String(packet.getData(), 0, packet.getLength());  
-//        System.out.println("接收信息：" + info);
-//        return info;
-//        OneSend message = new OneSend();
-//        ByteArrayInputStream bint=new ByteArrayInputStream(buffer);
-//        ObjectInputStream oint=new ObjectInputStream(bint);
-//        message=oint.readObject();       //反序列化，恢复对象
-//        System.out.println("接收信息：" + message.toString());
-//        return message.toString();  
+        return buffer; 
     }  
   
     /** 
@@ -158,7 +149,7 @@ public class UdpServerSocket {
         UdpServerSocket udpServerSocket = new UdpServerSocket(serverHost, serverPort); 
         List<byte[]> result = new ArrayList<byte[]>();
         while (true) {  
-        	if(result.size() >= RecvNum.recvNum("7") ){
+        	if(result.size() >= RecvNum.recvNum("3B") ){
 				break;
 			}
         	
@@ -175,7 +166,7 @@ public class UdpServerSocket {
         
         
         
-        List<String> r = ConvertFactory.convert("7", result);
+        List<String> r = ConvertFactory.convert("3B", result);
         for (int i = 0; i < r.size(); i++) {
 			System.out.println(r.get(i));
 		}
