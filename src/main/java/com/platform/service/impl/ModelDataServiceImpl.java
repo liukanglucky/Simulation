@@ -81,6 +81,7 @@ public class ModelDataServiceImpl implements ModelDataService{
 		}
 		
 		if(dataType.equals("2")){
+			System.out.println((DATA2)data);
 			return this.insertData2((DATA2)data);
 		}
 		
@@ -183,6 +184,30 @@ public class ModelDataServiceImpl implements ModelDataService{
 	public Count countBackup() {
 		// TODO Auto-generated method stub
 		return modelDataDao.countBackup();
+	}
+
+	@Override
+	public int insertData4A(DATA3A data) {
+		// TODO Auto-generated method stub
+		return modelDataDao.insertData3A(data);
+	}
+
+	@Override
+	public int insertData4B(DATA3B data) {
+		// TODO Auto-generated method stub
+		return modelDataDao.insertData3B(data);
+	}
+
+	@Override
+	public int insertData6A(DATA5A data) {
+		// TODO Auto-generated method stub
+		return modelDataDao.insertData5A(data);
+	}
+
+	@Override
+	public int insertData6B(DATA5B data) {
+		// TODO Auto-generated method stub
+		return modelDataDao.insertData5B(data);
 	}
 	
 }
