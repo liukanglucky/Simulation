@@ -72,75 +72,75 @@
         	appendStr+="<tr class='modelDataList'>"+
       			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>";
       			if(list[i].dt==1){
-      				appendStr+="<td onclick='showData("+list[i].dataindex+")'>仿真</td>";
+      				appendStr+="<td onclick='findData("+list[i].dataindex+")'>仿真</td>";
       			}else{
-      				appendStr+="<td onclick='showData("+list[i].dataindex+")'>分析</td>";
+      				appendStr+="<td onclick='findData("+list[i].dataindex+")'>分析</td>";
       			}
       			switch(list[i].stype){
       				case 1 :
-      					appendStr+="<td  onclick='showData("+list[i].dataindex+")'>舰艇声反射</td>";
+      					appendStr+="<td  onclick='findData("+list[i].dataindex+")'>舰艇声反射</td>";
       					break;
       				case 2 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>高频混响</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>高频混响</td>";
       					break;
       				case 3 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>舰艇辐射</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>舰艇辐射</td>";
       					break;
       				case 4 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷辐射</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼雷辐射</td>";
       					break;
       				case 5 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>舰艇自噪声</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>舰艇自噪声</td>";
       					break;
       				case 6 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷自噪声</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼雷自噪声</td>";
       					break;
       				case 7 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>海洋环境</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>海洋环境</td>";
       					break;
       				case 8 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>声传播</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>声传播</td>";
       					break;
       				default:
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>未知</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>未知</td>";
       			}
       			switch(list[i].sim){
       				case 1 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>001</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>001</td>";
       					break;
       				case 2 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>039</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>039</td>";
       					break;
       				case 3 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>054A</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>054A</td>";
       					break;
       				case 4 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼－10</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼－10</td>";
       					break;
       				case 5 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼－7A</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼－7A</td>";
       					break;
       				default:
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>未知</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>未知</td>";
       			}
       			switch(list[i].mt){
       				case 1 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>海洋环境</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>海洋环境</td>";
       					break;
       				case 2 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>潜艇</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>潜艇</td>";
       					break;
       				case 3 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>水面舰</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>水面舰</td>";
       					break;
       				case 4 :
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>鱼雷</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼雷</td>";
       					break;
       				default:
-      					appendStr+="<td onclick='showData("+list[i].dataindex+")'>uuu</td>";
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>uuu</td>";
       			}
       			appendStr+=
-        		"<td onclick='showData("+list[i].dataindex+")'>"+list[i].date1+"-"+list[i].time1+"</td>"+
+        		"<td onclick='findData("+list[i].dataindex+")'>"+list[i].date1+"-"+list[i].time1+"</td>"+
         		"</tr>";
         		$("#modelDataTable").append(appendStr);
         	}
@@ -170,7 +170,7 @@
   		}
   		);
 	}
-	function showData(dataindex){
+	function findData(dataindex){
 	
 		$.ajax({
   			type:"post",
@@ -187,9 +187,11 @@
 		        $("#input").html(input);
 		        $("#output").html(output);
         		var out1=new Array();
+        		var out2=new Array();
+        		var out3=new Array();
         		ou1=data.out1;
-        		var out2=data.out2;
-        		var out3=data.out3;
+        		out2=data.out2;
+        		out3=data.out3;
         		var line1 = new Array();
 				var line2 = new Array();
 				var line3 = new Array();
@@ -198,7 +200,18 @@
         			line1[i]=out1.substr(i,3);
         			i+=3;
         		}
+        		for(i=0;i<(out2.length)/3;)
+        		{
+        			line2[i]=out2.substr(i,3);
+        			i+=3;
+        		}
+        		for(i=0;i<(out3.length)/3;)
+        		{
+        			line3[i]=out3.substr(i,3);
+        			i+=3;
+        		}
         		alert("显示数据id为"+data.dataindex+"曲线");
+        		showData(line1,line2,line3,output);
 	            },
   			error : function() {  
 	              alert("异常！");
@@ -368,95 +381,5 @@
 
       </div>
     </div>
-    <script>
-      function showDatas(){
-        var input = "吨位：4000.00，吃水：6.00 ，航速：18.00，输出频率：100-1000，采样率：20.00 ，增益：80.00<br>\
-        灵敏度：－200.00，阵元：48.00，总声级：166.00 ,轴频：1.80，螺旋桨数：5.00\
-        ";
-        var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
-
-        $("#input").html(input);
-        $("#output").html(output);
-
-        $("#main").css("display","");
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main')); 
-                
-                var option = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['回波频率谱','目标强度方位变化','回波信号','反射信号']
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            boundaryGap : false,
-            data : ['1','2','3','4','5','6','7']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    series : [
-        {
-            name:'回波频率谱',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-            name:'目标强度方位变化',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-            name:'回波信号',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-            name:'反射信号',
-            type:'line',
-            stack: '总量',
-            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data:[320, 332, 301, 334, 390, 330, 320]
-        }
-    ]
-};
-                    
-        
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-          );
-      }
-    </script>
   </body>
 </html>
