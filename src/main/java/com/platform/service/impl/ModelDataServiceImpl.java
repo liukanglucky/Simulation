@@ -93,12 +93,30 @@ public class ModelDataServiceImpl implements ModelDataService{
 			return this.insertData3B((DATA3B)data);
 		}
 		
+		if(dataType.equals("4A")){
+			return this.insertData4A((DATA3A)data);
+		}
+		
+		if(dataType.equals("4B")){
+			return this.insertData4B((DATA3B)data);
+		}
+		
+		
+		
 		if(dataType.equals("5A")){
 			return this.insertData5A((DATA5A)data);
 		}
 		
 		if(dataType.equals("5B")){
 			return this.insertData5B((DATA5B)data);
+		}
+		
+		if(dataType.equals("6A")){
+			return this.insertData6A((DATA5A)data);
+		}
+		
+		if(dataType.equals("6B")){
+			return this.insertData6B((DATA5B)data);
 		}
 		
 		if(dataType.equals("7")){
