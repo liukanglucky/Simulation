@@ -1,5 +1,5 @@
 <div class="tab-pane" id="tab1">
-    目标三维模型 : <input type="file">
+    目标三维模型 : <input type="text"  id="file2" name="file2">
     仿真类型：
     <select name="mt" style="width:90px; height:20px">
       <option value="1">潜艇</option>
@@ -13,7 +13,6 @@
       <option value="2">054A</option>
       <option value="3">039</option>
     </select>
-    <input name="s1"  type="text" id="s1">
     <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
       <tbody>
         <tr>

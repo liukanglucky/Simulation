@@ -184,12 +184,13 @@ public class ObjectToFile {
 									
 								}else{
 									if(fieldType.equals("char[]")){
-										
 										Object tempO =  m[i].invoke(thisObj);
 										char[] temp = (char[]) tempO;
 										
 										String tempValue = "";
+							
 										for (int j = 0; j < temp.length; j++) {
+											System.out.println(temp[j]);
 											tempValue += String.valueOf(temp[j])+",";
 										}
 										map.put(key, tempValue);
@@ -264,12 +265,23 @@ public class ObjectToFile {
 					}
 					
 					if(type.equals("char[]")){
-						String[] temp = map.get(key).split(",");
-						char[] tempvalue =new char[temp.length];
-						for (int j = 0; j < temp.length; j++) {
-							tempvalue[j] = temp[j].charAt(0);
-						}
-						fields[i].set(obj, tempvalue);
+						
+						if(fields[i].getName().equals("file")||fields[i].getName().equals("file1")||fields[i].getName().equals("file2")){
+							String temp = map.get(key);
+							char[] tempvalue =new char[temp.length()];
+							
+							for (int j = 0; j < temp.length(); j++) {
+								tempvalue[j] = temp.charAt(j);
+							}
+							fields[i].set(obj, tempvalue.clone());
+						}else{
+							String[] temp = map.get(key).split(",");
+							char[] tempvalue =new char[temp.length];
+							for (int j = 0; j < temp.length; j++) {
+								tempvalue[j] = temp[j].charAt(0);
+							}
+							fields[i].set(obj, tempvalue);
+						}	
 					}
 					
 					if(type.equals("float[]")){

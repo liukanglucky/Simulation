@@ -98,6 +98,7 @@ public class InputController extends BaseJsonAction{
 		String dataNum = (String) request.getParameter("id");
 		String fileNum = (String) request.getParameter("fileid");
 		
+		System.out.println("dataNum is "+dataNum);
 		
 		if(dataNum == null){
 			this.setData(null);

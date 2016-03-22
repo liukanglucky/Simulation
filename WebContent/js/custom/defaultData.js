@@ -33,6 +33,18 @@ function getObj(id, fileid, tabname) {
 //自动填充页面元素
 function defaultVal(id, data) {
 	for ( var key in data) {
+		if(key == "file" || key=="file1"){
+			$("#file").val(data[key].replace(/,/g,''));
+			continue;
+		}
+		
+		if(key=="file2"){
+			alert("file2"+data[key]);
+			$("#file2").val(data[key].replace(/,/g,''));
+			alert($("#file2").val());
+			continue;
+		}
+		
 		var dom = $("#" + id + " input[name='" + key + "']");
 
 		if (dom.size() <= 1) {
@@ -82,16 +94,30 @@ function defaultVal(id, data) {
 
 //自动获得页面元素数值，形成map,保存输入数据
 function autoGetVal(id, dataid, fileid) {
-	//alert(id+dataid);
 	var dom = $("#" + id + " input:text");
 
 	var result = "";
-	for (var i = 0; i < dom.size(); i++) {
-
-		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
-		//alert($(dom[i]).val());
+	
+	//result += "s1:"+$("#s1 ").val()+",";
+	//model1 有 file1 和 file2
+	if(dataid == "1"){
+		var file1 = $("#file").val().replace(/,/g,'');
+		var file2 = $("#file2").val().replace(/,/g,'');
+		result = result + "file1:"+file1+",";
+		result = result + "len1:"+len(file1)+",";
+		result = result + "file2:"+file2+",";
+		result = result + "len2:"+len(file2)+",";
+		
+	}else{
+		var file = $("#file").val().replace(/,/g,'');
+		result+="file:"+file+",";
+		alert(file+len(file));
+		result+="len:"+len(file)+",";
 	}
-	//alert(result);
+	
+	for (var i = 0; i < dom.size(); i++) {
+		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
+	}
 
 	dom = $("#" + id + " select");
 
@@ -99,7 +125,7 @@ function autoGetVal(id, dataid, fileid) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 		//alert($(dom[i]).val());
 	}
-	//alert(result);
+	alert(result);
 	$.ajax({
 		url : "input/saveData.do",
 		type : "post",
@@ -262,4 +288,17 @@ function tabgo8() {
 	$('#myTab a[href="#tab8"]').tab('show');
 	getObj("8", "8", "tab8");
 
+}
+
+function len(s) { 
+	var l = 0; 
+	var a = s.split(""); 
+	for (var i=0;i<a.length;i++) { 
+		if (a[i].charCodeAt(0)<299) { 
+			l++; 
+		} else { 
+			l+=2; 
+		} 
+	} 
+	return l; 
 }
