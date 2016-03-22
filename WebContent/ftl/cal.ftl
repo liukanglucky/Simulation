@@ -117,5 +117,21 @@
       </div>
     </div>
     
+    
+    <!-- Modal -->
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	  <div class="modal-header">
+	    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+	    <h3 id="myModalLabel">提示</h3>
+	  </div>
+	  <div class="modal-body">
+	    正在计算，请稍等...<br>
+	    强行关闭将可能导致端口占用，无法继续执行计算。<br>
+	  </div>
+	  <div class="modal-footer">
+	    
+	  </div>
+	</div>
+    
   </body>
 </html>

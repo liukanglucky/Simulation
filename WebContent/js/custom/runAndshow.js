@@ -268,7 +268,13 @@ function run(id, dataid){
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 	}
 	
-	alert(result);
+	//alert(result);
+	$('#myModal').modal("show");
+	$("#input").html("");
+	$("#output").html("");
+	$("#main").html("");
+	$("#main2").html("");
+	$("#main3").html("");
 	
 	$.ajax({
 		url : "input/run.do",
@@ -279,6 +285,7 @@ function run(id, dataid){
 			"id" : dataid,
 		},
 		success : function(data) {
+			$('#myModal').modal("hide");
 			if(data.indexOf("Exec_error") >0){
 				alert(data);
 			}else{
@@ -328,6 +335,7 @@ function run(id, dataid){
 			
 		},
 		error : function(err) {
+			$('#myModal').modal("hide");
 			alert("调用仿真模型失败");
 		}
 	});
