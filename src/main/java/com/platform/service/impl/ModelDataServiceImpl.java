@@ -73,6 +73,7 @@ public class ModelDataServiceImpl implements ModelDataService{
 	
 	public int insertFactory(String dataType,Object data){
 		if(dataType.equals("1")){
+			System.out.println((DATA1)data);
 			return this.insertData1((DATA1)data);
 		}
 		

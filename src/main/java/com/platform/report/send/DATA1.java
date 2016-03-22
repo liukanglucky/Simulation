@@ -2,6 +2,7 @@ package com.platform.report.send;
 
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 
 
@@ -12,6 +13,18 @@ public class DATA1 implements Serializable{
 
 	private static final long serialVersionUID = -2297293241390496189L;
 	
+	@Override
+	public String toString() {
+		return "DATA1 [s1=" + s1 + ", speed=" + speed + ", ang=" + ang + ", fre=" + fre + ", bre=" + bre + ", cre="
+				+ cre + ", distence=" + distence + ", ang1=" + ang1 + ", ang2=" + ang2 + ", time=" + time + ", cy1="
+				+ cy1 + ", ss=" + ss + ", ang3=" + ang3 + ", ang4=" + ang4 + ", type1=" + type1 + ", type2=" + type2
+				+ ", type3=" + type3 + ", len1=" + len1 + ", file1=" + Arrays.toString(file1) + ", len2=" + len2
+				+ ", file2=" + Arrays.toString(file2) + ", dataindex=" + dataindex + ", cy=" + cy + ", dt=" + dt
+				+ ", mt=" + mt + ", sim=" + sim + ", stype=" + stype + ", date1=" + date1 + ", time1=" + time1
+				+ ", operator=" + operator + ", out1=" + out1 + ", out2=" + out2 + ", out3=" + out3 + ", out4=" + out4
+				+ "]";
+	}
+
 	private char s1;    //标识
 	private float speed;        //航速    //采样率(分析方式下的解析,char类型位置不变)
 	private float ang;          //航向    //声速
