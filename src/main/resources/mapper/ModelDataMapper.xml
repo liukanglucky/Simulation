@@ -20,7 +20,7 @@
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{cy},#{dt},#{mt},#{sim},#{stype},#{time1},
-		#{speed},#{ang},#{fre},#{bre},#{cre},#{distence},
+		#{speed},#{ang},#{fre},#{bre},#{cre},#{distence},#{ang1},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
     
