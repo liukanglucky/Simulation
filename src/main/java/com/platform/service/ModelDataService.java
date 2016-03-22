@@ -17,6 +17,10 @@ public interface ModelDataService {
 	public int insertData3B(DATA3B data);
 	public int insertData5A(DATA5A data);
 	public int insertData5B(DATA5B data);
+	public int insertData4A(DATA3A data);
+	public int insertData4B(DATA3B data);
+	public int insertData6A(DATA5A data);
+	public int insertData6B(DATA5B data);
 	public int insertData7(DATA7 data);
 	public int insertData8(DATA8 data);
 	public int findMaxId();
