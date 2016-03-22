@@ -91,8 +91,17 @@ public class TestJNI {
 		
 		
 		
-//		DATA2 data2 = (DATA2) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data2.txt");
+		DATA2 data2 = (DATA2) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data2.txt");
 //		m.model2(data2);
+//		DATA2 data2 = new DATA2();
+//		char[] filearray = {'1','2','3','4'};
+//		data2.setFile(filearray);
+//		char[] file = data2.getFile();
+//		System.out.println(file.length);
+//		for (int i = 0; i < file.length; i++) {
+//			System.out.println(file[i]+"");
+//		}
+		System.out.println(data2.getType1());
 		
 //		DATA1 data1 = (DATA1) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data1B.txt");
 //		m.model1(data1);
@@ -101,7 +110,7 @@ public class TestJNI {
 //		System.out.println(data5A.getType1());
 //		m.model5A(data5A);
 		
-		DATA5B data5B = (DATA5B) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data5B.txt");
-		m.model5B(data5B);
+//		DATA5B data5B = (DATA5B) otf.objectDeSerialize("/Users/songshaoying/Documents/phpworkspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimulationPlatform/data/data5B.txt");
+//		m.model5B(data5B);
 	}
 }

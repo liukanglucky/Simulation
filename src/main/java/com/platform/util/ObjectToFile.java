@@ -267,13 +267,15 @@ public class ObjectToFile {
 					if(type.equals("char[]")){
 						
 						if(fields[i].getName().equals("file")||fields[i].getName().equals("file1")||fields[i].getName().equals("file2")){
-							String temp = map.get(key);
+							String temp = map.get(key).trim();
+							System.out.println("char[] map value is "+temp+" temp length is"+temp.length());
 							char[] tempvalue =new char[temp.length()];
 							
 							for (int j = 0; j < temp.length(); j++) {
 								tempvalue[j] = temp.charAt(j);
+								System.out.println("temp is "+temp.charAt(j)+"");
 							}
-							fields[i].set(obj, tempvalue.clone());
+							fields[i].set(obj, tempvalue);
 						}else{
 							String[] temp = map.get(key).split(",");
 							char[] tempvalue =new char[temp.length];

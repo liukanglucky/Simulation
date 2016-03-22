@@ -258,6 +258,7 @@ public class DATA2 implements Serializable{
 	public void setFile(char[] file) {
 		System.out.println("file len is"+file.length);
 		for (int i = 0; i < file.length; i++) {
+			System.out.println(file[i]);
 			this.file[i] = file[i];
 		}
 		
