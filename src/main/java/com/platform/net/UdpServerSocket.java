@@ -149,7 +149,7 @@ public class UdpServerSocket {
         UdpServerSocket udpServerSocket = new UdpServerSocket(serverHost, serverPort); 
         List<byte[]> result = new ArrayList<byte[]>();
         while (true) {  
-        	if(result.size() >= RecvNum.recvNum("3B") ){
+        	if(result.size() >= RecvNum.recvNum("8") ){
 				break;
 			}
         	
@@ -166,7 +166,7 @@ public class UdpServerSocket {
         
         
         
-        List<String> r = ConvertFactory.convert("3B", result);
+        List<String> r = ConvertFactory.convert("8", result);
         for (int i = 0; i < r.size(); i++) {
 			System.out.println(r.get(i));
 		}

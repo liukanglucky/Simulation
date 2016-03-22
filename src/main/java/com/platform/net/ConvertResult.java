@@ -31,7 +31,7 @@ public class ConvertResult {
 		for(int i = 1;i < 1001 ; i++){
 			temp[0] = recv[i];
 			
-			System.out.println(recv[i]+"");
+			//System.out.println(recv[i]+"");
 			
 			result.append(ByteUtil.getInt(temp));
 			if(i!=1000)
@@ -94,8 +94,19 @@ public class ConvertResult {
 	}
 	
 	public static String convertStruct4(byte[] recv){
-		String result = null;
-		
-		return result;
+		StringBuilder result = new StringBuilder();
+		result.append(""+(int)recv[0]+",");
+		//高位
+		byte[] temp = new byte[4];
+		temp[1] = 0;
+		temp[2] = 0;
+		temp[3] = 0;
+		for(int i = 1;i < 1021;i++){
+			temp[0] = recv[i];
+			result.append(ByteUtil.getInt(temp));
+			if(i!=1020)
+				result.append("_");
+		}
+		return result.toString();
 	}
 }
