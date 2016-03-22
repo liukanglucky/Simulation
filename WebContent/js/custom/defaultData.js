@@ -98,12 +98,12 @@ function autoGetVal(id, dataid, fileid) {
 
 	var result = "";
 	var simType = $("#simType").val();
-	//模拟仿真s1 = 1 type1 = 2 页面 ＝ 1;分析数据 s1 = 2 type1 = 1 页面 ＝ 0
+	//模拟仿真s1 = 2 type1 = 1 页面 ＝ 1;分析数据 s1 = 1 type1 = 2 页面 ＝ 0
 	if(simType == "1"){
-		result += "type1:2,s1:1,";
+		result += "type1:1,s1:2,";
 	}
 	if(simType == "0"){
-		result += "type1:1,s1:2,";
+		result += "type1:2,s1:1,";
 	}
 	
 	//model1 有 file1 和 file2

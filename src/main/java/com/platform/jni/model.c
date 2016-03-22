@@ -405,7 +405,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model1
 	len = (*env)->GetArrayLength(env,file1array);
 	jchar file1[len];//char数组
 	(*env)->GetCharArrayRegion(env,file1array,0,len,file1);
-    for( i = 0 ;i<len;i++){
+    for( i = 0 ;i<len1-'0';i++){
             printf("%c\n",file1[i]);
             data2.file1[i] = file1[i];
     }
@@ -417,7 +417,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model1
 	len = (*env)->GetArrayLength(env,file2array);
 	jchar file2[len];//char数组
 	(*env)->GetCharArrayRegion(env,file2array,0,len,file2);
-    for( i = 0 ;i<len;i++){
+    for( i = 0 ;i<len2-'0';i++){
             printf("%c\n",file2[i]);
             data2.file2[i] = file2[i];
     }
@@ -774,7 +774,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
 	len = (*env)->GetArrayLength(env,afile);
 	jchar file[len];//char数组
 	(*env)->GetCharArrayRegion(env,afile,0,len,file);
-    for( i = 0 ;i<len;i++){
+    for( i = 0 ;i<clen-'0';i++){
             printf("%c\n",file[i]);
             data2.file[i] = file[i];
     }
@@ -946,7 +946,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3A
 		len = (*env)->GetArrayLength(env,afile);
 		jchar file[len];//char数组
 		(*env)->GetCharArrayRegion(env,afile,0,len,file);
-	    for( i = 0 ;i<len;i++){
+	    for( i = 0 ;i<lenf-'0';i++){
 	            printf("%c\n",file[i]);
 	            data3a.file[i] = file[i];
 	    }
@@ -1319,10 +1319,10 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 	/*获得char数组开始*/
 	jfieldID ffile = (*env)->GetFieldID(env,class,"file","[C");//获得属性
 	jcharArray  afile = (jcharArray)(*env)->GetObjectField(env,obj2,ffile);//获得参数值
-	len = (*env)->GetArrayLength(env,afile);
+	//len = (*env)->GetArrayLength(env,afile);
 	jchar file[len];//char数组
 	(*env)->GetCharArrayRegion(env,afile,0,len,file);
-    for( i = 0 ;i<len;i++){
+    for( i = 0 ;i<len-'0';i++){
             printf("%c\n",file[i]);
             data5a.file[i] = file[i];
     }
