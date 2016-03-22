@@ -35,7 +35,9 @@ public class ConvertFactory {
 		}
 		
 		if(dataType.equals("8") ){
-			
+			for (int i = 0; i < list.size(); i++) {
+					result.add(ConvertResult.convertStruct4(list.get(i)));
+			}
 		}
 		
 		return result;
