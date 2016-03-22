@@ -97,23 +97,30 @@ function autoGetVal(id, dataid, fileid) {
 	var dom = $("#" + id + " input:text");
 
 	var result = "";
-	
-	//result += "s1:"+$("#s1 ").val()+",";
-	//model1 有 file1 和 file2
-	if(dataid == "1"){
-		var file1 = $("#file").val().replace(/,/g,'');
-		var file2 = $("#file2").val().replace(/,/g,'');
-		result = result + "file1:"+file1+",";
-		result = result + "len1:"+len(file1)+",";
-		result = result + "file2:"+file2+",";
-		result = result + "len2:"+len(file2)+",";
-		
-	}else{
-		var file = $("#file").val().replace(/,/g,'');
-		result+="file:"+file+",";
-		alert(file+len(file));
-		result+="len:"+len(file)+",";
+	var simType = $("#simType").val();
+	//模拟仿真s1 = 1 type1 = 2 页面 ＝ 1;分析数据 s1 = 2 type1 = 1 页面 ＝ 0
+	if(simType == "1"){
+		result += "type1:2,s1:1,";
 	}
+	if(simType == "0"){
+		result += "type1:1,s1:2,";
+	}
+	
+	//model1 有 file1 和 file2
+//	if(dataid == "1"){
+//		var file1 = $("#file").val().replace(/,/g,'');
+//		var file2 = $("#file2").val().replace(/,/g,'');
+//		result = result + "file1:"+file1+",";
+//		//result = result + "len1:"+len(file1)+",";
+//		result = result + "file2:"+file2+",";
+//		//result = result + "len2:"+len(file2)+",";
+//		
+//	}else{
+//		var file = $("#file").val().replace(/,/g,'');
+//		result+="file:"+file+",";
+////		alert(file+len(file));
+////		result+="len:"+len(file)+",";
+//	}
 	
 	for (var i = 0; i < dom.size(); i++) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";

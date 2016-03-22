@@ -47,7 +47,7 @@
           <tr>
             <td align="center">仿真类型：</td>
             <td align="center">
-              <select name="s1" style="width:90px; height:20px" id="simType" onChange="changeType();" id="s1">
+              <select name="s1" style="width:90px; height:20px" id="simType" onChange="changeType();" >
                 <option value="1">模拟仿真</option>
                 <option value="0">分析数据</option>
               </select>
