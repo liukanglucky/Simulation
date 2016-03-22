@@ -10,7 +10,7 @@ public class DATAFactory {
 	public static Object getData(String dataType){
 		Object obj = null;
 		
-		if(dataType.equals("1")){
+		if(dataType.equals("1") || dataType.equals("1B")){
 			obj = new DATA1();
 		}
 		

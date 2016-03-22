@@ -95,7 +95,7 @@ public class InputController extends BaseJsonAction{
 	public void saveData(HttpServletRequest request){
 		String str = request.getParameter("data");
 		
-		String dataNum = (String) request.getParameter("id");
+		String dataNum = (String) request.getParameter("fileid");
 		String fileNum = (String) request.getParameter("fileid");
 		
 		System.out.println("dataNum is "+dataNum);
