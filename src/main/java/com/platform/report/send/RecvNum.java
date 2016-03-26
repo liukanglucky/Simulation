@@ -38,7 +38,7 @@ public class RecvNum {
 		}
 		
 		if(dataType.equals("8")){
-			num = 2;
+			num = 1;
 		}
 		
 		

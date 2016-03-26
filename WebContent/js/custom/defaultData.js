@@ -99,10 +99,10 @@ function autoGetVal(id, dataid, fileid) {
 	var result = "";
 	var simType = $("#simType").val();
 	//模拟仿真s1 = 2 type1 = 1 页面 ＝ 1;分析数据 s1 = 1 type1 = 2 页面 ＝ 0
-	if(simType == "1"){
+	if(simType == "1" && dataid != "8"){
 		result += "type1:1,s1:2,";
 	}
-	if(simType == "0"){
+	if(simType == "0"&& dataid != "8"){
 		result += "type1:2,s1:1,";
 	}
 	
@@ -132,7 +132,7 @@ function autoGetVal(id, dataid, fileid) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 		//alert($(dom[i]).val());
 	}
-	alert(result);
+	
 	$.ajax({
 		url : "input/saveData.do",
 		type : "post",

@@ -270,7 +270,7 @@ public class InputController extends BaseJsonAction{
 				rcv1 = udpServerSocket.receive();  
 				//rcv1指向同一个地址
 				result.add(rcv1.clone());
-				
+				System.out.println("receive report num "+result.size());
 	        }
 			
 			//解析byte数组

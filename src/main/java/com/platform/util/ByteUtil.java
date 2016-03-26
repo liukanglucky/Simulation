@@ -114,49 +114,55 @@ public class ByteUtil
       
     public static void main(String[] args)  
     {  
-        short s = 122;  
-        int i = 122;  
-        long l = 1222222;  
+//        short s = 122;  
+//        int i = 122;  
+//        long l = 1222222;  
   
         char c = 'a';  
   
-        float f = 122.22f;  
-        double d = 122.22;  
-  
-        String string = "我是好孩子";  
-        System.out.println(s);  
-        System.out.println(i);  
-        System.out.println(l);  
-        System.out.println(c);  
-        System.out.println(f);  
-        System.out.println(d);  
-        System.out.println(string);  
-  
-        System.out.println("**************");  
-  
-        System.out.println(getShort(getBytes(s)));  
-        System.out.println(getInt(getBytes(i)));  
-        System.out.println(getLong(getBytes(l)));  
-        System.out.println(getChar(getBytes(c)));  
-        System.out.println(getFloat(getBytes(f)));  
-        System.out.println(getDouble(getBytes(d)));  
-        System.out.println(getString(getBytes(string)));
-        byte[] a= getBytes(2.2f);
-        System.out.println(a[0]);
-        System.out.println(a[1]);
-        System.out.println(a[2]);
-        System.out.println(a[3]);
+//        float f = 122.22f;  
+//        double d = 122.22;  
+//  
+//        String string = "我是好孩子";  
+//        System.out.println(s);  
+//        System.out.println(i);  
+//        System.out.println(l);  
+        System.out.println(c);
+        byte[] carray = getBytes(c);
+       for (int i = 0; i < carray.length; i++) {
+    	   System.out.println(carray[i]);
+       }
         
-        System.out.println(getBytes(3)[0]);
-        System.out.println(getBytes(3)[1]);
-        System.out.println(getBytes(3)[2]);
-        System.out.println(getBytes(3)[3]);
-        char cc = 254;
-        byte[] cca ={0,0,0,0};
-        cca[0]= getBytes(cc)[0];
-        cca[1] = getBytes(cc)[1];
- 
-        System.out.println(getInt(cca));
+        
+//        System.out.println(f);  
+//        System.out.println(d);  
+//        System.out.println(string);  
+//  
+//        System.out.println("**************");  
+//  
+//        System.out.println(getShort(getBytes(s)));  
+//        System.out.println(getInt(getBytes(i)));  
+//        System.out.println(getLong(getBytes(l)));  
+//        System.out.println(getChar(getBytes(c)));  
+//        System.out.println(getFloat(getBytes(f)));  
+//        System.out.println(getDouble(getBytes(d)));  
+//        System.out.println(getString(getBytes(string)));
+//        byte[] a= getBytes(2.2f);
+//        System.out.println(a[0]);
+//        System.out.println(a[1]);
+//        System.out.println(a[2]);
+//        System.out.println(a[3]);
+        
+//        System.out.println(getBytes(3)[0]);
+//        System.out.println(getBytes(3)[1]);
+//        System.out.println(getBytes(3)[2]);
+//        System.out.println(getBytes(3)[3]);
+//        char cc = 254;
+//        byte[] cca ={0,0,0,0};
+//        cca[0]= getBytes(cc)[0];
+//        cca[1] = getBytes(cc)[1];
+// 
+//        System.out.println(getInt(cca));
         
         
         

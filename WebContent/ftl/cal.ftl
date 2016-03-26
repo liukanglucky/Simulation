@@ -58,8 +58,8 @@
             </td>
           </tr> 
         </table>
-        <script src="js/custom/defaultData.js"></script>
         <script src="js/custom/runAndshow.js"></script>
+        <script src="js/custom/defaultData.js"></script>
         <!-- 输入tab页面  begin-->
         <ul class="nav nav-tabs" id="myTab" style="font-size:12px;">
           <li><a href="#" onclick="tabgo1()" id="tab-1">舰艇声反射</a></li>

@@ -19,7 +19,7 @@ import com.platform.report.send.RecvNum;
  * @author liukang
  */  
 public class UdpServerSocket {  
-    private byte[] buffer = new byte[1024];  
+    private byte[] buffer = new byte[1200];  
       
     private DatagramSocket ds = null;  
   

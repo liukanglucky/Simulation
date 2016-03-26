@@ -260,6 +260,10 @@ public class ObjectToFile {
 						fields[i].set(obj, (char)map.get(key).charAt(0));
 					}
 					
+					if(type.equals("int")){
+						fields[i].set(obj, Integer.parseInt(map.get(key)));
+					}
+					
 					if(type.equals("float")){
 						fields[i].set(obj, Float.parseFloat(map.get(key)));
 					}

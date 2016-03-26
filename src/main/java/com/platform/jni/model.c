@@ -250,7 +250,7 @@ struct DATA8
  struct DATA8_3
  {
 	 unsigned char s1;
-	 unsigned char s2[3];
+	 unsigned char s2[2];
 	 int len;//水平不变声速剖面长度，当前为5
 	 float data[100][2];//声速剖面
  };
@@ -1560,7 +1560,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 	/*获取char开始 seacon*/
 	jfieldID seaconid = (*env)->GetFieldID(env,class,"seacon","C");
 	jchar seacon = (*env)->GetCharField(env,obj2,seaconid);
-	data7.seacon = seacon;
+	data7.seacon = seacon-'0';
 	/*获取char结束*/
 
 	/*获取float开始 wspeed*/
@@ -1583,13 +1583,13 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 
 	/*获取float开始 num1*/
 	jfieldID num1id = (*env)->GetFieldID(env,class,"num1","I");
-	jfloat num1 = (*env)->GetFloatField(env,obj2,num1id);
+	jint num1 = (*env)->GetIntField(env,obj2,num1id);
 	data7.num1 = num1;
 	/*获取float结束*/
 
 	/*获取float开始 len*/
 	jfieldID lenid = (*env)->GetFieldID(env,class,"len","F");
-	jchar jlen = (*env)->GetCharField(env,obj2,lenid);
+	jfloat jlen = (*env)->GetFloatField(env,obj2,lenid);
 	data7.len = jlen;
 	/*获取float结束*/
 
@@ -1621,16 +1621,18 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 
 	/*获取float开始 sspeed*/
 	jfieldID sspeedid = (*env)->GetFieldID(env,class,"sspeed","F");
-	jchar sspeed = (*env)->GetCharField(env,obj2,sspeedid);
+	jfloat sspeed = (*env)->GetFloatField(env,obj2,sspeedid);
 	data7.sspeed = sspeed;
 	/*获取float结束*/
 
 	/*获取float开始 fre*/
 	jfieldID freid = (*env)->GetFieldID(env,class,"fre","F");
-	jchar fre = (*env)->GetCharField(env,obj2,freid);
+	jfloat fre = (*env)->GetFloatField(env,obj2,freid);
 	data7.fre = fre;
 	/*获取float结束*/
-
+	
+	data7.s1 = 5;
+	printf("seacon %d\n", data7.seacon);
 	/**发送开始**/
 
 	struct sockaddr_in out;
@@ -1638,7 +1640,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 	memset(&out,0,sizeof(out));
 	out.sin_family = AF_INET;
 	out.sin_port  = htons(PORT);
-	out.sin_addr.s_addr = inet_addr(IP);
+	out.sin_addr.s_addr = inet_addr("192.168.220.16");
 
 
 	int s;
@@ -1723,25 +1725,25 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 
 	/*获取float开始 len1*/
 	jfieldID len1id = (*env)->GetFieldID(env,class,"len1","F");
-	jchar len1 = (*env)->GetCharField(env,obj2,len1id);
+	jfloat len1 = (*env)->GetFloatField(env,obj2,len1id);
 	data8.len1 = len1;
 	/*获取float结束*/
 
 	/*获取float开始 len2*/
 	jfieldID len2id = (*env)->GetFieldID(env,class,"len2","F");
-	jchar len2 = (*env)->GetCharField(env,obj2,len2id);
+	jfloat len2 = (*env)->GetFloatField(env,obj2,len2id);
 	data8.len2 = len2;
 	/*获取float结束*/
 
 	/*获取int开始 num2*/
 	jfieldID num2id = (*env)->GetFieldID(env,class,"num2","I");
-	jchar num2 = (*env)->GetCharField(env,obj2,num2id);
+	jint num2 = (*env)->GetIntField(env,obj2,num2id);
 	data8.num2 = num2;
 	/*获取int结束*/
 
 	/*获取float开始 len3*/
 	jfieldID len3id = (*env)->GetFieldID(env,class,"len3","F");
-	jchar len3 = (*env)->GetCharField(env,obj2,len3id);
+	jfloat len3 = (*env)->GetFloatField(env,obj2,len3id);
 	data8.len3 = len3;
 	/*获取float结束*/
 
@@ -1815,7 +1817,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 
 	/*获取int开始 num3*/
 	jfieldID num3id = (*env)->GetFieldID(env,class,"num3","I");
-	jchar num3 = (*env)->GetCharField(env,obj2,num3id);
+	jint num3 = (*env)->GetIntField(env,obj2,num3id);
 	data8.num3 = num3;
 	/*获取int结束*/
 
@@ -1825,15 +1827,32 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 	data8.type6 = type6-'0';
 	/*获取char结束*/
 
-	/**发送开始**/
 
+	//根据中心频率fre 和 标志位选择数据
+	if(fre > 3000)
+	{/*高频*/
+		data8.sead[0]=0;
+		data8.sead[1]=6;
+		data8.sead[2]=1;
+	}
+	else
+	{/*低频*/
+		data8.sead[0]=0;
+		data8.sead[1]=100;
+		data8.sead[2]=1;
+	}	
+
+
+	/**发送开始 报文1**/
+	data8.s1 = 1;
 	struct sockaddr_in out;
 
 	memset(&out,0,sizeof(out));
 	out.sin_family = AF_INET;
 	out.sin_port  = htons(PORT);
-	out.sin_addr.s_addr = inet_addr(IP);
+	out.sin_addr.s_addr = inet_addr("192.168.220.16");
 
+	printf("data8 len2 is %f\n", data8.len2);
 
 	int s;
 
@@ -1848,6 +1867,347 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model5A
 	if(flag == -1){
 	printf("socket wrong!\n");
 	}
+	close(s);
+
+	/**发送结束**/
+	printf("pack 1 end\n");
+	sleep(5);
+	struct DATA8_1 tt1;
+	struct DATA8_2 tt2;
+	struct DATA8_3 tt3;
+	tt1.s1=2;
+	tt1.len=1;
+	tt1.data[0]=0;
+	tt1.data[1]=90;
+	tt1.data[2]=0.8;
+	tt1.data[3]=0;
+	
+	/**发送开始 报文2**/
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr("192.168.220.16");
+
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+	printf("can not create socket\n");
+	}
+
+	flag = sendto(s,(char*)&tt1,sizeof(tt1),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+		printf("socket wrong!\n");
+	}
+	close(s);
+	printf("pack 2 end\n");
+	sleep(5);
+	/**发送结束**/
+
+	if(fre>3000)
+	{/*高频*/
+		/*tt2.data[0]=0;
+		tt2.data[1]=1836;
+		tt2.data[2]=2.034;
+		tt2.data[3]=0.47;
+		tt2.data[4]=10;
+		tt2.data[5]=1650;
+		tt2.data[6]=2.035;
+		tt2.data[7]=0;*/
+		tt2.data[0]=0;
+		tt2.data[1]=1836;
+		tt2.data[2]=2.034;
+		tt2.data[3]=0.47;
+		tt2.data[4]=10;
+		tt2.data[5]=1650;
+		tt2.data[6]=2.035;
+		tt2.data[7]=0;
+	}
+	else
+	{/*低频*/
+		tt2.data[0]=0;
+		tt2.data[1]=1650;
+		tt2.data[2]=2.034;
+		tt2.data[3]=0.0001;
+		tt2.data[4]=10;
+		tt2.data[5]=1650;
+		tt2.data[6]=2.034;
+		tt2.data[7]=0.5;
+		// tt2.data[0]=0;
+		// tt2.data[1]=1582;
+		// tt2.data[2]=1.575;
+		// tt2.data[3]=0.0001;
+		// tt2.data[4]=100;
+		// tt2.data[5]=1650;
+		// tt2.data[6]=2.034;
+		// tt2.data[7]=0.5;
+	}
+	
+	/**发送开始 报文3**/
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr("192.168.220.16");
+
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+	printf("can not create socket\n");
+	}
+
+	flag = sendto(s,(char*)&tt2,sizeof(tt2),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+		printf("socket wrong!\n");
+	}
+	close(s);
+	printf("pack 3 end\n");
+	sleep(5);
+
+	/**发送结束**/
+
+
+	tt3.s1=4;
+	tt3.len=5;
+	if(fre>3000)
+	{/*高频*/
+		/*	tt3.data[0][0]=0;
+		tt3.data[0][1]=1450;
+		tt3.data[1][0]=20;
+		tt3.data[1][1]=1450;
+		tt3.data[2][0]=30;
+		tt3.data[2][1]=1450;
+		tt3.data[3][0]=60;
+		tt3.data[3][1]=1450;
+		tt3.data[4][0]=100;
+		tt3.data[4][1]=1450;*/
+		tt3.data[0][0]=0;
+		tt3.data[0][1]=1521.276;
+		tt3.data[1][0]=0.102;	    
+		tt3.data[1][1]=1521.057;
+		tt3.data[2][0]=0.204;	    
+		tt3.data[2][1]=1520.498;
+		tt3.data[3][0]=0.301;	  
+		tt3.data[3][1]= 1520.307;
+		tt3.data[4][0]=0.409;	   
+		tt3.data[4][1]=1520.286;
+		tt3.data[5][0]=0.503;	 
+		tt3.data[5][1]=1520.224;
+		tt3.data[6][0]=0.601;	   
+		tt3.data[6][1]=1520.116;
+		tt3.data[7][0]=0.702;	   
+		tt3.data[7][1]=1520.015;
+		tt3.data[8][0]=0.81;	   
+		tt3.data[8][1]= 1519.779;
+		tt3.data[9][0]=0.904;	   
+		tt3.data[9][1]=1519.702;
+		tt3.data[10][0]=1;	         
+		tt3.data[10][1]=1519.514;
+		tt3.data[11][0]=1.1;	        
+		tt3.data[11][1]=1519.413;
+		tt3.data[12][0]=1.202;	
+		tt3.data[12][1]=1519.303;
+		tt3.data[13][0]=1.304;	
+		tt3.data[13][1]=1519.23;
+		tt3.data[14][0]=1.403;	
+		tt3.data[14][1]=1519.217;
+		tt3.data[15][0]=1.505;	
+		tt3.data[15][1]=1519.156;
+		tt3.data[16][0]=1.601;	
+		tt3.data[16][1]=1518.94;
+		tt3.data[17][0]=1.703;	
+		tt3.data[17][1]=1518.81;
+		tt3.data[18][0]=1.813;	
+		tt3.data[18][1]=1518.784;
+		tt3.data[19][0]=1.907;	
+		tt3.data[19][1]=1518.761;
+		tt3.data[20][0]=2.003;	
+		tt3.data[20][1]=1518.734;
+		tt3.data[21][0]=2.101;	
+		tt3.data[21][1]=1518.708;
+		tt3.data[22][0]=2.202;	
+		tt3.data[22][1]=1518.667;
+		tt3.data[23][0]=2.303;	
+		tt3.data[23][1]=1518.593;
+		tt3.data[24][0]=2.402;	 
+		tt3.data[24][1]=1518.541;
+		tt3.data[25][0]=2.505;	
+		tt3.data[25][1]=1518.542;
+		tt3.data[26][0]=2.614;	
+		tt3.data[26][1]=1518.49;
+		tt3.data[27][0]=2.706;	
+		tt3.data[27][1]=1518.486;
+		tt3.data[28][0]=2.805;	
+		tt3.data[28][1]=1518.46;
+		tt3.data[29][0]=2.906;	
+		tt3.data[29][1]=1518.457;
+		tt3.data[30][0]=3.001;	
+		tt3.data[30][1]=1518.457;
+		tt3.data[31][0]=3.109;	
+		tt3.data[31][1]=1518.452;
+		tt3.data[32][0]=3.211;	
+		tt3.data[32][1]=1518.442;
+		tt3.data[33][0]=3.309;	
+		tt3.data[33][1]=1518.378;
+		tt3.data[34][0]=3.407;	 
+		tt3.data[34][1]=1518.343;
+		tt3.data[35][0]=3.501;	
+		tt3.data[35][1]=1518.329;
+		tt3.data[36][0]=3.604;	
+		tt3.data[36][1]=1518.319;
+		tt3.data[37][0]=3.706;	
+		tt3.data[37][1]=1518.294;
+		tt3.data[38][0]=3.804;	
+		tt3.data[38][1]=1518.294;
+		tt3.data[39][0]=3.905;	
+		tt3.data[39][1]=1518.279;
+		tt3.data[40][0]=4.008;	
+		tt3.data[40][1]=1518.19;
+		tt3.data[41][0]=4.109;	
+		tt3.data[41][1]=1518.092;
+		tt3.data[42][0]=4.205;	
+		tt3.data[42][1]=1518.035;
+		tt3.data[43][0]=4.302;	 
+		tt3.data[43][1]=1517.986;
+		tt3.data[44][0]=4.41;	
+		tt3.data[44][1]=1517.857;
+		tt3.data[45][0]=4.511;	
+		tt3.data[45][1]=1517.591;
+		tt3.data[46][0]=4.602;	 
+		tt3.data[46][1]=1517.435;
+		tt3.data[47][0]=4.705;	
+		tt3.data[47][1]=1517.425;
+		tt3.data[48][0]=4.803;	 
+		tt3.data[48][1]=1517.424;
+		tt3.data[49][0]=4.911;	
+		tt3.data[49][1]=1517.405;
+		tt3.data[50][0]=5.007;	
+		tt3.data[50][1]=1517.408;
+		tt3.data[51][0]=4.965;	
+		tt3.data[51][1]=1517.425;
+		tt3.data[52][0]=4.891;	
+		tt3.data[52][1]=1517.454;
+		tt3.data[53][0]=5.025;	
+		tt3.data[53][1]=1517.406;
+		tt3.data[54][0]=5.067;	
+		tt3.data[54][1]=1517.404;
+		tt3.data[55][0]=5.105;	
+		tt3.data[55][1]=1517.4;
+		tt3.data[56][0]=5.202;	
+		tt3.data[56][1]=1517.406;
+		tt3.data[57][0]=5.309;	 
+		tt3.data[57][1]=1517.408;
+		tt3.data[58][0]=5.408;	
+		tt3.data[58][1]=1517.411;
+		tt3.data[59][0]=5.507;	
+		tt3.data[59][1]=1517.411;
+		tt3.data[60][0]=5.604;	
+		tt3.data[60][1]=1517.407 ;
+		tt3.data[61][0]=5.705;	
+		tt3.data[61][1]=1517.399;
+		tt3.data[62][0]=5.812;	
+		tt3.data[62][1]=1517.391;
+		tt3.data[63][0]=5.902;	
+		tt3.data[63][1]=1517.349;
+		tt3.data[64][0]=6.00; 	
+		tt3.data[64][1]=1517.284;
+
+	}
+	else
+	{/*低频*/
+		tt3.data[0][0]=0;
+		tt3.data[0][1]=1500;
+		tt3.data[1][0]=30;
+		tt3.data[1][1]=1500;
+		tt3.data[2][0]=50;
+		tt3.data[2][1]=1500;
+		tt3.data[3][0]=70;
+		tt3.data[3][1]=1500;
+		tt3.data[4][0]=100;
+		tt3.data[4][1]=1500;
+	 //    tt3.data[0][0]=0.0;
+		// tt3.data[0][1]=1530.0;
+		// tt3.data[1][0]=19.422;
+		// tt3.data[1][1]=1529.71;
+		// tt3.data[2][0]=81.80;
+		// tt3.data[2][1]=1523.49;
+		// tt3.data[3][0]=168.87;
+		// tt3.data[3][1]=1515.13;
+		// tt3.data[4][0]=264.66;
+		// tt3.data[4][1]=1510.41;
+		// tt3.data[5][0]=372.97;
+		// tt3.data[5][1]=1504.4;
+		// tt3.data[6][0]=445.39;
+		// tt3.data[6][1]=1500.1;
+		// tt3.data[7][0]=529.33;
+		// tt3.data[7][1]=1495.81;
+		// tt3.data[8][0]=661.50;
+		// tt3.data[8][1]=1488.73;
+		// tt3.data[9][0]=942.95;
+		// tt3.data[9][1]=1484.28;
+		// tt3.data[10][0]=1070.18;
+		// tt3.data[10][1]=1481.62;
+		// tt3.data[11][0]=1254.53;
+		// tt3.data[11][1]=1481.61;
+		// tt3.data[12][0]=1403.15;
+		// tt3.data[12][1]=1483.09;
+		// tt3.data[13][0]=1597.54;
+		// tt3.data[13][1]=1485.01;
+		// tt3.data[14][0]=1814.64;
+		// tt3.data[14][1]=1487.34;
+		// tt3.data[15][0]=2042.43;
+		// tt3.data[15][1]=1490.75;
+		// tt3.data[16][0]=2270.23;
+		// tt3.data[16][1]=1494.16;
+		// tt3.data[17][0]=2589.21;
+		// tt3.data[17][1]=1498.85;
+		// tt3.data[18][0]=2919.38;
+		// tt3.data[18][1]=1503.96;
+		// tt3.data[19][0]=3226.68;
+		// tt3.data[19][1]=1508.87;
+		// tt3.data[20][0]=3466.00;
+		// tt3.data[20][1]=1512.27;
+		// tt3.data[21][0]=3750.41;
+		// tt3.data[21][1]=1516.96;
+		// tt3.data[22][0]=4045.86;
+		// tt3.data[22][1]=1522.3;
+		// tt3.data[23][0]=4238.92;
+		// tt3.data[23][1]=1525.92;
+		// tt3.data[24][0]=4523.67;
+		// tt3.data[24][1]=1530.18;
+		// tt3.data[25][0]=4717.06;
+		// tt3.data[25][1]=1533.38;
+		// tt3.data[26][0]=4887.42;
+		// tt3.data[26][1]=1536.58;
+		// tt3.data[27][0]=4966.75;
+		// tt3.data[27][1]=1538.29;
+		// tt3.data[28][0]=5000.00;
+		// tt3.data[28][1]=1540.00;
+}
+	/**发送开始 报文3**/
+
+	memset(&out,0,sizeof(out));
+	out.sin_family = AF_INET;
+	out.sin_port  = htons(PORT);
+	out.sin_addr.s_addr = inet_addr("192.168.220.16");
+
+
+	len = sizeof(struct sockaddr_in);
+	s = socket(AF_INET,SOCK_DGRAM,0);
+
+	if(s == -1){
+	printf("can not create socket\n");
+	}
+
+	flag = sendto(s,(char*)&tt3,sizeof(tt3),0,(struct sockaddr *)&out,len);
+	if(flag == -1){
+		printf("socket wrong!\n");
+	}
+	printf("pack 4 end\n");
 	close(s);
 	/**发送结束**/
 }
