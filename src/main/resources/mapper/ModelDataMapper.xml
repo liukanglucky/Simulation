@@ -90,23 +90,10 @@
 	
 	<insert id="insertData3A" parameterType="modelData3A">
 		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it4,
-		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,
-		out1,out2,out3,out4)
-		values
-		(#{dataindex},#{date1},#{type1},#{mt},#{type2},3,#{time1},#{type1},#{type2},#{mt},
-		#{weight},#{depth},#{speed},
-		<foreach collection="fre1" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,#{cy1},#{zy1},#{lm1},#{num},#{ss},
-		<foreach collection="fre2" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
-		#{out1},#{out2},#{out3},#{out4})
-	</insert>
-	
-	<insert id="insertData4A" parameterType="modelData3A">
-		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it4,
-		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,
+		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
+		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
+		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
+		if74,if75,if76,if77,if78,if79,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},4,#{time1},#{type1},#{type2},#{mt},
@@ -117,6 +104,43 @@
 		<foreach collection="fre2" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
+		<foreach collection="xp1" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="xp2" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="de" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{outp1},#{outp2},#{outp3},
+		#{out1},#{out2},#{out3},#{out4})
+	</insert>
+	
+	<insert id="insertData4A" parameterType="modelData3A">
+		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it4,
+		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
+		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
+		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
+		if74,if75,if76,if77,if78,if79,
+		out1,out2,out3,out4)
+		values
+		(#{dataindex},#{date1},#{type1},#{mt},#{type2},4,#{time1},#{type1},#{type2},#{mt},
+		#{weight},#{depth},#{speed},
+		<foreach collection="fre1" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{cy1},#{zy1},#{lm1},#{num},#{ss},
+		<foreach collection="fre2" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
+		<foreach collection="xp1" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="xp2" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="de" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -125,6 +149,7 @@
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
 		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,
+		if77,if78,if79,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},3,#{time1},#{type1},#{type2},#{mt},
@@ -140,7 +165,7 @@
 		</foreach>,
 		<foreach collection="de" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -149,6 +174,7 @@
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
 		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,
+		if77,if78,if79,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},4,#{time1},#{type1},#{type2},#{mt},
@@ -164,7 +190,7 @@
 		</foreach>,
 		<foreach collection="de" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -172,20 +198,32 @@
 		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it4,
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
 		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
-		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,
+		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
+		if74,if75,if76,if77,if78,if79,if80,if81,if82,if83,if84,if85,if86,if87,if88,if89,if90,if91,if92,if93,if94,if95,if96,if97,
+		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,if113,if114,if115,if116,if117,if118,
+		if119,if120,if121,if122,if123,if124,if125,if126,if127,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},5,#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,#{cy1},#{zy1},#{lm1},#{num},#{ss},
+		</foreach>,#{cy1},#{zy1},
+		<foreach collection="rela" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{lm1},#{num},#{ss},
 		<foreach collection="fre2" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
-		<foreach collection="rela" item="item" separator="," >
+		<foreach collection="xp1" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,
+		<foreach collection="xp2" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="de" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -193,20 +231,32 @@
 		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it4,
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
 		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
-		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,
+		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
+		if74,if75,if76,if77,if78,if79,if80,if81,if82,if83,if84,if85,if86,if87,if88,if89,if90,if91,if92,if93,if94,if95,if96,if97,
+		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,if113,if114,if115,if116,if117,if118,
+		if119,if120,if121,if122,if123,if124,if125,if126,if127,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},6,#{time},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,#{cy1},#{zy1},#{lm1},#{num},#{ss},
+		</foreach>,#{cy1},#{zy1},
+		<foreach collection="rela" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{lm1},#{num},#{ss},
 		<foreach collection="fre2" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,#{time1},#{time2},#{zy2},#{lm2},
-		<foreach collection="rela" item="item" separator="," >
+		<foreach collection="xp1" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,
+		<foreach collection="xp2" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,
+		<foreach collection="de" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -217,14 +267,17 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
 		if74,if75,if76,if77,if78,if79,if80,if81,if82,if83,if84,if85,if86,if87,if88,if89,if90,if91,if92,if93,if94,if95,if96,if97,
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,
-		if113,if114,if115,if116,if117,if118,if119,if120,
+		if113,if114,if115,if116,if117,if118,if119,if120,if125,if126,if127,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},5,#{time1},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,#{cy1},#{zy1},#{lm1},#{num1},#{ss},#{fre2},#{num2},
+		</foreach>,#{cy1},#{zy1},
+		<foreach collection="rela" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{lm1},#{num1},#{ss},#{fre2},#{num2},
 		<foreach collection="xp1" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,
@@ -233,10 +286,7 @@
 		</foreach>,
 		<foreach collection="de" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,
-		<foreach collection="rela" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
@@ -247,14 +297,17 @@
 		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,if67,if68,if69,if70,if71,if72,if73,
 		if74,if75,if76,if77,if78,if79,if80,if81,if82,if83,if84,if85,if86,if87,if88,if89,if90,if91,if92,if93,if94,if95,if96,if97,
 		if98,if99,if100,if101,if102,if103,if104,if105,if106,if107,if108,if109,if110,if111,if112,
-		if113,if114,if115,if116,if117,if118,if119,if120,
+		if113,if114,if115,if116,if117,if118,if119,if120,if125,if126,if127,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{type2},6,#{time1},#{type1},#{type2},#{mt},
 		#{weight},#{depth},#{speed},
 		<foreach collection="fre1" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,#{cy1},#{zy1},#{lm1},#{num1},#{ss},#{fre2},#{num2},
+		</foreach>,#{cy1},#{zy1},
+		<foreach collection="rela" item="item" separator="," >
+			#{item,jdbcType=REAL}
+		</foreach>,#{lm1},#{num1},#{ss},#{fre2},#{num2},
 		<foreach collection="xp1" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,
@@ -263,47 +316,35 @@
 		</foreach>,
 		<foreach collection="de" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,
-		<foreach collection="rela" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,
+		</foreach>,#{outp1},#{outp2},#{outp3},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
 	<insert id="insertData7" parameterType="modelData7">
 		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,
-		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if20,if21,if22,if23,if24,if25,
-		if26,if27,if28,if29,if30,if31,if32,if33,if34,if35,if36,if37,if38,if39,if40,if41,if42,if43,if44,if45,if46,if47,if48,if49,
-		if50,if51,if52,if53,if54,if55,if56,if57,if58,if59,if60,if61,if62,if63,if64,if65,if66,
+		it1,it2,it3,
+		if1,if2,if3,if4,if5,if21,if22,
 		out1,out2,out3,out4)
 		values
 		(#{dataindex},#{date1},#{type1},#{mt},#{sim},7,#{time1},
-		#{wspeed},#{fspeed},#{rain},#{num1},#{len},
-		<foreach collection="speed1" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,
-		<foreach collection="speed2" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,#{sspeed},
+		#{seacon},#{num1},#{sspeed},
+		#{wspeed},#{fspeed},#{rain},#{num1},#{len},#{up},#{down},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
 	<insert id="insertData8" parameterType="modelData8">
-		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it3,it4,it5,
-		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,
+		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it3,it4,it5,it6
+		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if21,if22,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},#{type1},#{mt},#{sim},8,#{time1},#{type1},#{type3},#{type4},#{type5},#{type2},
-		#{fre},#{wspeed},
-		<foreach collection="sead" item="item" separator="," >
-			#{item,jdbcType=REAL}
-		</foreach>,#{ss1},#{ss2},#{len1},#{len2},#{num2},#{len3},
+		(#{dataindex},#{date1},#{dt},#{mt},#{sim},8,#{time1},#{type1},#{type3},#{type4},#{type5},#{type6},#{dt},
+		#{fre},#{wspeed},#{ss1},#{ss2},#{len1},#{len2},#{len3},
 		<foreach collection="cord" item="item" separator="," >
 			#{item,jdbcType=REAL}
 		</foreach>,#{ss3},#{sn},#{dep},
 		<foreach collection="frew" item="item" separator="," >
 			#{item,jdbcType=REAL}
-		</foreach>,
+		</foreach>,#{wspeed},#{num1},#{num2},#{type2},#{num3},#{up},#{down},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	

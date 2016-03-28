@@ -179,13 +179,158 @@
   			dataType:"json",
   			success:function(json){
   				var  data = eval(json);
-				var input = "吨位："+data.if1+"，吃水："+data.if2+" ，航速："+data.if3+"，输出频率："+data.if4+"-"+data.if5+"，采样率："+data.if6+" ，增益："+data.if7+"<br>\
-		        灵敏度："+data.if8+"，阵元："+data.if9+"，总声级："+data.if10+" ,轴频："+data.if11+"，螺旋桨数："+data.if12+"\
-		        ";
-		        var output = "调制谱轴频频率：1.00，频带内总声级：168.00，螺旋桨叶片数：0.00";
-		
-		        $("#input").html(input);
-		        $("#output").html(output);
+  				
+ 				switch(data.stype){
+ 				case 0:
+ 					var input= "类型为:0";
+ 					var output= "类型为:0";
+ 					break;
+ 				case 1:
+ 					var input="航速："+data.if1+"，航向："+data.if2+"，中心频率："+data.if3+"，带宽："+data.if4+"，脉宽："+data.if5+"，目标距离："+data.if6+"，<br>"+
+ 					"俯仰角："+data.if7+"，水平角："+data.if8+"，周期时间窗口："+data.if9+"，采样频率："+data.if10+"，发射声源级："+data.if11+"，发射波束开角："+data.if12+"<br>"+
+ 					"接收发射波束开角："+data.if13+"，包络："+data.it2+"，信号形式："+data.it3;
+ 					<#--if(data.mt==2){
+ 						var output ="线谱频率："+data.if+...+"<br>线谱强度："+data.if+...+"<br>调制深度："+data.if+...;
+ 					}else{
+ 						var output = "调制谱轴频频率："+data.outp1+"，频带内总声级："+data.outp1+"，螺旋桨叶片数："+data.outp1;
+ 					}-->
+ 						var output = "";
+ 					break;
+ 				case 2:
+ 					var input="纵波声速："+data.if1+"，横波声速："+data.if2+"，介质密度："+data.if3+"，纵波衰减："+data.if4+"，横波衰减："+data.if5+"，平均散射："+data.if6+"，<br>"+
+ 					"谱强度："+data.if7+"，谱系数："+data.if8+"，风速：("+data.if9+","+data.if10+","+data.if11+")，海流速度：("+data.if12+","+data.if13+","+data.if14+")，海深："+data.if15+"，<br>"+
+ 					"声速："+data.if16+"，衰减系数："+data.if17+"，海面谱系数："+data.if18+"，谱系数："+data.if19+"，平均散射："+data.if20+"，发射水平角："+data.if21+"，<br>"+
+ 					"垂直角："+data.if23+"，方位角："+data.if146+"，俯仰角："+data.if148+"，声源级："+data.if25+"，位置：("+data.if26+"，"+data.if27+","+data.if28+")速度：("+data.if29+","+data.if30+","+data.if31+")，<br>"+
+ 					"阵元："+data.if32+"，灵敏度："+data.if33+"，采样率："+data.if34+"，中心频率："+data.if35+"，带宽："+data.if36+"，脉宽："+data.if37;
+ 					var output ="";
+ 					break;
+ 				case 3:
+ 				case 4:
+ 					 var input ="吨位："+data.if1+"，吃水："+data.if2+" ，航速："+data.if3+"，输出频率："+data.if4+"-"+data.if5+"，采样率："+data.if6+" ，增益："+data.if7+"<br>";
+ 					 if(data.mt==2){
+ 					 	input +="灵敏度："+data.if8+"，阵元："+data.if9+"，模拟采样率："+data.if10+" ,带通：("+data.if11+","+data.if12+")，起始时刻："+data.if13+"，总长度："+data.if14+"<br>";
+ 					 	input +="模拟增益："+data.if15+"，"+"模拟灵敏度："+data.if16;
+ 					 	var output ="线谱频率：("+data.if17+","+data.if18+","+data.if19+","+data.if20+","+data.if21+","+data.if22+","+data.if23+","+data.if24+","+data.if25+","+data.if26+")<br>"+
+ 					 	"线谱强度：("+data.if37+","+data.if38+","+data.if39+","+data.if40+","+data.if41+","+data.if42+","+data.if43+","+data.if44+","+data.if45+","+data.if46+")<br>"+
+ 					 	"调制深度：("+data.if57+","+data.if58+","+data.if59+","+data.if60+","+data.if61+","+data.if62+","+data.if63+","+data.if64+","+data.if65+","+data.if66+")";
+ 					 	output +="调制谱轴频频率："+data.if77+"，频带内总声级："+data.if78+"，螺旋桨叶片数："+data.if79;
+ 					 }else{
+ 					 	input +="灵敏度："+data.if8+"，阵元："+data.if9+"，对应谱级："+data.if10+" ,轴频："+data.if11+"，螺旋桨数："+data.if12+"，总长度："+data.if13+"<br>";
+ 					 	<#--input +="模拟增益：，"+"模拟灵敏度：";-->
+ 					 	var output = "调制谱轴频频率："+data.if77+"，频带内总声级："+data.if78+"，螺旋桨叶片数："+data.if79;
+ 					 }
+ 					break;
+ 				case 5:
+ 				case 6:
+ 					 var input ="吨位："+data.if1+"，吃水："+data.if2+" ，航速："+data.if3+"，输出频率："+data.if4+"-"+data.if5+"，采样率："+data.if6+" ，增益："+data.if7+"<br>";
+ 					 if(data.mt==2){
+ 					 	input +="灵敏度："+data.if8+"，阵元："+data.if9+"，对应谱级："+data.if10+" ,轴频："+data.if11+"，螺旋桨数："+data.if12+"，总长度："+data.if13+"<br>";
+ 					 	input +="模拟增益："+data.if63+"，"+"模拟灵敏度："+data.if64;
+ 					 }else{
+ 					 	input +="灵敏度："+data.if8+"，阵元："+data.if9+"，模拟采样率："+data.if10+" ,带通："+data.if11+"，起始时刻："+data.if12+"，总长度："+data.if13+"<br>";
+ 					 	<#--input +="模拟增益：，"+"模拟灵敏度：";-->
+ 					 }
+		        	 var output = "调制谱轴频频率："+data.if125+"，频带内总声级："+data.if126+"，螺旋桨叶片数："+data.if127;
+ 					break;
+ 				case 7:
+ 					var input ="海面风速："+data.if1+"，"+"海流速度："+data.if2+"，"+"降雨量："+data.if3+"，"+"长度："+data.if4+"，"+"中心频率："+data.if5+"<br>";
+ 					input+="海况："+data.it1+"，"+"每平方米舰船数："+data.it2+"，"+"螺旋桨末端转速："+data.it3<#--+"，"+"模型类型："+data.it4-->;
+ 					var  output = "";
+ 					break;
+ 				case 8:
+ 					var input ="海底地貌：";
+ 					switch(data.it1){
+ 						case 1:
+ 							input +="平底";
+ 							break;
+ 						case 2:
+ 							input +="斜坡";
+ 							break;
+ 						case 3:
+ 							input +="海沟";
+ 							break;
+ 						case 4:
+ 							input +="海山";
+ 							break;
+ 						case 5:
+ 							input +="其他";
+ 							break;
+ 					}
+ 					input +="，发射阵信息：";
+ 					switch(data.it2){
+ 						case 1:
+ 							input +="单元发射";
+ 							break;
+ 						case 2:
+ 							input +="线列阵";
+ 							break;
+ 						case 3:
+ 							input +="面阵";
+ 							break;
+ 						case 5:
+ 							input +="其他";
+ 							break;
+ 					}
+ 					input +="，发射信号形式：";
+ 					switch(data.it3){
+ 						case 1:
+ 							input +="宽带噪声";
+ 							break;
+ 						case 2:
+ 							input +="CW";
+ 							break;
+ 						case 5:
+ 							input +="其他";
+ 							break;
+ 					}
+ 					input +="，接收阵信息：";
+ 					switch(data.it4){
+ 						case 1:
+ 							input +="单元发射";
+ 							break;
+ 						case 2:
+ 							input +="线列阵";
+ 							break;
+ 						case 3:
+ 							input +="面阵";
+ 							break;
+ 						case 5:
+ 							input +="其他";
+ 							break;
+ 					}
+ 					input +="，海底地质类型：";
+ 					switch(data.it5){
+ 						case 1:
+ 							input +="粘土";
+ 							break;
+ 						case 2:
+ 							input +="粉砂";
+ 							break;
+ 						case 3:
+ 							input +="沙石";
+ 							break;
+ 						case 4:
+ 							input +="砾石";
+ 							break;
+ 						case 5:
+ 							input +="白垩";
+ 							break;
+ 						case 6:
+ 							input +="石灰石";
+ 							break;
+ 						case 7:
+ 							input +="玄武岩";
+ 							break;
+ 					}
+ 					input +="，海深个数："+data.if16+"，"+"射线数量："+data.if17+"<br>";
+ 					input +="中心频率："+data.if1+"，"+"海流速度："+data.if2+"，"+"海面反射系数："+data.if3+"，"+"海底衰减系数："+data.if4+"，"+"输出距离步长："+data.if5+"，"+"收发间距："+data.if7+"<br>";
+ 					input +="发射指向性："+data.if10+"，"+"发射声源级："+data.if11+"，"+"接收深度："+data.if12+"，"+"工作频段："+data.if13+"-"+data.if14+"，"+"海面风速："+data.if15;
+ 					var  output = "噪声信号频率上限："+data.if21+"，"+"噪声信号频率下限："+data.if22;
+ 					break;
+ 				default:
+ 					var input ="参数错误！";
+ 					var  output = "参数错误";
+ 				} 
         		var out1=new Array();
         		var out2=new Array();
         		var out3=new Array();
@@ -200,7 +345,7 @@
         			line1[i]=out1.substr(i,3);
         			i+=3;
         		}
-        		for(i=0;i<(out2.length)/3;)
+        		<#--for(i=0;i<(out2.length)/3;)
         		{
         			line2[i]=out2.substr(i,3);
         			i+=3;
@@ -209,9 +354,9 @@
         		{
         			line3[i]=out3.substr(i,3);
         			i+=3;
-        		}
+        		}-->
         		alert("显示数据id为"+data.dataindex+"曲线");
-        		showData(line1,line2,line3,output);
+        		showData(line1,line2,line3,input,output);
 	            },
   			error : function() {  
 	              alert("异常！");

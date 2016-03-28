@@ -233,6 +233,26 @@ public class DATA5B implements Serializable{
 	public void setDataindex(int dataindex) {
 		this.dataindex = dataindex;
 	}
-	
+	float outp1;//调制谱轴频频率
+	float outp2;//频带内总声级
+	char outp3;//螺旋桨叶片数
+	public float getOutp1() {
+		return outp1;
+	}
+	public void setOutp1(float outp1) {
+		this.outp1 = outp1;
+	}
+	public float getOutp2() {
+		return outp2;
+	}
+	public void setOutp2(float outp2) {
+		this.outp2 = outp2;
+	}
+	public char getOutp3() {
+		return outp3;
+	}
+	public void setOutp3(char outp3) {
+		this.outp3 = outp3;
+	}
 	
 }

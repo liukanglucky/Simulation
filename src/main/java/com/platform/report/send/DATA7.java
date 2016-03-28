@@ -181,5 +181,19 @@ public class DATA7 implements Serializable{
 	public void setDataindex(int dataindex) {
 		this.dataindex = dataindex;
 	}
+	private float up; //噪声信号上限
+	private float down;//噪声信号下限
+	public float getUp() {
+		return up;
+	}
+	public void setUp(float up) {
+		this.up = up;
+	}
+	public float getDown() {
+		return down;
+	}
+	public void setDown(float down) {
+		this.down = down;
+	}
 	
 }

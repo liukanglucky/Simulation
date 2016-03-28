@@ -34,6 +34,29 @@ public class DATA5A implements Serializable{
 	private char type2;//目标类型1:001；2:054A；3:039；4：Y7A;5：Y10
 	private char len;  //文件名长度
 	private char[] file = new char[255];//文件名
+	
+	private float[] xp1 = new float[20];      //线谱频率20
+	private float[] xp2 = new float[20];      //线谱强度20
+	private float[] de = new float[20];       //调制深度20
+	
+	public float[] getXp1() {
+		return xp1;
+	}
+	public void setXp1(float[] xp1) {
+		this.xp1 = xp1;
+	}
+	public float[] getXp2() {
+		return xp2;
+	}
+	public void setXp2(float[] xp2) {
+		this.xp2 = xp2;
+	}
+	public float[] getDe() {
+		return de;
+	}
+	public void setDe(float[] de) {
+		this.de = de;
+	}
 	public char getS1() {
 		return s1;
 	}
@@ -245,5 +268,25 @@ public class DATA5A implements Serializable{
 	public void setDataindex(int dataindex) {
 		this.dataindex = dataindex;
 	}
-	
+	float outp1;//调制谱轴频频率
+	float outp2;//频带内总声级
+	char outp3;//螺旋桨叶片数
+	public float getOutp1() {
+		return outp1;
+	}
+	public void setOutp1(float outp1) {
+		this.outp1 = outp1;
+	}
+	public float getOutp2() {
+		return outp2;
+	}
+	public void setOutp2(float outp2) {
+		this.outp2 = outp2;
+	}
+	public char getOutp3() {
+		return outp3;
+	}
+	public void setOutp3(char outp3) {
+		this.outp3 = outp3;
+	}
 }
