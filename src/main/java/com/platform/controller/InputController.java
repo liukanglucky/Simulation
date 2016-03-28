@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import com.platform.report.send.DATA2;
 import com.platform.report.send.DATA3A;
 import com.platform.report.send.DATAFactory;
 import com.platform.report.send.RecvNum;
+import com.platform.service.InputService;
 import com.platform.service.impl.ModelDataServiceImpl;
 import com.platform.util.FileUtil;
 import com.platform.util.ObjectToFile;
@@ -35,6 +37,9 @@ import com.platform.util.ObjectToFile;
 public class InputController extends BaseJsonAction{
 	@Autowired
 	ModelDataServiceImpl mdsi = new ModelDataServiceImpl();
+	
+	@Autowired
+	InputService inputService = new InputService();
 	
 	ObjectToFile otf = new ObjectToFile();
 	
@@ -114,46 +119,12 @@ public class InputController extends BaseJsonAction{
 		input = DATAFactory.getData(dataNum);
 		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
 		System.out.println("=============="+path);
-		if(!dataNum.equals("2")){
-			input = otf.mapToObject(otf.stringToMap(str), input);
-			otf.objectSerialize(input, path);
-			System.out.println("=============================save Data success!");
-			
-		}else{
-//			input = DATAFactory.getData(dataNum);
-//			path = request.getSession().getServletContext().getRealPath("data/data"+dataNum+".txt");
-			Map<String,String> data2Map = otf.stringToMap(str);
-			input = otf.mapToObject(data2Map, input);
-			//二维数组
-			if(data2Map.containsKey("slocx")){
-				float[][] slocx = new float[36][3];
-				String[] slocx_value = data2Map.get("slocx").split(",");
-				if(slocx_value.length == 108){
-					//System.out.println("===============");
-					for(int si = 0;si<36;si++){
-						for(int sj = 0;sj<3;sj++){
-							//System.out.println("========"+slocx_value[3*si+sj]);
-							slocx[si][sj]=Float.parseFloat(slocx_value[3*si+sj]);
-						}
-					}
-					//利用反射赋值
-					Class c = input.getClass();
-					try {
-						Field f = c.getDeclaredField("slocx");
-						f.setAccessible(true);
-						f.set(input, slocx);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-			}
-			
-			otf.objectSerialize(input,path);
-		}
 		
+		input = inputService.reutrnObject(dataNum, str);
 		
+		otf.objectSerialize(input,path);
+		
+		//插入数据库
 		try {
 			int maxid = mdsi.findMaxId();
 			System.out.println("========maxid is "+maxid );
@@ -199,44 +170,13 @@ public class InputController extends BaseJsonAction{
 			
 			this.outPut();
 		}
-		
-		//int num = Integer.parseInt(dataNum);
-		
+				
 		Object input = null;
 		
 		input = DATAFactory.getData(dataNum);
 		
-		if(!dataNum.equals("2")){
-			otf.mapToObject(otf.stringToMap(str), input);
-		}else{
-			Map<String,String> data2Map = otf.stringToMap(str);
-			input = otf.mapToObject(data2Map, input);
-			//二维数组
-			if(data2Map.containsKey("slocx")){
-				float[][] slocx = new float[36][3];
-				String[] slocx_value = data2Map.get("slocx").split(",");
-				if(slocx_value.length == 108){
-					for(int si = 0;si<36;si++){
-						for(int sj = 0;sj<3;sj++){
-							slocx[si][sj]=Float.parseFloat(slocx_value[3*si+sj]);
-						}
-					}
-					//利用反射赋值
-					Class c = input.getClass();
-					try {
-						Field f = c.getDeclaredField("slocx");
-						f.setAccessible(true);
-						f.set(input, slocx);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-			}
-			
-			//otf.objectSerialize(input,path);
-		}
+		input = inputService.reutrnObject(dataNum, str);
+		
 		//发送数据
 		NativeFactory.getNativeMethod(dataNum, input);
 		//等待执行成功信号
@@ -276,9 +216,9 @@ public class InputController extends BaseJsonAction{
 			//解析byte数组
 			List<String> r = ConvertFactory.convert(dataNum, result);
 			
-			for (int i = 0; i < r.size(); i++) {
-				System.out.println("Result is ============="+r.get(i));
-			}
+//			for (int i = 0; i < r.size(); i++) {
+//				System.out.println("Result is ============="+r.get(i));
+//			}
 			
 			this.setData(r);
 			//this.setData("执行成功");
@@ -292,6 +232,27 @@ public class InputController extends BaseJsonAction{
 		}
 		this.outPut();
 	}
+	
+	
+	/**
+	 * 调用仿真模型时返回形成的实体类
+	 * @param request
+	 */
+	@RequestMapping("getObjct")
+	public void getObject(HttpServletRequest request){
+		String str = request.getParameter("data");
+		String dataNum = (String) request.getParameter("id");
+
+		Object input = null;
+		input = inputService.reutrnObject(dataNum, str);
+		
+//		JSONObject json = JSONObject.fromObject(input);
+//		
+//		System.out.println(json.toString());
+		this.setData(input);
+		this.outPut();
+	}
+	
 	
 	public static void main(String[] args) throws SecurityException, ClassNotFoundException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 		ObjectToFile otf = new ObjectToFile();

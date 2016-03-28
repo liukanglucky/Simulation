@@ -270,6 +270,8 @@ function run(id, dataid){
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 	}
 	
+	
+	
 	//alert(result);
 	$('#myModal').modal("show");
 	$("#input").html("");
@@ -277,6 +279,9 @@ function run(id, dataid){
 	$("#main").html("");
 	$("#main2").html("");
 	$("#main3").html("");
+	
+	
+
 	
 	$.ajax({
 		url : "input/run.do",
@@ -309,6 +314,7 @@ function run(id, dataid){
 					}
 					showData(line1,line2,line3,"","");
 					initResult(line1,line2,line3,"");
+					returnObject(result,dataid);
 					return;
 				}
 				//model3-6 三条曲线 加输出参数
@@ -322,6 +328,7 @@ function run(id, dataid){
 						if(temp[0] == 4) 	text = temp[1];
 					}
 					showData(line1,line2,line3,text,"");
+					returnObject(result,dataid);
 					return;
 				}
 				//model7
@@ -338,6 +345,7 @@ function run(id, dataid){
 						}	
 					}
 					showData(line1,line2,line3,text,"");
+					returnObject(result,dataid);
 					return;
 				}
 				//model8
@@ -352,6 +360,7 @@ function run(id, dataid){
 						
 					}
 					showData(line1,line2,line3,text,"");
+					returnObject(result,dataid);
 					return;
 				}
 				
@@ -364,6 +373,33 @@ function run(id, dataid){
 			alert("调用仿真模型失败");
 		}
 	});
+}
+
+//返回实体类并显示
+function returnObject(result,dataid){
+	//获得当前的实体类
+	$.ajax({
+		url : "input/getObjct.do",
+		type : "post",
+		dataType : "text",
+		data : {
+			"data" : result,
+			"id" : dataid,
+		},
+		success : function(data1) {
+			//str转jsonObject
+			var obj = JSON.parse(data1);
+			//显示在页面
+			alert(Object.prototype.toString.call(obj));
+			alert(obj.ang);
+		},
+		
+		error : function(){
+			alert("获取实体类失败");
+		}
+		
+	});
+	//获得当前的实体类结束
 }
 
 //结构化返回值

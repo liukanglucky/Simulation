@@ -42,7 +42,7 @@ function defaultVal(id, data) {
 		
 		if(key=="file2"){
 			$("#file2").val(""+data[key].replace(/,/g,'')+"");
-			alert(""+data[key].replace(/,/g,'')+"");
+			//alert(""+data[key].replace(/,/g,'')+"");
 			continue;
 		}
 		var dom = $("#" + id + " input[name='" + key + "']");
