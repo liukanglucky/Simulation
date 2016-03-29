@@ -1,4 +1,5 @@
 //返回结果全局变量
+//格式为001002003...
 out1 = "";
 out2 = "";
 out3 = "";
@@ -6,10 +7,15 @@ para = "";
 /**
  *  show data
  */
-function showData(data1,data2,data3,text,text2) {
+function showData(data1,data2,data3,text,text2,dataid) {
 	var input = text2;
 	var output = text;
 	$("#input").html(input);
+
+	if(dataid == "3A" || dataid == "3B" || dataid == "5A"|| dataid == "5B"){
+		output = model3output(text);
+	}
+	
 	$("#output").html(output);
 
 	$(".chart").css("display", "");
@@ -312,8 +318,8 @@ function run(id, dataid){
 						if(temp[0] == 2)	line2 = temp[1].split("_");
 						if(temp[0] == 3)	line3 = temp[1].split("_");
 					}
-					showData(line1,line2,line3,"","");
 					initResult(line1,line2,line3,"");
+					showData(line1,line2,line3,"","",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -327,7 +333,8 @@ function run(id, dataid){
 						if(temp[0] == 3)	line3 = temp[1].split("_");
 						if(temp[0] == 4) 	text = temp[1];
 					}
-					showData(line1,line2,line3,text,"");
+					initResult(line1,line2,line3,"");
+					showData(line1,line2,line3,text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -344,7 +351,7 @@ function run(id, dataid){
 							line1 = temp2[1].split("_");
 						}	
 					}
-					showData(line1,line2,line3,text,"");
+					showData(line1,line2,line3,text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -359,7 +366,7 @@ function run(id, dataid){
 						line1 = temp2[1].split("_");
 						
 					}
-					showData(line1,line2,line3,text,"");
+					showData(line1,line2,line3,text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -435,4 +442,32 @@ function initResult(line1,line2,line3,para){
 			out3 = out3+line3[i];
 	}
 	para = $("#output").html();
+}
+
+//显示模型3——6输出参数
+function model3output(text){
+	var result = "";
+	var textArray = text.split("_");
+	var i = 0;
+	if(textArray.length != 64) return;
+	result = "线谱频率：";
+	for(i = 0;i<20;i++){
+		if((i+1)%10 == 0)	result += "<br>";
+		result+=textArray[i]+",";
+	}
+	result += "<br>线谱强度：";
+	for(i = 20;i<40;i++){
+		if((i+1)%10 == 0)	result += "<br>";
+		result+=textArray[i]+",";
+	}
+	result += "<br>调制深度：";
+	for(i = 40;i<60;i++){
+		if((i+1)%10 == 0)	result += "<br>";
+		result+=textArray[i]+",";
+	}
+	result += "<br>调制谱轴频频率:"+textArray[60]+",频带内总声级:"+textArray[61]+",螺旋桨叶片数:"+textArray[62]+",仿真类型:";
+	
+	if(textArray[63] == "1") result+="模拟仿真";
+	if(textArray[63] == "2") result+="分析数据";
+	return result;
 }
