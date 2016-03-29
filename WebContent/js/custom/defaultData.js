@@ -92,65 +92,7 @@ function defaultVal(id, data) {
 	//$("#form-tab2 input[name='speed1']")[0].val('1');	
 }
 
-//自动获得页面元素数值，形成map,保存输入数据
-function autoGetVal(id, dataid, fileid) {
-	var dom = $("#" + id + " input:text");
 
-	var result = "";
-	var simType = $("#simType").val();
-	//模拟仿真s1 = 2 type1 = 1 页面 ＝ 1;分析数据 s1 = 1 type1 = 2 页面 ＝ 0
-	if(simType == "1" && dataid != "8"){
-		result += "type1:1,s1:2,";
-	}
-	if(simType == "0"&& dataid != "8"){
-		result += "type1:2,s1:1,";
-	}
-	
-	//model1 有 file1 和 file2
-	if(dataid == "1"){
-		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
-		var file2 = $.trim($("#file2").val().replace(/,/g,''));
-		result = result + "file1:"+file1+",";
-		result = result + "len1:"+len(file1)+",";
-		result = result + "file2:"+file2+",";
-		result = result + "len2:"+len(file2)+",";
-		
-	}else{
-		var file = $.trim($("#file").val().replace(/,/g,''));
-		result+="file:"+file+",";
-		result+="len:"+len(file)+",";
-	}
-	
-	for (var i = 0; i < dom.size(); i++) {
-		if($(dom[i]).attr("name") != "file2")
-			result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
-	}
-
-	dom = $("#" + id + " select");
-
-	for (var i = 0; i < dom.size(); i++) {
-		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
-		//alert($(dom[i]).val());
-	}
-	
-	$.ajax({
-		url : "input/saveData.do",
-		type : "post",
-		dataType : "text",
-		data : {
-			"data" : result,
-			"id" : dataid,
-			"fileid" : fileid
-		},
-		success : function(data) {
-			alert(data);
-		},
-		error : function(err) {
-			alert("保存失败");
-		}
-	});
-
-}
 
 //更改仿真类型
 function changeType() {

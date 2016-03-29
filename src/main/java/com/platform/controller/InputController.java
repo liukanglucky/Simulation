@@ -124,6 +124,113 @@ public class InputController extends BaseJsonAction{
 		
 		otf.objectSerialize(input,path);
 		
+		String out1 = (String) request.getParameter("output1");
+		String out2 = (String) request.getParameter("output2");
+		String out3 = (String) request.getParameter("output3");
+		String out4 = (String) request.getParameter("output4");
+		String para = (String) request.getParameter("para");
+		Class c = input.getClass();
+		
+		//填写其他参数
+		if(dataNum.equals("1") ||dataNum.equals("1B")|| dataNum.equals("2")){
+			//利用反射赋值
+			try {
+				Field f = c.getDeclaredField("out1");
+				f.setAccessible(true);
+				f.set(input, out1);
+				
+				f = c.getDeclaredField("out2");
+				f.setAccessible(true);
+				f.set(input, out2);
+				
+				f = c.getDeclaredField("out3");
+				f.setAccessible(true);
+				f.set(input, out3);
+				
+				f = c.getDeclaredField("out4");
+				f.setAccessible(true);
+				f.set(input, out4);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		//填写其他参数
+		if(dataNum.equals("3A") || dataNum.equals("3B") || dataNum.equals("5A") || dataNum.equals("5B")){
+			//利用反射赋值
+			try {
+				Field f = c.getDeclaredField("out1");
+				f.setAccessible(true);
+				f.set(input, out1);
+				
+				f = c.getDeclaredField("out2");
+				f.setAccessible(true);
+				f.set(input, out2);
+				
+				f = c.getDeclaredField("out3");
+				f.setAccessible(true);
+				f.set(input, out3);
+				
+				String[] paraStringArray = para.split("_");
+				if(paraStringArray.length == 64){
+					float[] temp  = new float[20];
+					for(int i = 0;i<20;i++){
+						temp[i] = Float.parseFloat(paraStringArray[i]);
+					}
+					
+					f = c.getDeclaredField("xp1");
+					f.setAccessible(true);
+					f.set(input, temp);
+					
+					for(int i = 20;i<40;i++){
+						temp[i-20] = Float.parseFloat(paraStringArray[i]);
+					}
+					f = c.getDeclaredField("xp2");
+					f.setAccessible(true);
+					f.set(input, temp);
+					
+					for(int i = 40;i<60;i++){
+						temp[i-40] = Float.parseFloat(paraStringArray[i]);
+					}
+					f = c.getDeclaredField("de");
+					f.setAccessible(true);
+					f.set(input, temp);
+					
+					f = c.getDeclaredField("outp1");
+					f.setAccessible(true);
+					f.set(input, Float.parseFloat(paraStringArray[60]));
+					
+					f = c.getDeclaredField("outp2");
+					f.setAccessible(true);
+					f.set(input, Float.parseFloat(paraStringArray[61]));
+					
+					f = c.getDeclaredField("outp3");
+					f.setAccessible(true);
+					f.set(input,paraStringArray[62].charAt(0));
+				}	
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		if(dataNum.equals("7") || dataNum.equals("8") ){
+			Field f;
+			try {
+				f = c.getDeclaredField("out1");
+				f.setAccessible(true);
+				f.set(input, out1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 		//插入数据库
 		try {
 			int maxid = mdsi.findMaxId();

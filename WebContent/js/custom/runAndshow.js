@@ -3,11 +3,12 @@
 out1 = "";
 out2 = "";
 out3 = "";
+out4 = "";
 para = "";
 /**
  *  show data
  */
-function showData(data1,data2,data3,text,text2,dataid) {
+function showData(data1,data2,data3,data4,text,text2,dataid) {
 	var input = text2;
 	var output = text;
 	$("#input").html(input);
@@ -307,9 +308,10 @@ function run(id, dataid){
 				var line1 = new Array();
 				var line2 = new Array();
 				var line3 = new Array();
+				var line4 = new Array();
 				var text = "";
 				
-				//model1-2 绘制三条曲线
+				//model1-2 绘制四条曲线
 				if(dataid == "1" || dataid == "2"){
 					for(var i=0; i < data.length; i++){
 						var temp = data[i].split(",");
@@ -317,9 +319,10 @@ function run(id, dataid){
 						if(temp[0] == 1)	line1 = temp[1].split("_");
 						if(temp[0] == 2)	line2 = temp[1].split("_");
 						if(temp[0] == 3)	line3 = temp[1].split("_");
+						if(temp[0] == 4)	line4 = temp[1].split("_");
 					}
-					initResult(line1,line2,line3,"");
-					showData(line1,line2,line3,"","",dataid);
+					initResult(line1,line2,line3,line4,"");
+					showData(line1,line2,line3,line4,"","",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -333,8 +336,8 @@ function run(id, dataid){
 						if(temp[0] == 3)	line3 = temp[1].split("_");
 						if(temp[0] == 4) 	text = temp[1];
 					}
-					initResult(line1,line2,line3,"");
-					showData(line1,line2,line3,text,"",dataid);
+					initResult(line1,line2,line3,"",text);
+					showData(line1,line2,line3,"",text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -351,7 +354,7 @@ function run(id, dataid){
 							line1 = temp2[1].split("_");
 						}	
 					}
-					showData(line1,line2,line3,text,"",dataid);
+					showData(line1,line2,line3,line4,text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -366,7 +369,7 @@ function run(id, dataid){
 						line1 = temp2[1].split("_");
 						
 					}
-					showData(line1,line2,line3,text,"",dataid);
+					showData(line1,line2,line3,line4,text,"",dataid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -410,7 +413,7 @@ function returnObject(result,dataid){
 }
 
 //结构化返回值
-function initResult(line1,line2,line3,para){
+function initResult(line1,line2,line3,line4,text){
 	for(var i=0; i < line1.length; i++){
 		if(len(line1[i])==0)
 			out1 = out1+"000";
@@ -427,9 +430,9 @@ function initResult(line1,line2,line3,para){
 		if(len(line2[i])==1)
 			out2 = out2+"00"+line2[i];
 		if(len(line2[i])==2)
-			out1 = out1+"0"+line2[i];
+			out2 = out2+"0"+line2[i];
 		if(len(line2[i])==0)
-			out1 = out1+line2[i];
+			out2 = out2+line2[i];
 	}
 	for(var i=0; i < line3.length; i++){
 		if(len(line3[i])==0)
@@ -437,11 +440,21 @@ function initResult(line1,line2,line3,para){
 		if(len(line3[i])==1)
 			out3 = out3+"00"+line3[i];
 		if(len(line1[i])==2)
-			out3 = out1+"0"+line3[i];
+			out3 = out3+"0"+line3[i];
 		if(len(line1[i])==0)
 			out3 = out3+line3[i];
 	}
-	para = $("#output").html();
+	for(var i=0; i < line4.length; i++){
+		if(len(line4[i])==0)
+			out4 = out4+"000";
+		if(len(line4[i])==1)
+			out4 = out4+"00"+line4[i];
+		if(len(line1[i])==2)
+			out4 = out1+"0"+line3[i];
+		if(len(line1[i])==0)
+			out4 = out4+line3[i];
+	}
+	para = text;
 }
 
 //显示模型3——6输出参数
@@ -470,4 +483,69 @@ function model3output(text){
 	if(textArray[63] == "1") result+="模拟仿真";
 	if(textArray[63] == "2") result+="分析数据";
 	return result;
+}
+
+//自动获得页面元素数值，形成map,保存输入数据
+function autoGetVal(id, dataid, fileid) {
+	var dom = $("#" + id + " input:text");
+
+	var result = "";
+	var simType = $("#simType").val();
+	//模拟仿真s1 = 2 type1 = 1 页面 ＝ 1;分析数据 s1 = 1 type1 = 2 页面 ＝ 0
+	if(simType == "1" && dataid != "8"){
+		result += "type1:1,s1:2,";
+	}
+	if(simType == "0"&& dataid != "8"){
+		result += "type1:2,s1:1,";
+	}
+	
+	//model1 有 file1 和 file2
+	if(dataid == "1"){
+		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
+		var file2 = $.trim($("#file2").val().replace(/,/g,''));
+		result = result + "file1:"+file1+",";
+		result = result + "len1:"+len(file1)+",";
+		result = result + "file2:"+file2+",";
+		result = result + "len2:"+len(file2)+",";
+		
+	}else{
+		var file = $.trim($("#file").val().replace(/,/g,''));
+		result+="file:"+file+",";
+		result+="len:"+len(file)+",";
+	}
+	
+	for (var i = 0; i < dom.size(); i++) {
+		if($(dom[i]).attr("name") != "file2")
+			result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
+	}
+
+	dom = $("#" + id + " select");
+
+	for (var i = 0; i < dom.size(); i++) {
+		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
+		//alert($(dom[i]).val());
+	}
+	
+	$.ajax({
+		url : "input/saveData.do",
+		type : "post",
+		dataType : "text",
+		data : {
+			"data" : result,
+			"id" : dataid,
+			"fileid" : fileid,
+			"output1" : out1,
+			"output2" : out2,
+			"output3" : out3,
+			"output4" : out4,
+			"para" : para,
+		},
+		success : function(data) {
+			alert(data);
+		},
+		error : function(err) {
+			alert("保存失败");
+		}
+	});
+
 }

@@ -18,19 +18,19 @@ public class DATAFactory {
 			obj = new DATA2();
 		}
 		
-		if(dataType.equals("3A")){
+		if(dataType.equals("3A")||dataType.equals("4A")){
 			obj = new DATA3A();
 		}
 		
-		if(dataType.equals("3B")){
+		if(dataType.equals("3B")||dataType.equals("4B")){
 			obj = new DATA3B();
 		}
 		
-		if(dataType.equals("5A")){
+		if(dataType.equals("5A")||dataType.equals("6A")){
 			obj = new DATA5A();
 		}
 		
-		if(dataType.equals("5B")){
+		if(dataType.equals("5B")||dataType.equals("6B")){
 			obj = new DATA5B();
 		}
 		
