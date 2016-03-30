@@ -352,7 +352,7 @@ public class InputController extends BaseJsonAction{
 
 		Object input = null;
 		input = inputService.reutrnObject(dataNum, str);
-		
+		System.out.println("--------------getObjct--------------");
 //		JSONObject json = JSONObject.fromObject(input);
 //		
 //		System.out.println(json.toString());

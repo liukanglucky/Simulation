@@ -10,7 +10,7 @@
 
   </head>
   <body>
-  <script src="js/custom/runAndshow.js"></script>
+  <script src="js/custom/queryAndshow.js"></script>
   <script>
   		var _dt = '';
 	  	var _mt = '';
@@ -186,14 +186,54 @@
  					var output= "类型为:0";
  					break;
  				case 1:
- 					var input="航速："+data.if1+"，航向："+data.if2+"，中心频率："+data.if3+"，带宽："+data.if4+"，脉宽："+data.if5+"，目标距离："+data.if6+"，<br>"+
- 					"俯仰角："+data.if7+"，水平角："+data.if8+"，周期时间窗口："+data.if9+"，采样频率："+data.if10+"，发射声源级："+data.if11+"，发射波束开角："+data.if12+"<br>"+
- 					"接收发射波束开角："+data.if13+"，包络："+data.it2+"，信号形式："+data.it3;
- 					<#--if(data.mt==2){
- 						var output ="线谱频率："+data.if+...+"<br>线谱强度："+data.if+...+"<br>调制深度："+data.if+...;
+ 					
+ 					if(data.dt==2){
+ 						var input="采样频率："+data.if1+"，声速："+data.if2+"，发射声源级："+data.if3+"，检测域："+data.if4+"，仿真总时间："+data.if5+"，仿真开始时刻："+data.if6+"，<br>"+
+	 					"距离："+data.if7+"，信号形式：";
+	 					switch(data.it3){
+	 						case 1:
+	 							input+="CW";
+	 							break;
+	 						case 2:
+	 							input+="LFM";
+	 							break;
+	 						case 3:
+	 							input+="HFM";
+	 							break;
+	 						default:
+	 							input+="未知";
+	 					};
+ 						
  					}else{
+	 					var input="航速："+data.if1+"，航向："+data.if2+"，中心频率："+data.if3+"，带宽："+data.if4+"，脉宽："+data.if5+"，目标距离："+data.if6+"，<br>"+
+	 					"俯仰角："+data.if7+"，水平角："+data.if8+"，周期时间窗口："+data.if9+"，采样频率："+data.if10+"，发射声源级："+data.if11+"，发射波束开角："+data.if12+"<br>"+
+	 					"接收发射波束开角："+data.if13+"，包络：";
+	 					switch(data.it2){
+	 						case 1:
+	 							input+="矩形";
+	 							break;
+	 						case 2:
+	 							input+="梯形";
+	 							break;
+	 						default:
+	 							input+="未知";
+	 					}
+	 					input+="，信号形式：";
+	 					switch(data.it3){
+	 						case 1:
+	 							input+="CW";
+	 							break;
+	 						case 2:
+	 							input+="LFM";
+	 							break;
+	 						case 3:
+	 							input+="HFM";
+	 							break;
+	 						default:
+	 							input+="未知";
+	 					};
  						var output = "调制谱轴频频率："+data.outp1+"，频带内总声级："+data.outp1+"，螺旋桨叶片数："+data.outp1;
- 					}-->
+ 					}
  						var output = "";
  					break;
  				case 2:
@@ -331,31 +371,24 @@
  					var input ="参数错误！";
  					var  output = "参数错误";
  				} 
-        		var out1=new Array();
-        		var out2=new Array();
-        		var out3=new Array();
-        		ou1=data.out1;
-        		out2=data.out2;
-        		out3=data.out3;
         		var line1 = new Array();
 				var line2 = new Array();
 				var line3 = new Array();
-        		for(i=0;i<(out1.length)/3;)
+        		for(i=0,j=0;j<(data.out1.length)/3;j++)
         		{
-        			line1[i]=out1.substr(i,3);
+        			line1[j]=data.out1.substr(i,3);
         			i+=3;
         		}
-        		<#--for(i=0;i<(out2.length)/3;)
+        		for(i=0,j=0;j<(data.out2.length)/3;j++)
         		{
-        			line2[i]=out2.substr(i,3);
+        			line2[j]=data.out2.substr(i,3);
         			i+=3;
         		}
-        		for(i=0;i<(out3.length)/3;)
+        		for(i=0,j=0;j<(data.out3.length)/3;j++)
         		{
-        			line3[i]=out3.substr(i,3);
+        			line3[j]=data.out3.substr(i,3);
         			i+=3;
-        		}-->
-        		alert("显示数据id为"+data.dataindex+"曲线");
+        		}
         		showData(line1,line2,line3,input,output);
 	            },
   			error : function() {  
@@ -495,23 +528,9 @@
           <hr>
         </div>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-        <div id="main" style="height:200px;display:none" class="chart"></div>
+        <div id="main1" style="height:200px;display:none" class="chart"></div>
         <div id="main2" style="height:200px;display:none" class="chart"></div>
         <div id="main3" style="height:200px;display:none" class="chart"></div>
-        <!-- ECharts单文件引入 -->
-        <script src="js/echarts.js"></script>
-        <script type="text/javascript">
-            // 路径配置
-            require.config({
-                paths: {
-                    echarts: 'js'
-                }
-            });
-            
-        </script>
-        
-
-        
         <!-- ECharts单文件引入 -->
         <script src="js/echarts.js"></script>
         <script type="text/javascript">

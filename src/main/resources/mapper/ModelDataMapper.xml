@@ -15,11 +15,11 @@
 	</insert>
 	
 	<insert id="insertData1" parameterType="modelData1">
-		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,
+		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it3,
 		if1,if2,if3,if4,if5,if6,if7,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},2,#{mt},#{sim},1,#{time1},
+		(#{dataindex},#{date1},2,#{mt},#{sim},1,#{time1},#{type3},
 		#{speed},#{ang},#{fre},#{bre},#{cre},#{distence},#{ang1},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
@@ -326,14 +326,14 @@
 		if1,if2,if3,if4,if5,if21,if22,
 		out1,out2,out3,out4)
 		values
-		(#{dataindex},#{date1},#{type1},#{mt},#{sim},7,#{time1},
+		(#{dataindex},#{date1},#{dt},#{mt},#{sim},7,#{time1},
 		#{seacon},#{num1},#{sspeed},
 		#{wspeed},#{fspeed},#{rain},#{num1},#{len},#{up},#{down},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	
 	<insert id="insertData8" parameterType="modelData8">
-		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it3,it4,it5,it6
+		insert into modeldata (dataindex,date1,dt,mt,sim,stype,time1,it1,it2,it3,it4,it5,it6,
 		if1,if2,if3,if4,if5,if6,if7,if8,if9,if10,if11,if12,if13,if14,if15,if16,if17,if18,if19,if21,if22,
 		out1,out2,out3,out4)
 		values
@@ -369,7 +369,7 @@
     		<if test="sim!=0">and sim=#{sim} </if>
     		<if test="stype!=0">and stype=#{stype} </if>
     	</where>
-    	) t where rownum &lt; = #{P1} order by t.dataindex asc) 
+    	) t where rownum &lt; = #{P1} order by t.dataindex DESC) 
     	where rn  &gt; #{P2}
     </select>
     

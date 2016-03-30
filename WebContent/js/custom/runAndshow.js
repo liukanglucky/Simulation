@@ -388,20 +388,177 @@ function run(id, dataid){
 //返回实体类并显示
 function returnObject(result,dataid){
 	//获得当前的实体类
+//	alert("获得当前的实体类"+result+"******"+dataid);
 	$.ajax({
 		url : "input/getObjct.do",
 		type : "post",
-		dataType : "text",
+		dataType : "json",
 		data : {
 			"data" : result,
 			"id" : dataid,
 		},
 		success : function(data1) {
+//			alert(data1);
+			
+			var  data = eval(data1);
 			//str转jsonObject
-			var obj = JSON.parse(data1);
-			//显示在页面
-			alert(Object.prototype.toString.call(obj));
-			alert(obj.ang);
+//			var data = JSON.parse(data1);
+//			//显示在页面
+//			alert(Object.prototype.toString.call(obj));
+			var input ="";
+			alert(dataid);
+			switch(dataid){
+				case 1:
+					input="航速："+data.speed+"，航向："+data.ang+"，中心频率："+data.fre+"，带宽："+data.bre+"，脉宽："+data.cre+"，目标距离："+data.distence+"，<br>"+
+					"俯仰角："+data.ang1+"，水平角："+data.ang2+"，周期时间窗口："+data.time+"，采样频率："+data.cy1+"，发射声源级："+data.ss+"，发射波束开角："+data.ang3+"<br>"+
+					"接收发射波束开角："+data.ang4+"，包络：";
+					switch(data.type2){
+						case 1:
+							input+="矩形";
+							break;
+						case 2:
+							input+="梯形";
+							break;
+						default:
+							input+="未知";
+					}
+					input+="，信号形式：";
+					switch(data.type3){
+						case 1:
+							input+="CW";
+							break;
+						case 2:
+							input+="LFM";
+							break;
+						case 3:
+							input+="HFM";
+							break;
+						default:
+							input+="未知";
+					};
+					break;
+				case 2:
+					input="纵波声速："+data.speed1+"，横波声速："+data.speed2+"，介质密度："+data.jz+"，纵波衰减："+data.d1+"，横波衰减："+data.d2+"，平均散射："+data.num1+"，<br>"+
+					"谱强度："+data.pu1+"，谱系数："+data.pu2+"，风速：("+data.wind+")，海流速度：("+data.fspeed+")，海深："+data.depth+"，<br>"+
+					"声速："+data.speed3+"，衰减系数："+data.d3+"，海面谱系数："+data.pu3+"，谱系数："+data.pu4+"，平均散射："+data.num2+"，发射水平角："+data.ang1+"，<br>"+
+					"垂直角："+data.ang2+"，方位角："+data.ang3+"，俯仰角："+data.ang4+"，声源级："+data.ss+"，位置：("+data.loc+")速度：("+data.speed+")，<br>"+
+					"阵元："+data.num+"，灵敏度："+data.lm1+"，采样率："+data.cy1+"，中心频率："+data.fre1+"，带宽："+data.dk1+"，脉宽："+data.mk1;
+					break;
+				case '3A':
+				case '4A':
+				case '5A':
+				case '6A':
+					 input ="吨位："+data.weight+"，吃水："+data.depth+" ，航速："+data.speed+"，输出频率："+data.fre1+"，采样率："+data.cy1+" ，增益："+data.zy1+"<br>";
+					 	input +="灵敏度："+data.lm1+"，阵元："+data.num+"，模拟采样率："+data.ss+" ,带通：("+data.fre2+")，起始时刻："+data.time1+"，总长度："+data.time2+"<br>";
+					 	input +="模拟增益："+data.zy2+"，"+"模拟灵敏度："+data.lm2;
+					 	break;
+				case '3B':
+				case '4B':	
+				case '5B':
+				case '6B':
+					input ="吨位："+data.weight+"，吃水："+data.depth+" ，航速："+data.speed+"，输出频率："+data.fre1+"，采样率："+data.cy1+" ，增益："+data.zy1+"<br>";
+					input +="灵敏度："+data.lm1+"，阵元："+data.num1+"，对应谱级："+data.ss+" ,轴频："+data.fre2+"，螺旋桨数："+data.num2+"<br>";
+					break;
+				case '7':
+					input ="海面风速："+data.wspeed+"，"+"海流速度："+data.fspeed+"，"+"降雨量："+data.rain+"，"+"长度："+data.len+"，"+"中心频率："+data.fre+"<br>";
+					input+="海况："+data.seacon+"，"+"每平方米舰船数："+data.num1+"，"+"螺旋桨末端转速："+data.sspeed;
+					
+					break;
+				case '8':
+					input ="海底地貌：";
+					switch(data.type1){
+						case 1:
+							input +="平底";
+							break;
+						case 2:
+							input +="斜坡";
+							break;
+						case 3:
+							input +="海沟";
+							break;
+						case 4:
+							input +="海山";
+							break;
+						case 5:
+							input +="其他";
+							break;
+					}
+					input +="，发射阵信息：";
+					switch(data.type3){
+						case 1:
+							input +="单元发射";
+							break;
+						case 2:
+							input +="线列阵";
+							break;
+						case 3:
+							input +="面阵";
+							break;
+						case 5:
+							input +="其他";
+							break;
+					}
+					input +="，发射信号形式：";
+					switch(data.type4){
+						case 1:
+							input +="宽带噪声";
+							break;
+						case 2:
+							input +="CW";
+							break;
+						case 5:
+							input +="其他";
+							break;
+					}
+					input +="，接收阵信息：";
+					switch(data.type5){
+						case 1:
+							input +="单元发射";
+							break;
+						case 2:
+							input +="线列阵";
+							break;
+						case 3:
+							input +="面阵";
+							break;
+						case 5:
+							input +="其他";
+							break;
+					}
+					input +="，海底地质类型：";
+					switch(data.type6){
+						case 1:
+							input +="粘土";
+							break;
+						case 2:
+							input +="粉砂";
+							break;
+						case 3:
+							input +="沙石";
+							break;
+						case 4:
+							input +="砾石";
+							break;
+						case 5:
+							input +="白垩";
+							break;
+						case 6:
+							input +="石灰石";
+							break;
+						case 7:
+							input +="玄武岩";
+							break;
+					}
+					input +="，海深个数："+data.num1+"，"+"射线数量："+data.num2+"<br>";
+					input +="中心频率："+data.fre+"，"+"海流速度："+data.wspeed+"，"+"海面反射系数："+data.ss1+"，"+"海底衰减系数："+data.ss2+"，"+"输出距离步长："+data.len1+"，"+"收发间距："+data.len3+"<br>";
+					input +="发射指向性："+data.ss3+"，"+"发射声源级："+data.sn+"，"+"接收深度："+data.dep+"，"+"工作频段："+data.frew+"，"+"海面风速："+data.wspeed;
+					
+					break;
+				default:
+					input ="参数错误！";
+					
+			}
+			$("#input").html(input);
 		},
 		
 		error : function(){
