@@ -418,11 +418,6 @@
           <tr>
             <td><a href="userManage.do">用户管理</a></td>
           </tr>
-          <#if userSession.type = 1>
-          <tr>
-            <td><a href="#">模型管理</td>
-          </tr>
-          </#if>
           <tr>
             <td><a href="dumpData.do">数据备份</td>
           </tr>
