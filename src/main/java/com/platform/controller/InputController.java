@@ -158,7 +158,7 @@ public class InputController extends BaseJsonAction{
 		}
 		
 		//填写其他参数
-		if(dataNum.equals("3A") || dataNum.equals("3B") || dataNum.equals("5A") || dataNum.equals("5B")){
+		if(dataNum.equals("3A") || dataNum.equals("3B") ||dataNum.equals("4A") || dataNum.equals("4B") || dataNum.equals("5A") || dataNum.equals("5B")|| dataNum.equals("6A") || dataNum.equals("6B")){
 			//利用反射赋值
 			try {
 				Field f = c.getDeclaredField("out1");
