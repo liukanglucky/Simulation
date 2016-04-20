@@ -27,6 +27,57 @@ public class QueryController extends BaseJsonAction{
 	
 	@RequestMapping("querySim")
     public void querySim(int dt,int mt,int sim,int stype,String comments,int currentPage,int pageSize){
+		//全局搜索
+		//comments.split("");
+		if(!comments.equals("")){
+			System.out.println("++++++++++");
+			if(comments.matches("海洋环境")){
+				mt=4;
+			}else if(comments.matches("潜艇")){
+				mt=1;
+			}else if(comments.matches("水面舰")){
+				mt=2;
+			}else if(comments.matches("鱼雷")){
+				mt=3;
+			};
+			
+			if(comments.matches("001")){
+				sim=1;
+			}else if(comments.matches("054A")||comments.matches("054a")){
+				sim=2;
+			}else if(comments.matches("039")){
+				sim=3;
+			}else if(comments.matches("鱼－7A")||comments.matches("鱼－7a")){
+				sim=4;
+			}else if(comments.matches("鱼－10")){
+				sim=5;
+			};
+			
+			if(comments.matches("舰艇目标声反射")){
+				stype=1;
+			}else if(comments.matches("高频模型")){
+				stype=2;
+			}else if(comments.matches("舰艇辐射")){
+				stype=3;
+			}else if(comments.matches("鱼雷辐射")){
+				stype=4;
+			}else if(comments.matches("舰艇自噪声")){
+				stype=5;
+			}else if(comments.matches("鱼雷自噪声")){
+				stype=6;
+			}else if(comments.matches("海洋环境")){
+				stype=7;
+			}else if(comments.matches("声传播")){
+				stype=8;
+			};
+			
+			if(comments.matches("仿真")){
+				dt=1;
+			}else if(comments.matches("分析")){
+				dt=2;
+			};
+		}
+		
 		QueryParameter queryParameter = new QueryParameter(1, pageSize, currentPage);
 		System.out.println("========================QueryController======================="+dt+mt+sim+stype+comments);
 		queryParameter.setDt(dt);

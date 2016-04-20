@@ -65,11 +65,12 @@
         }
         );
     }
+
     function show(list){  	
         	$(".modelDataList").empty();
         	for(i=0;i<list.length;i++){
         	var appendStr="";
-        	appendStr+="<tr class='modelDataList'>"+
+        	appendStr+="<tr class='modelDataList' "+"id=modelDataList"+list[i].dataindex+">"+
       			"<td><input type='checkbox' id='subcheck' onclick='setSelectAll()' value="+list[i].dataindex+"></td>";
       			if(list[i].dt==1){
       				appendStr+="<td onclick='findData("+list[i].dataindex+")'>仿真</td>";
@@ -125,16 +126,16 @@
       			}
       			switch(list[i].mt){
       				case 1 :
-      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>海洋环境</td>";
-      					break;
-      				case 2 :
       					appendStr+="<td onclick='findData("+list[i].dataindex+")'>潜艇</td>";
       					break;
-      				case 3 :
+      				case 2 :
       					appendStr+="<td onclick='findData("+list[i].dataindex+")'>水面舰</td>";
       					break;
-      				case 4 :
+      				case 3 :
       					appendStr+="<td onclick='findData("+list[i].dataindex+")'>鱼雷</td>";
+      					break;
+      				case 4 :
+      					appendStr+="<td onclick='findData("+list[i].dataindex+")'>海洋环境</td>";
       					break;
       				default:
       					appendStr+="<td onclick='findData("+list[i].dataindex+")'>uuu</td>";
@@ -172,6 +173,13 @@
 	}
 	function findData(dataindex){
 	
+		$(".modelDataList").css("background-color","white");
+		var idString = "#modelDataList"+dataindex;
+		alert(idString);
+		$(idString).css("background-color","#C4E1FF");
+		alert("chenggong!")
+		
+		
 		$.ajax({
   			type:"post",
   			url:"querySimById.do",
@@ -431,10 +439,10 @@
               <td align="center">
                 <select name="mt">
                   <option value="0">未知</option>
-                  <option value="1">海洋环境</option>
-                  <option value="2">潜艇</option>
-                  <option value="3">水面舰</option>
-                  <option value="4">鱼类</option>
+                  <option value="1">潜艇</option>
+                  <option value="2">水面舰</option>
+                  <option value="3">鱼雷</option>
+                  <option value="4">海洋环境</option>
                 </select>
               </td>
               <td align="center">仿真对象</td>
