@@ -749,9 +749,9 @@ function autoGetVal(id, dataid, fileid) {
 	if(dataid == "1"){
 		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
 		
-		//alert($("#tab1 #file2").val());
+		//alert($("#tab"+fileid+" #file2").val());
 		
-		var file2 = $.trim($("#file2").val().replace(/,/g,''));
+		var file2 = $.trim($("#tab"+fileid+" #file2").val().replace(/,/g,''));
 		result = result + "file1:"+file1+",";
 		result = result + "len1:"+len(file1)+",";
 		result = result + "file2:"+file2+",";
