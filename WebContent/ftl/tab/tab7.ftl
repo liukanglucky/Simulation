@@ -12,7 +12,7 @@
                     <td>海面风速</td>
                     <td><input name="wspeed" style="width:60px;" type="text"></td>
                     <td>长度</td>
-                    <td><input name="len" style="width:60px;" type="text"></td>
+                    <td><input name="lenth" style="width:60px;" type="text"></td>
                   </tr>
                   <tr>
                     <td>海流速度</td>

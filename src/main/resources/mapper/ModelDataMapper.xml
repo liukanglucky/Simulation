@@ -328,7 +328,7 @@
 		values
 		(#{dataindex},#{date1},#{dt},#{mt},#{sim},7,#{time1},
 		#{seacon},#{num1},#{sspeed},
-		#{wspeed},#{fspeed},#{rain},#{num1},#{len},#{up},#{down},
+		#{wspeed},#{fspeed},#{rain},#{num1},#{lenth},#{up},#{down},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>
 	

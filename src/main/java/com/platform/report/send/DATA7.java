@@ -18,7 +18,7 @@ public class DATA7 implements Serializable{
 	private float fspeed;        //海流速度
 	private float rain;          //降雨量
 	private int num1 ;           //每平方千米舰船数
-	private float len;           //长度
+	private float lenth;           //长度
 	private float[] speed1 = new float[30];    //水面舰典型工况航速数组30
 	private float[] speed2 = new float[30];    //与航速对应的螺旋桨转速30
 	private float sspeed;        //螺旋桨末端转速
@@ -59,11 +59,11 @@ public class DATA7 implements Serializable{
 	public void setNum1(int num1) {
 		this.num1 = num1;
 	}
-	public float getLen() {
-		return len;
+	public float getLenth() {
+		return lenth;
 	}
-	public void setLen(float len) {
-		this.len = len;
+	public void setLen(float lenth) {
+		this.lenth = lenth;
 	}
 	public float[] getSpeed1() {
 		return speed1;
