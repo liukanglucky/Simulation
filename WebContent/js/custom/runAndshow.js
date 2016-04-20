@@ -9,6 +9,7 @@ para = "";
  *  show data
  */
 function showData(data1,data2,data3,data4,text,text2,dataid) {
+	
 	var input = text2;
 	var output = text;
 	$("#input").html(input);
@@ -20,6 +21,11 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 	$("#output").html(output);
 
 	$(".chart").css("display", "");
+	
+	$("#main").html("");
+	$("#main2").html("");
+	$("#main3").html("");
+	
 
 	// 使用
 	require([ 'echarts', 'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
@@ -28,6 +34,17 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 		var myChart = ec.init(document.getElementById('main'));
 		var myChart2 = ec.init(document.getElementById('main2'));
 		var myChart3 = ec.init(document.getElementById('main3'));
+		var myChart4 = "";
+		
+		if(dataid == "1" || dataid == "2"){
+			var temphtml = '<div id="main4" style="height:200px;" class="chart"></div>';
+			$("#main3").after(temphtml);
+			$("#main4").html("");
+			myChart4 = ec.init(document.getElementById('main4'));
+			
+		}
+		
+		
 
 		var xdata = new Array(100);
 
@@ -249,11 +266,82 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 				data : data3
 			} ]
 		};
+		
+		var option4 = {
+				tooltip : {
+					trigger : 'axis'
+				},
+				legend : {
+					data : [ '回波信号' ]
+				},
+				toolbox : {
+					show : true,
+					feature : {
+						mark : {
+							show : true
+						},
+						dataView : {
+							show : true,
+							readOnly : false
+						},
+						magicType : {
+							show : true,
+							type : [ 'line', 'bar', 'stack', 'tiled' ]
+						},
+						restore : {
+							show : true
+						},
+						saveAsImage : {
+							show : true
+						}
+					}
+				},
+				calculable : true,
+				grid : {
+					borderColor : '#cccccc',
+					borderWidth : 0,
+					backgroundColor : '#000',
 
+				},
+				xAxis : [ {
+					type : 'category',
+					show : false,
+					boundaryGap : false,
+					data : xdata,
+					splitLine : {
+						show : false
+					},
+				} ],
+				yAxis : [ {
+					type : 'value',
+					show : false,
+					splitLine : {
+						show : false
+					},
+				} ],
+				series : [ {
+					name : '回波信号',
+					type : 'line',
+					stack : '总量',
+					symbol : 'none',
+					itemStyle : {
+						normal : {
+							lineStyle : {
+								width : 1,
+								color : '#00cd00',
+							}
+						}
+					},
+					data : data4
+				} ]
+			};
+		
+		
 		// 为echarts对象加载数据
 		myChart.setOption(option);
 		myChart2.setOption(option2);
 		myChart3.setOption(option3);
+		myChart4.setOption(option4);
 	});
 }
 
@@ -320,6 +408,7 @@ function run(id, dataid){
 						if(temp[0] == 2)	line2 = temp[1].split("_");
 						if(temp[0] == 3)	line3 = temp[1].split("_");
 						if(temp[0] == 4)	line4 = temp[1].split("_");
+						//alert(temp[0]);
 					}
 					initResult(line1,line2,line3,line4,"");
 					showData(line1,line2,line3,line4,"","",dataid);
@@ -406,7 +495,7 @@ function returnObject(result,dataid){
 //			//显示在页面
 //			alert(Object.prototype.toString.call(obj));
 			var input ="";
-			alert(dataid);
+			//alert(dataid);
 			switch(dataid){
 				case 1:
 					input="航速："+data.speed+"，航向："+data.ang+"，中心频率："+data.fre+"，带宽："+data.bre+"，脉宽："+data.cre+"，目标距离："+data.distence+"，<br>"+
@@ -659,7 +748,10 @@ function autoGetVal(id, dataid, fileid) {
 	//model1 有 file1 和 file2
 	if(dataid == "1"){
 		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
-		var file2 = $.trim($("#file2").val().replace(/,/g,''));
+		
+		//alert($("#tab"+fileid+" #file2").val());
+		
+		var file2 = $.trim($("#tab"+fileid+" #file2").val().replace(/,/g,''));
 		result = result + "file1:"+file1+",";
 		result = result + "len1:"+len(file1)+",";
 		result = result + "file2:"+file2+",";
