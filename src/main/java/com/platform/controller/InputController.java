@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,6 +43,17 @@ public class InputController extends BaseJsonAction{
 	InputService inputService = new InputService();
 	
 	ObjectToFile otf = new ObjectToFile();
+	
+	
+    @Value("#{configProperties['jni.ip']}")
+    private String serverHost ;
+    
+    @Value("#{configProperties['jni.port']}")
+    private int serverPort ;
+    
+    @Value("#{configProperties['jni.runtimelimit']}")
+    private int runTimeLimit ;
+    
 	
 	@RequestMapping("/defaultData")
 	public void defaultData1(HttpServletRequest request){
@@ -289,11 +301,14 @@ public class InputController extends BaseJsonAction{
 		//等待执行成功信号
 //		String serverHost = "192.168.220.202";  
 //        int serverPort = 21168;  
-        String serverHost = "127.0.0.1";  
-        int serverPort = 1111;  
+       // String serverHost = "127.0.0.1";  
+        //int serverPort = 1111;  
+        
+        System.out.println("host is "+this.serverHost+",port is "+this.serverPort);
+        
         UdpServerSocket udpServerSocket = null;
 		try {
-			udpServerSocket = new UdpServerSocket(serverHost, serverPort);
+			udpServerSocket = new UdpServerSocket(this.serverHost, this.serverPort);
 			long start = System.currentTimeMillis();
 			long now = 0L;
 			
@@ -303,7 +318,7 @@ public class InputController extends BaseJsonAction{
 			while (true) { 
 				now = System.currentTimeMillis();
 				//执行超时 5分钟超时
-				if((now - start) / (1000*60) >= 3){
+				if((now - start) / (1000*60) >= this.runTimeLimit){
 					this.setData("Exec_error:执行超时");
 					this.outPut();
 					return;
