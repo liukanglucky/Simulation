@@ -219,9 +219,6 @@
         	<artifactId>spring-expression</artifactId>
         	<version>3.2.4.RELEASE</version>
         </dependency>
-        
-
-        
         <!-- jsp Template jar -->
     </dependencies>
     <build>
@@ -238,20 +235,16 @@
                  <target>1.6</target> -->
                  <webXml>${project.basedir}\WebContent\WEB-INF\web.xml</webXml>
 	                <!-- <warName>${project.artifactId}</warName> -->
-	                <!-- <webResources>
+	                <webResources>
 	                    <resource>
-	                        <directory>lib/</directory>
-	                        <targetPath>${project.basedir}/WEB-INF/lib</targetPath>
+	                        <directory>${project.basedir}/WebContent/WEB-INF/lib</directory>
+	                        <targetPath>/WEB-INF/lib</targetPath>
 	                        <includes>
 	                            <include>**/*.jar</include>
 	                        </includes>
-	                    </resource>
-	                     <resource>                      
-		                this is relative to the pom.xml directory  
-		                <directory>WebContent</directory>  
-		                </resource>  
+	                    </resource> 
 	                </webResources>
- -->	            </configuration>
+ 	            </configuration>
             </plugin>
         </plugins>
         
