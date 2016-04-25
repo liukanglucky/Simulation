@@ -220,20 +220,41 @@
         	<version>3.2.4.RELEASE</version>
         </dependency>
         
+
+        
         <!-- jsp Template jar -->
     </dependencies>
     <build>
-        <finalName>springmvc</finalName>
-                <plugins>
+        <finalName>sim</finalName>
+         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <!-- <artifactId>maven-compiler-plugin</artifactId> -->
+                <artifactId>maven-war-plugin</artifactId>
+               
+                <version>2.4</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
+                 <!-- <source>1.6</source>
+                 <target>1.6</target> -->
+                 <webXml>${project.basedir}\WebContent\WEB-INF\web.xml</webXml>
+	                <!-- <warName>${project.artifactId}</warName> -->
+	                <!-- <webResources>
+	                    <resource>
+	                        <directory>lib/</directory>
+	                        <targetPath>${project.basedir}/WEB-INF/lib</targetPath>
+	                        <includes>
+	                            <include>**/*.jar</include>
+	                        </includes>
+	                    </resource>
+	                     <resource>                      
+		                this is relative to the pom.xml directory  
+		                <directory>WebContent</directory>  
+		                </resource>  
+	                </webResources>
+ -->	            </configuration>
             </plugin>
         </plugins>
+        
     </build>
+    
 </project>

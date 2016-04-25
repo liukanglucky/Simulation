@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;  
 import java.nio.ByteOrder;
 
-import struct.JavaStruct;
+//import struct.JavaStruct;
 
 import com.platform.report.receive.OneSend;
 import com.platform.report.receive.Response1;

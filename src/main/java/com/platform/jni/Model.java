@@ -4,8 +4,8 @@ import com.platform.report.send.*;
 
 public class Model {
 	static{
-		String path = Model.class.getResource("/").getPath();
-		System.out.println(path);
+//		String path = Model.class.getResource("/").getPath();
+//		System.out.println(path);
 		System.load("/Users/songshaoying/Documents/phpworkspace/SimulationPlatform/src/main/java/com/platform/jni/cpptest.dylib");
 	}
 	
