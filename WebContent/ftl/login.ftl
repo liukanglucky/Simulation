@@ -39,8 +39,9 @@
     </style>
 </head>
 <body>
+	<script src="js/custom/verify.js"></script>
 	<div class="container">
-      <form class="form-signin" action="login.do" method="post">
+      <form class="form-signin" action="login.do" onsubmit="return validate_form(this)" method="post">
         <h2 class="form-signin-heading">数据仿真平台登陆</h2>
         <input type="text" class="input-block-level" placeholder="用户名" name="name">
         <input type="password" class="input-block-level" placeholder="密码" name="pwd">
