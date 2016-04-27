@@ -443,6 +443,7 @@ function run(id, dataid){
 							line1 = temp2[1].split("_");
 						}	
 					}
+					initResult(line1,"","","",text);
 					showData(line1,line2,line3,line4,text,"",dataid);
 					returnObject(result,dataid);
 					return;
@@ -458,6 +459,7 @@ function run(id, dataid){
 						line1 = temp2[1].split("_");
 						
 					}
+					initResult(line1,"","","",text);
 					showData(line1,line2,line3,line4,text,"",dataid);
 					returnObject(result,dataid);
 					return;
@@ -774,7 +776,6 @@ function autoGetVal(id, dataid, fileid) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 		//alert($(dom[i]).val());
 	}
-	
 	$.ajax({
 		url : "input/saveData.do",
 		type : "post",
