@@ -6,7 +6,7 @@ public class Model {
 	static{
 //		String path = Model.class.getResource("/").getPath();
 //		System.out.println(path);
-		System.load("/Users/songshaoying/Documents/phpworkspace/SimulationPlatform/src/main/java/com/platform/jni/cpptest.dylib");
+		System.load("C:\\model.dll");
 	}
 	
 	public native void model1(DATA1 data);
