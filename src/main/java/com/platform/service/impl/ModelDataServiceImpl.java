@@ -19,6 +19,7 @@ import com.platform.report.send.DATA5B;
 import com.platform.report.send.DATA7;
 import com.platform.report.send.DATA8;
 import com.platform.service.ModelDataService;
+import com.platform.util.DataAndTime;
 
 @Service
 public class ModelDataServiceImpl implements ModelDataService{
@@ -27,104 +28,147 @@ public class ModelDataServiceImpl implements ModelDataService{
 
 	@Override
 	public int insertData3A(DATA3A data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData3A(data);
 	}
 
 	@Override
 	public int insertData1(DATA1 data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData1(data);
 	}
 
 	@Override
 	public int insertData1B(DATA1 data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData1B(data);
 	}
 
 	@Override
 	public int insertData2(DATA2 data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData2(data);
 	}
 
 	@Override
 	public int insertData3B(DATA3B data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData3B(data);
 	}
 
 	@Override
 	public int insertData5A(DATA5A data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData5A(data);
 	}
 
 	@Override
 	public int insertData5B(DATA5B data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData5B(data);
 	}
 
 	@Override
 	public int insertData7(DATA7 data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData7(data);
 	}
 
 	@Override
 	public int insertData8(DATA8 data) {
+		data.setDate1(Integer.valueOf(DataAndTime.getDate()).intValue());
+		data.setTime1(Integer.valueOf(DataAndTime.getTime()).intValue());
 		return modelDataDao.insertData8(data);
 	}
 	
 	
-	public int insertFactory(String dataType,Object data){
+	public int insertFactory(String dataType,Object data,int operator){
 		if(dataType.equals("1")){
-			return this.insertData1((DATA1)data);
+			 DATA1 temp= (DATA1)data;
+			 temp.setOperator(operator);
+			return this.insertData1(temp);
 		}
 		
 		if(dataType.equals("1B")){
-			return this.insertData1B((DATA1)data);
+			 DATA1 temp= (DATA1)data;
+			 temp.setOperator(operator);
+			return this.insertData1B(temp);
 		}
 		
 		if(dataType.equals("2")){
-			System.out.println((DATA2)data);
-			return this.insertData2((DATA2)data);
+			DATA2 temp= (DATA2)data;
+			 temp.setOperator(operator);
+			return this.insertData2(temp);
 		}
 		
 		if(dataType.equals("3A")){
-			return this.insertData3A((DATA3A)data);
+			DATA3A temp= (DATA3A)data;
+			 temp.setOperator(operator);
+			return this.insertData3A(temp);
 		}
 		
 		if(dataType.equals("3B")){
-			return this.insertData3B((DATA3B)data);
+			DATA3B temp= (DATA3B)data;
+			temp.setOperator(operator);
+			return this.insertData3B(temp);
 		}
 		
 		if(dataType.equals("4A")){
-			return this.insertData4A((DATA3A)data);
+			DATA3A temp= (DATA3A)data;
+			temp.setOperator(operator);
+			return this.insertData4A(temp);
 		}
 		
 		if(dataType.equals("4B")){
-			return this.insertData4B((DATA3B)data);
+			DATA3B temp= (DATA3B)data;
+			temp.setOperator(operator);
+			return this.insertData4B(temp);
 		}
 		
 		
 		
 		if(dataType.equals("5A")){
-			return this.insertData5A((DATA5A)data);
+			DATA5A temp= (DATA5A)data;
+			temp.setOperator(operator);
+			return this.insertData5A(temp);
 		}
 		
 		if(dataType.equals("5B")){
-			return this.insertData5B((DATA5B)data);
+			DATA5B temp= (DATA5B)data;
+			temp.setOperator(operator);
+			return this.insertData5B(temp);
 		}
 		
 		if(dataType.equals("6A")){
-			return this.insertData6A((DATA5A)data);
+			DATA5A temp= (DATA5A)data;
+			temp.setOperator(operator);
+			return this.insertData6A(temp);
 		}
 		
 		if(dataType.equals("6B")){
-			return this.insertData6B((DATA5B)data);
+			DATA5B temp= (DATA5B)data;
+			temp.setOperator(operator);
+			return this.insertData6B(temp);
 		}
 		
 		if(dataType.equals("7")){
-			return this.insertData7((DATA7)data);
+			DATA7 temp= (DATA7)data;
+			temp.setOperator(operator);
+			return this.insertData7(temp);
 		}
 		
 		if(dataType.equals("8")){
-			return this.insertData8((DATA8)data);
+			DATA8 temp= (DATA8)data;
+			temp.setOperator(operator);
+			return this.insertData8(temp);
 		}
 		
 		//mybatis sql 执行成功返回1 不成功返回0 无对应方法返回2

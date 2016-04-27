@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.platform.dao.ModelDataDao;
 import com.platform.jni.NativeFactory;
+import com.platform.model.User;
 import com.platform.net.ConvertFactory;
 import com.platform.net.ConvertResult;
 import com.platform.net.UdpServerSocket;
@@ -250,7 +251,8 @@ public class InputController extends BaseJsonAction{
 			Field dataindex = input.getClass().getDeclaredField("dataindex");
 			dataindex.setAccessible(true);
 			dataindex.set(input, maxid+1);
-			mdsi.insertFactory(dataNum, input);
+			User user=(User) request.getSession().getAttribute("user"); 
+			mdsi.insertFactory(dataNum, input,user.getId());
 		} catch (NoSuchFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
