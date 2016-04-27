@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf8">
-    <title>test</title>
+    <title>仿真查询</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <#include "common-js.ftl"/>

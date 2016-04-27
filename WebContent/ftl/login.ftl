@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>数据仿真平台</title>
+<title>登录</title>
 <#include "common-js.ftl"/>
 <style type="text/css">
       body {
