@@ -23,3 +23,17 @@ with (thisform)
       }
   }
 }
+
+function validate_form2(thisform)
+{
+with (thisform)
+  {
+  if (validate_required(name,"用户名不能为空！")==false){
+	  name.focus();
+      return false;
+      }else if(validate_required(password,"密码不能为空！")==false){
+	  password.focus();
+      return false;
+      }
+  }
+}

@@ -38,13 +38,17 @@
                 str += $(this).val()+","
             }
         });
-        $.post("deleteBackups.do",
-        {nameList:str},
-        function(){
-        	queryByPage(1);
-        }
-        );
-        $.post("dumpData.do");
+        if(str==""){
+        	alert("未选择任何备份！");
+        }else{
+	        $.post("deleteBackups.do",
+	        {nameList:str},
+	        function(){
+	        	queryByPage(1);
+	        }
+	        );
+	        $.post("dumpData.do");
+	   }
     }
      function showBackupList(list){  	
         	$(".backupList").empty();
@@ -119,7 +123,7 @@
       <div class="span8">
       <#if userSession.type = 1>
       	<div>
-          <input type="button" class="btn btn-warning" value="备份" onclick="backup()">
+          <input type="button" class="btn btn-info" value="备份" onclick="backup()">
           <input type="button" class="btn btn-warning" value="删除" onclick="deleteBackups()">
         </div>
    		</#if>

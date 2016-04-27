@@ -43,10 +43,12 @@
 	<div class="container">
       <form class="form-signin" action="login.do" onsubmit="return validate_form(this)" method="post">
         <h2 class="form-signin-heading">数据仿真平台登陆</h2>
+        ${info?if_exists}
         <input type="text" class="input-block-level" placeholder="用户名" name="name">
         <input type="password" class="input-block-level" placeholder="密码" name="pwd">
         <button class="btn btn-large btn-primary" type="submit">登陆</button>
       </form>
     </div>
+   
 </body>
 </html>

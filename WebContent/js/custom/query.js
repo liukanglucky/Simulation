@@ -44,12 +44,17 @@
                 str += $(this).val()+","
             }
         });
-        $.post("deleteModelDatas.do",
-        {idList:str},
-        function(){
-        	queryByPage(_currentPage);
+        // add judge
+        if(str==""){
+        	alert("未选择任何纪录！");
+        }else{
+	        $.post("deleteModelDatas.do",
+	        {idList:str},
+	        function(){
+	        	queryByPage(_currentPage);
+	        }
+	        );
         }
-        );
     }
 
     function show(list){  	

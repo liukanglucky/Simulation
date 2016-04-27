@@ -8,6 +8,7 @@
     <#include "common-js.ftl"/>
     <#include "page.ftl"/>
     <#include "checkbox.ftl"/>
+    <script src="js/custom/verify.js"></script>
     <script>
     $(document).ready(function(){
 		var currentPage=${page.currentPage};
@@ -48,20 +49,24 @@
                 str += $(this).val()+","
             }
         });
-        $.post("deleteUsers.do",
-        {idList:str},
-        function(data){
-        	var  list = eval(data);
-			var userList=list[0].data;
-        	showUser(userList);
-        	currentPage=list[0].page.currentPage;
-            totalPage=list[0].page.totalPage;
-            prePage=list[0].page.prePage;
-			nextPage=list[0].page.nextPage;
-            $("#page").empty();
-            page(totalPage,currentPage,prePage,nextPage);
-        }
-        );
+        if(str==""){
+        	alert("未选择用户！");
+        }else{
+	        $.post("deleteUsers.do",
+	        {idList:str},
+	        function(data){
+	        	var  list = eval(data);
+				var userList=list[0].data;
+	        	showUser(userList);
+	        	currentPage=list[0].page.currentPage;
+	            totalPage=list[0].page.totalPage;
+	            prePage=list[0].page.prePage;
+				nextPage=list[0].page.nextPage;
+	            $("#page").empty();
+	            page(totalPage,currentPage,prePage,nextPage);
+	        }
+	        );
+	    }
     }
     function showUser(list){  	
         	$(".userList").empty();
@@ -179,7 +184,7 @@
         <h3 id="myModalLabel">增加用户</h3>
       </div>
       <div class="modal-body">
-      <form action="addUser.do" method="post">
+      <form action="addUser.do" onsubmit="return validate_form2(this)" method="post">
         <table class="table table-hover" >
             <tr>
               <td align="center">用户名</td>
@@ -196,7 +201,7 @@
             </tr>
             <tr>
               <td align="center">密码</td>
-              <td align="center"><input type="text" name="passord"></td>
+              <td align="center"><input type="text" name="password"></td>
             </tr>
             <tr>
               <td colspan="2"><button class="btn btn-success" type="submit">新增</button></td>
@@ -216,7 +221,7 @@
         <h3 id="myModalLabel">更新用户</h3>
       </div>
       <div class="modal-body">
-      <form action="updateUser.do" method="post">
+      <form action="updateUser.do" onsubmit="return validate_form2(this)" method="post">
         <table class="table table-hover" >
             <tr>
               <input type="hidden" id="id" name="id">
