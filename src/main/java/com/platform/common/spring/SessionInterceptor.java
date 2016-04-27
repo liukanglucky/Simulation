@@ -14,7 +14,6 @@ import com.platform.model.User;
 public class SessionInterceptor implements HandlerInterceptor {
 	private Logger logger = Logger.getLogger(SessionInterceptor.class.getName()); 
 	 
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -28,14 +27,12 @@ public class SessionInterceptor implements HandlerInterceptor {
         //System.out.println(user);
         return true; 
 	}
-
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
