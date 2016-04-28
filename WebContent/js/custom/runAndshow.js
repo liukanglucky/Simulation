@@ -25,7 +25,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 //	$("#main").html("");
 //	$("#main2").html("");
 //	$("#main3").html("");
-	
+
 
 	// 使用
 	require([ 'echarts', 'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
@@ -37,6 +37,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 		var myChart4 = "";
 		
 		if(dataid == "1" || dataid == "2"){
+			$("#main4").remove();
 			var temphtml = '<div id="main4" style="height:200px;" class="chart"></div>';
 			$("#main3").after(temphtml);
 			$("#main4").html("");
