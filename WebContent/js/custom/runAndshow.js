@@ -20,11 +20,11 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 	
 	$("#output").html(output);
 
-	$(".chart").css("display", "");
-	
-	$("#main").html("");
-	$("#main2").html("");
-	$("#main3").html("");
+//	$(".chart").css("display", "");
+//	
+//	$("#main").html("");
+//	$("#main2").html("");
+//	$("#main3").html("");
 	
 
 	// 使用
@@ -369,11 +369,11 @@ function run(id, dataid){
 	
 	//alert(result);
 	$('#myModal').modal("show");
-	$("#input").html("");
-	$("#output").html("");
-	$("#main").html("");
-	$("#main2").html("");
-	$("#main3").html("");
+//	$("#input").html("");
+//	$("#output").html("");
+//	$("#main").html("");
+//	$("#main2").html("");
+//	$("#main3").html("");
 	
 	
 

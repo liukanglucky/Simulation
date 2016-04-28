@@ -92,9 +92,9 @@
           <hr>
         </div>
         <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-        <div id="main" style="height:200px;display:none" class="chart"></div>
-        <div id="main2" style="height:200px;display:none" class="chart"></div>
-        <div id="main3" style="height:200px;display:none" class="chart"></div>
+        <div id="main" style="height:200px;" class="chart"></div>
+        <div id="main2" style="height:200px;" class="chart"></div>
+        <div id="main3" style="height:200px;" class="chart"></div>
         
         <!-- ECharts单文件引入 -->
         <script src="js/echarts.js"></script>
