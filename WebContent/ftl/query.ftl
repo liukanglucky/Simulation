@@ -118,8 +118,7 @@
               <td align="center"><font color="white">模型类型</font></td>
               <td align="center"><font color="white">仿真时间</font></td>
             </tr>
-            <tr class = "modelDataList">
-            </tr>
+            
           </table> 
         </div>
         <div class="pagination pagination-centered" >
