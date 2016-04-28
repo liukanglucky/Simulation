@@ -51,7 +51,7 @@
 	   }
     }
      function showBackupList(list){  	
-        	$(".backupList").empty();
+        	$(".backupList").remove();
         	for(i=0;i<list.length;i++){
         	var appendStr="";
         	appendStr+="<tr class='backupList'>"+
