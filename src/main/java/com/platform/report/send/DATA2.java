@@ -48,6 +48,15 @@ public class DATA2 implements Serializable{
 	private char[] type2 = new char[4];//信号形式
 	private char len;  //文件名长度
 	private char[] file = new char[255];//文件名
+	
+	private char s2;
+	
+	public char getS2() {
+		return s2;
+	}
+	public void setS2(char s2) {
+		this.s2 = s2;
+	}
 	public char getS1() {
 		return s1;
 	}

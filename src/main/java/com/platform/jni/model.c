@@ -14,7 +14,7 @@
 struct DATA1
 {
 	unsigned char s1;   //标识    
-	float speed;        //航速    //采样率(分析方式下的解析,char类型位置不变)
+	float speed[30];        //航速    //采样率(分析方式下的解析,char类型位置不变)
 	float ang;          //航向    //声速
 	float fre;          //中心频率//发射声源级
 	float bre;          //带宽    //检测域
@@ -119,6 +119,7 @@ struct DATA3B
 	float de[20];       //调制深度20
 	unsigned char type1;//仿真类型
 	unsigned char type2;//目标类型
+	unsigned char s2;
 };//模型3仿真用
 
 struct DATA5A
@@ -278,12 +279,25 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model1
 	data2.s1 = s1-'0';
 	/*获取char结束*/
 
-	/*获取float开始 speed*/
-	jfieldID speedid = (*env)->GetFieldID(env,class,"speed","F");
-	jfloat speed = (*env)->GetFloatField(env,obj2,speedid);
-	data2.speed = speed;
-	printf("%f\n",speed);
+	/*获取float开始 speed 修改为speed[30]*/ 
+	// jfieldID speedid = (*env)->GetFieldID(env,class,"speed","F");
+	// jfloat speed = (*env)->GetFloatField(env,obj2,speedid);
+	// data2.speed = speed;
+	// printf("%f\n",speed);
 	/*获取float结束*/
+
+
+	/*获得float数组开始 speed30*/
+	jfieldID speedid = (*env)->GetFieldID(env,class,"speed","[F");//获得属性
+	jfloatArray  speedarray = (jfloatArray)(*env)->GetObjectField(env,obj2,speedid);//获得参数值
+	len = (*env)->GetArrayLength(env,speedarray);
+	jfloat speed[len];//float数组 wind长度为3
+	(*env)->GetFloatArrayRegion(env,speedarray,0,len,speed);
+	for( i = 0 ;i<len;i++){
+	        printf("%f\n",speed[i]);
+	        data2.speed[i] = speed[i];
+	}
+	/*获得float数组结束*/
 
 	/*获取float开始 ang*/
 	jfieldID angid = (*env)->GetFieldID(env,class,"ang","F");
@@ -465,6 +479,12 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
 	data2.s1 = s1-'0';
 	/*获取char结束*/
 
+	/*获取char开始 s2*/
+	jfieldID s2id = (*env)->GetFieldID(env,class,"s2","C");
+	jchar s2 = (*env)->GetCharField(env,obj2,s2id);
+	data2.s2 = s2-'0';
+	/*获取char结束*/
+
 	/*获取float开始 speed1*/
 	jfieldID speed1id = (*env)->GetFieldID(env,class,"speed1","F");
 	jfloat speed1 = (*env)->GetFloatField(env,obj2,speed1id);
@@ -597,7 +617,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
 	/*获取float结束*/
 
 
-	/*获得float数组结束 ang1*/
+	/*获得float数组开始 ang1*/
 	jfieldID ang1id = (*env)->GetFieldID(env,class,"ang1","[F");//获得属性
 	jfloatArray  ang1array = (jfloatArray)(*env)->GetObjectField(env,obj2,ang1id);//获得参数值
 	len = (*env)->GetArrayLength(env,ang1array);
