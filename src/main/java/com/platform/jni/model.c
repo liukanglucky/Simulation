@@ -120,7 +120,7 @@ struct DATA3B
 	float de[20];       //调制深度20
 	unsigned char type1;//仿真类型
 	unsigned char type2;//目标类型
-	unsigned char s2;
+	int code;
 };//模型3仿真用
 
 struct DATA5A
