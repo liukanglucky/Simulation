@@ -751,10 +751,10 @@ function autoGetVal(id, dataid, fileid) {
 	//model1 有 file1 和 file2
 	if(dataid == "1"){
 		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
+//		alert("#tab"+fileid+"file2");
+//		alert($("#tab"+fileid+"file2").val());
 		
-		//alert($("#tab"+fileid+" #file2").val());
-		
-		var file2 = $.trim($("#tab"+fileid+" #file2").val().replace(/,/g,''));
+		var file2 = $.trim($("#tab"+fileid+"file2").val().replace(/,/g,''));
 		result = result + "file1:"+file1+",";
 		result = result + "len1:"+len(file1)+",";
 		result = result + "file2:"+file2+",";

@@ -1,5 +1,5 @@
 <div class="tab-pane" id="tab1B">
-    目标三维模型 : <input type="text"  id="file2" name="file2">
+    目标三维模型 : <input type="text"  id="tab1Bfile2" name="file2">
     仿真类型：
     <select name="mt" style="width:90px; height:20px">
       <option value="1">潜艇</option>
@@ -16,7 +16,7 @@
       <tbody>
         <tr>
           <td>航速/kn</td>
-          <td><input name="speed" style="width:75px;" type="text"></td>
+          <td><input name="speed" style="width:75px;" type="text"><input name="speed" style="width:75px;" type="hidden"></td>
           <td>脉宽/ms</td>
           <td><input name="cre" style="width:75px;" type="text"></td>
           <td>发射信号形式：</td>

@@ -26,7 +26,7 @@ public class DATA1 implements Serializable{
 	}
 
 	private char s1;    //标识
-	private float speed;        //航速    //采样率(分析方式下的解析,char类型位置不变)
+	private float[] speed = new float[30];        //航速    //采样率(分析方式下的解析,char类型位置不变)
 	private float ang;          //航向    //声速
 	private float fre;          //中心频率//发射声源级
 	private float bre;          //带宽    //检测域
@@ -52,10 +52,10 @@ public class DATA1 implements Serializable{
 	public void setS1(char s1) {
 		this.s1 = s1;
 	}
-	public float getSpeed() {
+	public float[] getSpeed() {
 		return speed;
 	}
-	public void setSpeed(float speed) {
+	public void setSpeed(float[] speed) {
 		this.speed = speed;
 	}
 	public float getAng() {

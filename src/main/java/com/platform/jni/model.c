@@ -279,7 +279,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model1
 	data2.s1 = s1-'0';
 	/*获取char结束*/
 
-	/*获取float开始 speed 修改为speed[30]*/ 
+	/*获取float开始 speed 修改为speed float[30]*/ 
 	// jfieldID speedid = (*env)->GetFieldID(env,class,"speed","F");
 	// jfloat speed = (*env)->GetFloatField(env,obj2,speedid);
 	// data2.speed = speed;

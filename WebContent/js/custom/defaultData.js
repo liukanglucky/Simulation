@@ -39,9 +39,9 @@ function defaultVal(id, data) {
 			$("#file").val(data[key].replace(/,/g,''));
 			continue;
 		}
-		
 		if(key=="file2"){
-			$("#"+id+" #file2").val(data[key].replace(/,/g,''));
+			alert("#"+id+"file2");
+			$("#"+id+"file2").val(data[key].replace(/,/g,''));
 			//alert(""+data[key].replace(/,/g,'')+"");
 			continue;
 		}
@@ -51,7 +51,7 @@ function defaultVal(id, data) {
 			var val = data[key];
 			dom.val(val);
 		} else {
-
+			
 			var valArray = data[key].split(",");
 
 			if (valArray.length == dom.size() + 1) {
