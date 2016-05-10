@@ -1146,6 +1146,12 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model3B
 	data3b.type2 = type2-'0';
 	/*获取char结束*/
 	
+	/*获取int开始 code*/
+	jfieldID codeid = (*env)->GetFieldID(env,class,"code","I");
+	jint code = (*env)->GetIntField(env,obj2,codeid);
+	data3b.code = code;
+	/*获取int结束*/
+
     /**发送开始**/
 	data3b.s1 = 2;
 

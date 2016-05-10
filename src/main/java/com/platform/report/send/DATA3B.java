@@ -30,6 +30,15 @@ public class DATA3B implements Serializable{
 	private float[] de = new float[20];       //调制深度20
 	private char type1;//仿真类型
 	private char type2;//目标类型
+	
+	private int code; //指令码
+	
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
 	public char getS1() {
 		return s1;
 	}
