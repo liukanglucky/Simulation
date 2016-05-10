@@ -49,7 +49,8 @@ public class DATA2 implements Serializable{
 	private char len;  //文件名长度
 	private char[] file = new char[255];//文件名
 	
-	private char s2;
+	//2016.5.10增加
+	private char s2;	//1.本地 2.实时
 	
 	public char getS2() {
 		return s2;

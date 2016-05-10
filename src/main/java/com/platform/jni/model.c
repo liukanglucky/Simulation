@@ -39,6 +39,7 @@ struct DATA1
 struct DATA2
 {
 	unsigned char s1;   //标识
+	unsigned char s2;
 	float speed1;       //海底纵波声速
 	float speed2;       //横波声速
 	float jz;           //介质密度
