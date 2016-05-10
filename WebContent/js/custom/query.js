@@ -58,7 +58,7 @@
     }
 
     function show(list){  	
-        	$(".modelDataList").empty();
+        	$(".modelDataList").remove();
         	for(i=0;i<list.length;i++){
         	var appendStr="";
         	appendStr+="<tr class='modelDataList' "+"id=modelDataList"+list[i].dataindex+">"+

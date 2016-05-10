@@ -69,7 +69,7 @@
 	    }
     }
     function showUser(list){  	
-        	$(".userList").empty();
+        	$(".userList").remove();
         	for(i=0;i<list.length;i++){
         	var appendStr="";
         	appendStr+="<tr class='userList'>"+
