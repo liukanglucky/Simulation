@@ -298,8 +298,7 @@ public class InputController extends BaseJsonAction{
 		
 		input = inputService.reutrnObject(dataNum, str);
 		
-		//发送数据
-		NativeFactory.getNativeMethod(dataNum, input);
+		
 		//等待执行成功信号
 //		String serverHost = "192.168.220.202";  
 //        int serverPort = 21168;  
@@ -311,6 +310,10 @@ public class InputController extends BaseJsonAction{
         UdpServerSocket udpServerSocket = null;
 		try {
 			udpServerSocket = new UdpServerSocket(this.serverHost, this.serverPort);
+			
+			//发送数据
+			NativeFactory.getNativeMethod(dataNum, input);
+			
 			long start = System.currentTimeMillis();
 			long now = 0L;
 			
