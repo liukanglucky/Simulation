@@ -40,7 +40,7 @@ function defaultVal(id, data) {
 			continue;
 		}
 		if(key=="file2"){
-			alert("#"+id+"file2");
+			//alert("#"+id+"file2");
 			$("#"+id+"file2").val(data[key].replace(/,/g,''));
 			//alert(""+data[key].replace(/,/g,'')+"");
 			continue;
@@ -54,7 +54,7 @@ function defaultVal(id, data) {
 			
 			var valArray = data[key].split(",");
 
-			if (valArray.length == dom.size() + 1) {
+			if (valArray.length == dom.size() + 1 || key == "speed") {
 				for (var i = 0; i < dom.size(); i++) {
 					//alert(dom[i]);
 					dom[i].value = valArray[i];
