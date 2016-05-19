@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class ConvertFactory {
 	
-	public static List<String> convert(String dataType , List<byte[]> list){
+	public static List<String> convert(String dataType , List<byte[]> list,String simType){
 		List<String> result = new LinkedList<String>();
 		
 		if(dataType.equals("1") || dataType.equals("2")){
@@ -31,7 +31,12 @@ public class ConvertFactory {
 		}
 		
 		if(dataType.equals("7")){
-			result.add(ConvertResult.convertStruct3(list.get(0)));
+			if(simType.equals("1")){
+				result.add(ConvertResult.convertStruct3(list.get(0)));
+			}else{
+				result.add(ConvertResult.convertStruct4(list.get(0)));
+			}
+			
 		}
 		
 		if(dataType.equals("8") ){

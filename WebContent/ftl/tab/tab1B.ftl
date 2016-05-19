@@ -40,7 +40,7 @@
           <td><input name="fre" style="width:75px;" type="text"></td>
           <td>周期时间窗口/ms</td>
           <td><input name="time" style="width:75px;" type="text"></td>
-          <td>海面谱系数</td>
+          <td>包络</td>
           <td><select name="type2" style="width:75px;  height:20px">
               <option value="1">矩形</option>
               <option value="2">梯形</option>
@@ -75,5 +75,5 @@
     <input type="button" class="btn btn-warning" value="保存数据"
 							onClick="autoGetVal('tab1B',1,'1B');">
 	<input type="button" class="btn btn-success" value="开始仿真"
-		onClick="run('tab1B',1);">
+		onClick="run('tab1B',1,'1B');">
   </div>

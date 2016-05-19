@@ -7,8 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
+import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.platform.net.ConvertResult;
 
 public class FileUtil {
 	
@@ -98,5 +104,50 @@ public class FileUtil {
 		//readFile("\\\\192.168.220.201\\D\\share\\test.txt","utf-8");
 		byte[] result = (new FileUtil()).getContentByNIO("/Users/songshaoying/Desktop/IP.txt");
 		System.out.println(result.length);
+		
+		System.out.println(ConvertResult.convertMt(result));
+		
+		
+//		for(int i=0 ; i<result.length;i=i+28){
+//			
+//			
+//			byte[] temp = Arrays.copyOfRange(result, i,i+28);
+//			for (int j = 0; j < temp.length; j++) {
+//				System.out.print(temp[j]+",");
+//			}
+//			System.out.println("");
+//			byte[] ip = {temp[0],temp[1],temp[2],temp[3],0,0,0,0};
+//			
+//			
+//			System.out.println("ip is "+ByteUtil.getLong(ip));
+//			
+//			byte[] type = {temp[4],0,0,0};
+////			byte[] name = Arrays.copyOfRange(temp, 24, 152);
+//			
+//			System.out.println("type is "+ByteUtil.getInt(type));
+//			System.out.print("name is ");
+//			for(int j = 8;j <=23;j++ ){
+//				byte[] temp2 = {temp[j],0,0,0};
+//				
+//				System.out.print(""+ByteUtil.getChar(temp2)+"");
+//				
+//			}
+//			
+//			System.out.println("");
+//			byte[] index = {temp[24],0,0,0};
+//			System.out.println("index is "+ByteUtil.getInt(index));
+//			System.out.println("===＝＝＝＝＝");
+////			System.out.println(ByteUtil.getInt(index));
+//		}
+//		byte[] tsb = {2,0,-88,64};
+//		System.out.println(ByteUtil.getString(tsb));
+//		
+//		BigInteger big = new BigInteger(tsb);
+//		System.out.println(big.toString());
+//		byte[] bigarray = big.toByteArray();
+//		for (int i = 0; i < bigarray.length; i++) {
+//			System.out.println(bigarray[i]);
+//		}
+		
 	}
 }

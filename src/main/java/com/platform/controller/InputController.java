@@ -284,7 +284,10 @@ public class InputController extends BaseJsonAction{
 		
 		String dataNum = (String) request.getParameter("id");
 		String fileNum = (String) request.getParameter("fileid");
+		String modelId = (String) request.getParameter("modelId");
+		String simType = (String) request.getParameter("simType");
 		
+		System.out.println("simType is "+simType);
 		
 		if(dataNum == null){
 			this.setData(null);
@@ -298,7 +301,7 @@ public class InputController extends BaseJsonAction{
 		
 		input = inputService.reutrnObject(dataNum, str);
 		
-
+		
 		//等待执行成功信号
 //		String serverHost = "192.168.220.202";  
 //        int serverPort = 21168;  
@@ -310,8 +313,10 @@ public class InputController extends BaseJsonAction{
         UdpServerSocket udpServerSocket = null;
 		try {
 			udpServerSocket = new UdpServerSocket(this.serverHost, this.serverPort);
+			
 			//发送数据
-			NativeFactory.getNativeMethod(dataNum, input);
+			NativeFactory.getNativeMethod(modelId, input,simType);
+			
 			long start = System.currentTimeMillis();
 			long now = 0L;
 			
@@ -332,18 +337,18 @@ public class InputController extends BaseJsonAction{
 				}
 				
 				byte[] rcv1 = new byte[1200];
-				rcv1 = udpServerSocket.receive();  
+				rcv1 = udpServerSocket.receive();
 				//rcv1指向同一个地址
 				result.add(rcv1.clone());
 				System.out.println("receive report num "+result.size());
 	        }
 			
 			//解析byte数组
-			List<String> r = ConvertFactory.convert(dataNum, result);
+			List<String> r = ConvertFactory.convert(dataNum, result,simType);
 			
-//			for (int i = 0; i < r.size(); i++) {
-//				System.out.println("Result is ============="+r.get(i));
-//			}
+			for (int i = 0; i < r.size(); i++) {
+				System.out.println("Result is ============="+r.get(i));
+			}
 			
 			this.setData(r);
 			//this.setData("执行成功");

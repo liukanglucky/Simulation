@@ -136,6 +136,6 @@
               <input type="button" class="btn btn-warning" value="保存数据"
 							onClick="autoGetVal('tab6A','5A','6A');">
 						<input type="button" class="btn btn-success" value="开始仿真"
-							onClick="run('tab6A','5A');">
+							onClick="run('tab6A','5A','6A');">
             </div>
           </div>

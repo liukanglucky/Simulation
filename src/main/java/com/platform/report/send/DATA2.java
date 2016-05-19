@@ -43,7 +43,7 @@ public class DATA2 implements Serializable{
 	private float[] dk1 = new float[4];       //带宽
 	private float mk1;          //脉宽
 	private float[][] slocx = new float[36][3]; //阵元位置36
-	private char num;  //阵元个数
+	private int num;  //阵元个数
 	private char type1;//仿真类型
 	private char[] type2 = new char[4];//信号形式
 	private char len;  //文件名长度
@@ -238,10 +238,10 @@ public class DATA2 implements Serializable{
 	public void setSlocx(float[][] slocx) {
 		this.slocx = slocx;
 	}
-	public char getNum() {
+	public int getNum() {
 		return num;
 	}
-	public void setNum(char num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 	public char getType1() {

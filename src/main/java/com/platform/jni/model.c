@@ -760,7 +760,7 @@ JNIEXPORT void JNICALL Java_com_platform_jni_Model_model2
 	/*获得二维float数组结束*/
 
 	/*获取char开始 num*/
-	jfieldID numid = (*env)->GetFieldID(env,class,"num","C");
+	jfieldID numid = (*env)->GetFieldID(env,class,"num","I");
 	jchar num = (*env)->GetCharField(env,obj2,numid);
 	data2.num = num-'0';
 	/*获取char结束*/

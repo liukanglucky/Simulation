@@ -123,7 +123,7 @@ public class ByteUtil
 //        float f = 122.22f;  
 //        double d = 122.22;  
 //  
-//        String string = "我是好孩子";  
+        String string = "1921681120";  
 //        System.out.println(s);  
 //        System.out.println(i);  
 //        System.out.println(l);  
@@ -146,7 +146,8 @@ public class ByteUtil
 //        System.out.println(getChar(getBytes(c)));  
 //        System.out.println(getFloat(getBytes(f)));  
 //        System.out.println(getDouble(getBytes(d)));  
-//        System.out.println(getString(getBytes(string)));
+       	  System.out.println(getBytes(string).length);
+       	  System.out.println(getString(getBytes(string)));
 //        byte[] a= getBytes(2.2f);
 //        System.out.println(a[0]);
 //        System.out.println(a[1]);
@@ -164,7 +165,13 @@ public class ByteUtil
 // 
 //        System.out.println(getInt(cca));
         
-        
-        
+       	  byte[] intarray = {2,0,-88,-64};
+       	  System.out.println(getInt(intarray));
+       	  int ip = 1921681255;
+       	  byte[] iparray = getBytes(ip);
+       	  for (int i = 0; i < iparray.length; i++) {
+			System.out.println(iparray[i]);
+		}
+        System.out.println(getInt(iparray));
     }  
 } 

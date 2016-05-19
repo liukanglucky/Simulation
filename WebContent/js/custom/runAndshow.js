@@ -8,7 +8,7 @@ para = "";
 /**
  *  show data
  */
-function showData(data1,data2,data3,data4,text,text2,dataid) {
+function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 	
 	var input = text2;
 	var output = text;
@@ -48,10 +48,41 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 		
 
 		var xdata = new Array(100);
+		var xdata1 = new Array(100);
+		var xdata2 = new Array(100);
+		var xdata3 = new Array(100);
+		var xdata4 = new Array(100);
 
-		for (var i = 0; i < 500; i++) {
-			xdata[i] = i;
+		if(modelid == "1B" || dataid == "2"){
+			
+			for (var i = 0; i < data1.length; i++) {
+				xdata1[i] = i;
+			}
+			for (var i = 0; i < data2.length; i++) {
+				xdata2[i] = i;
+			}
+			for (var i = 0; i <360; i++) {
+				xdata3[i] = i;
+			}
+			for (var i = 0; i < data4.length; i++) {
+				xdata4[i] = i;
+			}
+		}else {
+			
+			for (var i = 0; i < data1.length; i++) {
+				xdata1[i] = i;
+			}
+			for (var i = 0; i < data2.length; i++) {
+				xdata2[i] = i;
+			}
+			for (var i = 0; i < data3.length; i++) {
+				xdata3[i] = i;
+			}
+			for (var i = 0; i < data4.length; i++) {
+				xdata4[i] = i;
+			}
 		}
+		
 
 		var option = {
 
@@ -96,7 +127,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 				type : 'category',
 				show : false,
 				boundaryGap : false,
-				data : xdata,
+				data : xdata1,
 				splitLine : {
 					show : false
 				},
@@ -170,7 +201,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 				type : 'category',
 				show : false,
 				boundaryGap : false,
-				data : xdata,
+				data : xdata2,
 				splitLine : {
 					show : false
 				},
@@ -239,7 +270,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 				type : 'category',
 				show : false,
 				boundaryGap : false,
-				data : xdata,
+				data : xdata3,
 				splitLine : {
 					show : false
 				},
@@ -308,7 +339,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 					type : 'category',
 					show : false,
 					boundaryGap : false,
-					data : xdata,
+					data : xdata4,
 					splitLine : {
 						show : false
 					},
@@ -350,9 +381,10 @@ function showData(data1,data2,data3,data4,text,text2,dataid) {
 /**
 * 调用仿真模型接受返回值
 **/
-function run(id, dataid){
+function run(id, dataid,modelid){
 	var dom = $("#" + id + " input:text");
 
+	var simType=$("#simType").val();//zjh改，方便模型七八传值
 	var result = "";
 
 	for (var i = 0; i < dom.size(); i++) {
@@ -386,6 +418,8 @@ function run(id, dataid){
 		data : {
 			"data" : result,
 			"id" : dataid,
+			"modelId": modelid,
+			"simType":simType
 		},
 		success : function(data) {
 			$('#myModal').modal("hide");
@@ -412,7 +446,8 @@ function run(id, dataid){
 						//alert(temp[0]);
 					}
 					initResult(line1,line2,line3,line4,"");
-					showData(line1,line2,line3,line4,"","",dataid);
+				
+					showData(line1,line2,line3,line4,"","",dataid,modelid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -427,41 +462,60 @@ function run(id, dataid){
 						if(temp[0] == 4) 	text = temp[1];
 					}
 					initResult(line1,line2,line3,"",text);
-					showData(line1,line2,line3,"",text,"",dataid);
+					showData(line1,line2,line3,"",text,"",dataid,modelid);
 					returnObject(result,dataid);
 					return;
 				}
 				//model7
 				if(dataid == "7"){
-					for(var i=0; i < data.length; i++){
-						var temp = data[i].split(",");
-						if(temp.length != 2){ alert("返回数据格式错误");return;}
-						var temp3 = temp[1].split("_");
-						text = "噪声信号频率上限:"+temp3[0]+","+"噪声信号频率下限:"+temp3[1];
-						if(temp[0] == 1){
-							var temp2 = temp[1].split("|");
-							if(temp2.length != 2){ alert("返回数据格式错误");return;}
-							line1 = temp2[1].split("_");
-						}	
+					if(simType=="1"){
+						for(var i=0; i < data.length; i++){
+							var temp = data[i].split(",");
+							if(temp.length != 2){ alert("返回数据格式错误");return;}
+							var temp3 = temp[1].split("_");
+							text = "噪声信号频率上限:"+temp3[0]+","+"噪声信号频率下限:"+temp3[1];
+							if(temp[0] == 1){
+								var temp2 = temp[1].split("|");
+								if(temp2.length != 2){ alert("返回数据格式错误");return;}
+								line1 = temp2[1].split("_");
+							}	
+						}
+						initResult(line1,"","","",text);
+						showData(line1,line2,line3,line4,text,"",dataid,modelid);
+						returnObject(result,dataid);
+						return;
+					}else{
+						for(var i=0; i < data.length; i++){
+							//zjh, 解析出来的文件名里头有逗号所以把数据格式错误那注释掉了
+							var temp = data[i].split("|");
+							line1 = temp[1].split("_");
+						//	if(temp.length != 2){ alert("返回数据格式错误");return;}
+							
+						//	var temp2 = temp[1].split("|");
+						//	if(temp2.length != 2){ alert("返回数据格式错误");return;}
+						//	line1 = temp2[1].split("_");
+						}
+						initResult(line1,"","","",text);
+						showData(line1,line2,line3,line4,text,"",dataid,modelid);
+						returnObject(result,dataid);
+						return;
 					}
-					initResult(line1,"","","",text);
-					showData(line1,line2,line3,line4,text,"",dataid);
-					returnObject(result,dataid);
-					return;
+					
 				}
 				//model8
 				if(dataid == "8"){
 					for(var i=0; i < data.length; i++){
-						var temp = data[i].split(",");
-						if(temp.length != 2){ alert("返回数据格式错误");return;}
+						//zjh, 解析出来的文件名里头有逗号所以把数据格式错误那注释掉了
+						var temp = data[i].split("|");
+						line1 = temp[1].split("_");
+					//	if(temp.length != 2){ alert("返回数据格式错误");return;}
 						
-						var temp2 = temp[1].split("|");
-						if(temp2.length != 2){ alert("返回数据格式错误");return;}
-						line1 = temp2[1].split("_");
-						
+					//	var temp2 = temp[1].split("|");
+					//	if(temp2.length != 2){ alert("返回数据格式错误");return;}
+					//	line1 = temp2[1].split("_");
 					}
 					initResult(line1,"","","",text);
-					showData(line1,line2,line3,line4,text,"",dataid);
+					showData(line1,line2,line3,line4,text,"",dataid,modelid);
 					returnObject(result,dataid);
 					return;
 				}
@@ -663,6 +717,10 @@ function returnObject(result,dataid){
 
 //结构化返回值
 function initResult(line1,line2,line3,line4,text){
+	out1="";
+	out2="";
+	out3="";
+	out4="";
 	for(var i=0; i < line1.length; i++){
 		if(len(line1[i])==0)
 			out1 = out1+"000";
@@ -670,7 +728,7 @@ function initResult(line1,line2,line3,line4,text){
 			out1 = out1+"00"+line1[i];
 		if(len(line1[i])==2)
 			out1 = out1+"0"+line1[i];
-		if(len(line1[i])==0)
+		if(len(line1[i])==3)
 			out1 = out1+line1[i];
 	}
 	for(var i=0; i < line2.length; i++){
@@ -680,7 +738,7 @@ function initResult(line1,line2,line3,line4,text){
 			out2 = out2+"00"+line2[i];
 		if(len(line2[i])==2)
 			out2 = out2+"0"+line2[i];
-		if(len(line2[i])==0)
+		if(len(line2[i])==3)
 			out2 = out2+line2[i];
 	}
 	for(var i=0; i < line3.length; i++){
@@ -690,7 +748,7 @@ function initResult(line1,line2,line3,line4,text){
 			out3 = out3+"00"+line3[i];
 		if(len(line1[i])==2)
 			out3 = out3+"0"+line3[i];
-		if(len(line1[i])==0)
+		if(len(line1[i])==3)
 			out3 = out3+line3[i];
 	}
 	for(var i=0; i < line4.length; i++){
@@ -700,7 +758,7 @@ function initResult(line1,line2,line3,line4,text){
 			out4 = out4+"00"+line4[i];
 		if(len(line1[i])==2)
 			out4 = out1+"0"+line3[i];
-		if(len(line1[i])==0)
+		if(len(line1[i])==3)
 			out4 = out4+line3[i];
 	}
 	para = text;
@@ -792,7 +850,7 @@ function autoGetVal(id, dataid, fileid) {
 			"para" : para,
 		},
 		success : function(data) {
-			alert(data);
+			alert("保存成功");
 		},
 		error : function(err) {
 			alert("保存失败");
