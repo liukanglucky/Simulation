@@ -40,7 +40,14 @@ public class UdpServerSocket {
         ds = new DatagramSocket(socketAddress);  
         System.out.println("服务端启动!");  
     }  
-      
+    
+    public UdpServerSocket(String host, int port ,int timeout) throws Exception {  
+        socketAddress = new InetSocketAddress(host, port);  
+        ds = new DatagramSocket(socketAddress);  
+        this.setSoTimeout(timeout);
+        System.out.println("服务端启动!");  
+    }  
+    
     public final String getOrgIp() {  
         return orgIp;  
     }  

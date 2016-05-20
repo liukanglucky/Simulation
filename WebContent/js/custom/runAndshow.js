@@ -817,8 +817,30 @@ function autoGetVal(id, dataid, fileid) {
 		result = result + "len1:"+len(file1)+",";
 		result = result + "file2:"+file2+",";
 		result = result + "len2:"+len(file2)+",";
+		result = result + "dbspeed:"+$("#tab"+fileid+"dbspeed").val()+",";
 		
 	}else{
+		//model 8 有三个文件
+		if(dataid == "8"){
+			var name1 = $.trim($("#name1").val().replace(/,/g,'')) ;
+			var name2 = $.trim($("#name2").val().replace(/,/g,'')) ;
+			var name3 = $.trim($("#name3").val().replace(/,/g,'')) ;
+			result = result + "name1:"+name1+",";
+			//alert(len(name1));
+			result  = result + "namelen1:"+len(name1.replace(/,/g,''))+",";
+			result = result + "name2:"+name2+",";
+			result  = result + "namelen2:"+len(name2.replace(/,/g,''))+",";
+			result = result + "name3:"+name3+",";
+			result  = result + "namelen3:"+len(name3.replace(/,/g,''))+",";
+			
+		}
+		
+		if(dataid == "7"){
+			var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
+			result = result + "file1:"+file1+",";
+			result = result + "len1:"+len(file1)+",";
+		}
+		
 		var file = $.trim($("#file").val().replace(/,/g,''));
 		result+="file:"+file+",";
 		result+="len:"+len(file)+",";
@@ -835,6 +857,8 @@ function autoGetVal(id, dataid, fileid) {
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 		//alert($(dom[i]).val());
 	}
+	
+	alert(result);
 	$.ajax({
 		url : "input/saveData.do",
 		type : "post",

@@ -27,6 +27,8 @@ public class DATA1 implements Serializable{
 
 	private char s1;    //标识
 	private float[] speed = new float[30];        //航速    //采样率(分析方式下的解析,char类型位置不变)
+	private float dbspeed ;						//由于数据库里只存第一个值，所以用dbspeed存储speed[0]
+	
 	private float ang;          //航向    //声速
 	private float fre;          //中心频率//发射声源级
 	private float bre;          //带宽    //检测域
@@ -57,6 +59,15 @@ public class DATA1 implements Serializable{
 	}
 	public void setSpeed(float[] speed) {
 		this.speed = speed;
+		if(speed.length != 0)
+			this.setDbspeed(speed[0]);
+	}
+	
+	public float getDbspeed() {
+		return dbspeed;
+	}
+	public void setDbspeed(float dbspeed) {
+		this.dbspeed = dbspeed;
 	}
 	public float getAng() {
 		return ang;

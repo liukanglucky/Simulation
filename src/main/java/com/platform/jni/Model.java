@@ -7,9 +7,9 @@ public class Model {
 		// String path = Model.class.getResource("/").getPath();
 		// System.out.println(path);
 		// windows
-		//System.load("C:\\model.dll");
+		System.load("C:\\model.dll");
 		// mac
-		System.load("/Users/songshaoying/Documents/phpworkspace/SimulationPlatform/src/main/java/com/platform/jni/model.dylib");
+		//System.load("/Users/songshaoying/Documents/phpworkspace/SimulationPlatform/src/main/java/com/platform/jni/model.dylib");
 	}
 
 	public native void model1(DATA1 data);

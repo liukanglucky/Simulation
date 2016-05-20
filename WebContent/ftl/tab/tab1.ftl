@@ -17,7 +17,7 @@
       <tbody>
         <tr>
           <td>采样频率KHz：</td>
-          <td><input name="speed" style="width:75px;" type="text"><input name="speed" style="width:75px;" type="hidden"></td>
+          <td><input name="speed" style="width:75px;" type="text" id="tab1dbspeed"><input name="speed" style="width:75px;" type="hidden"></td>
           <td>检测域dB：</td>
           <td><input name="bre" style="width:75px;" type="text"></td>
           <td>发射信号形式：</td>

@@ -13,8 +13,11 @@
                 <tr>
                   <td>目标类型</td>
                   <td><select name="type2" style="width:75px; height:20px">
-                      <option value="5">Y10</option>
+                      <option value="1">001</option>
+                      <option value="2">054A</option>
+                      <option value="3">039</option>
                       <option value="4">Y7A</option>
+                      <option value="5">Y10</option>
                     </select>
                   </td>
                   <td>输出频率范围</td>

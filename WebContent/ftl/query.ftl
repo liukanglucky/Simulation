@@ -12,6 +12,7 @@
   <body>
   <script src="js/custom/queryAndshow.js"></script>
   <script src="js/custom/query.js"></script>
+  <script src="js/custom/defaultData.js"></script>
  	<#if Session["user"]?exists>
     <#assign userSession = Session["user"]>
 	</#if>
@@ -54,13 +55,9 @@
               <td align="center">仿真对象</td>
               <td align="center">
                 <select name="sim">
-                 <option value="0">未知</option>
-                  <option value="1">001</option>
-                  <option value="2">054A</option>
-                  <option value="3">039</option>
-                  <option value="4">鱼－7A</option>
-                  <option value="5">鱼－10</option>
+                 <option value=""></option>
                 </select>
+                <script>getMt();</script>
               </td>
             </tr>
             <tr>

@@ -38,7 +38,7 @@ public class DATAFactory {
 			obj = new DATA7();
 		}
 		
-		if(dataType.equals("8")){
+		if(dataType.equals("8A") || dataType.equals("8B") ||dataType.equals("8") ){
 			obj = new DATA8();
 		}
 		

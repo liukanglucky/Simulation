@@ -98,7 +98,7 @@ public class NativeFactory {
 			if (simType.equals("0")) {
 				obj.setS1('6');
 			} else {
-				obj.setS1('1');
+				obj.setS1('8');
 			}
 			m.model8(obj);
 		}

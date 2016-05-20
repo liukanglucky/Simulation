@@ -23,6 +23,23 @@ public class DATA7 implements Serializable{
 	private float[] speed2 = new float[30];    //与航速对应的螺旋桨转速30
 	private float sspeed;        //螺旋桨末端转速
 	private float fre;           //中心频率
+	
+	
+	private int len1;  //数据文件名长度
+	private char[] file1 = new char[50];//文件名
+	
+	public int getLen1() {
+		return len1;
+	}
+	public void setLen1(int len1) {
+		this.len1 = len1;
+	}
+	public char[] getFile1() {
+		return file1;
+	}
+	public void setFile1(char[] file1) {
+		this.file1 = file1;
+	}
 	public char getS1() {
 		return s1;
 	}

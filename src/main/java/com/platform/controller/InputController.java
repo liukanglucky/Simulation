@@ -74,6 +74,8 @@ public class InputController extends BaseJsonAction{
 		
 		input = DATAFactory.getData(dataNum);
 		path = request.getSession().getServletContext().getRealPath("data/data"+fileNum+".txt");
+		System.out.println("+++++++++++++++filepath is "+path);
+		System.out.println(otf.objectDeSerialize(path));
 		input = input.getClass().cast(otf.objectDeSerialize(path));
 		
 		if(input == null){
@@ -143,6 +145,8 @@ public class InputController extends BaseJsonAction{
 		String out4 = (String) request.getParameter("output4");
 		String para = (String) request.getParameter("para");
 		Class c = input.getClass();
+		
+		
 		
 		//填写其他参数
 		if(dataNum.equals("1") ||dataNum.equals("1B")|| dataNum.equals("2")){
@@ -312,7 +316,8 @@ public class InputController extends BaseJsonAction{
         
         UdpServerSocket udpServerSocket = null;
 		try {
-			udpServerSocket = new UdpServerSocket(this.serverHost, this.serverPort);
+			udpServerSocket = new UdpServerSocket(this.serverHost, this.serverPort,this.runTimeLimit*60*1000);
+			
 			
 			//发送数据
 			NativeFactory.getNativeMethod(modelId, input,simType);
@@ -326,6 +331,7 @@ public class InputController extends BaseJsonAction{
 			while (true) { 
 				now = System.currentTimeMillis();
 				//执行超时 5分钟超时
+				//System.out.println("已经等待"(now - start) / (1000*60));
 				if((now - start) / (1000*60) >= this.runTimeLimit){
 					this.setData("Exec_error:执行超时");
 					this.outPut();

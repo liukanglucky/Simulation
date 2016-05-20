@@ -16,7 +16,7 @@
       <tbody>
         <tr>
           <td>航速/kn</td>
-          <td><input name="speed" style="width:75px;" type="text"><input name="speed" style="width:75px;" type="hidden"></td>
+          <td><input name="speed" style="width:75px;" type="text" id="tab1Bdbspeed"><input name="speed" style="width:75px;" type="hidden"></td>
           <td>脉宽/ms</td>
           <td><input name="cre" style="width:75px;" type="text"></td>
           <td>发射信号形式：</td>

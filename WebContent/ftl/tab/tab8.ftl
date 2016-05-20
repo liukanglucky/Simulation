@@ -97,9 +97,19 @@
                   <td>接收深度</td>
                   <td><input name="dep" style="width:60px;" type="text"></td>
                 </tr>
+                <tr id="tab8file1">
+                	
+                </tr>
+                <tr id="tab8file2">	
+                	
+                </tr>
+                <tr id="tab8file3">	
+                	
+                </tr>
               </tbody>
             </table>
-            <input type="button" class="btn btn-warning" value="保存数据"
+            
+            <input type="button" class="btn btn-warning" value="保存数据" id="tab8save"
 							onClick="autoGetVal('tab8','8','8');">
 						<input type="button" class="btn btn-success" value="开始仿真"
 							onClick="run('tab8','8','8');">

@@ -12,6 +12,7 @@ var hexToDec = function(str) {
 //ajax获得object,自动填充
 function getObj(id, fileid, tabname) {
 	//alert("dataid is "+id +" fileid is "+fileid);
+	getMt();
 	$.ajax({
 		url : "input/defaultData.do",
 		type : "post",
@@ -45,6 +46,23 @@ function defaultVal(id, data) {
 			//alert(""+data[key].replace(/,/g,'')+"");
 			continue;
 		}
+		//model8 use start
+		if(key == "name1"){
+			$("#name1").val(data[key].replace(/,/g,''));
+			continue;
+		}
+		
+		if(key == "name2"){
+			$("#name2").val(data[key].replace(/,/g,''));
+			continue;
+		}
+		
+		if(key == "name3"){
+			$("#name3").val(data[key].replace(/,/g,''));
+			continue;
+		}
+		//model8 use end
+		
 		var dom = $("#" + id + " input[name='" + key + "']");
 
 		if (dom.size() <= 1) {
@@ -234,8 +252,30 @@ function tabgo7() {
 function tabgo8() {
 	$("#tabContent").slideDown();
 	$('#tab-8').attr('href', '#tab8');
-	$('#myTab a[href="#tab8"]').tab('show');
-	getObj("8", "8", "tab8");
+	
+	//仿真
+	if ($("#simType").val() == 1) {
+		$("#tab8file1").html('<td>海深文件</td><td colspan="5"><input type="file" id="name1file" onChange="getFile(\'1\');"><input type="text" name="name1" id="name1"></td>');
+		$("#tab8file2").html('<td>海底底质</td><td colspan="5"><input type="file" id="name2file" onChange="getFile(\'2\');"><input type="text" name="name2" id="name2"></td>');
+		$("#tab8file3").html('<td>剖面文件</td><td colspan="5"><input type="file" id="name3file" onChange="getFile(\'3\');"><input type="text" name="name3" id="name3"></td>');
+	
+		$("#tab8save").attr("onClick","autoGetVal('tab8','8','8B');");
+		$('#myTab a[href="#tab8"]').tab('show');
+		getObj("8", "8B", "tab8");
+	}
+	
+	//分析
+	if ($("#simType").val() == 0) {
+		$("#tab8file1").html('<td>实测文件</td><td colspan="5"><input type="file" id="name1file" onChange="getFile(\'1\');"><input type="text" name="name1" id="name1"></td>');
+		$("#tab8file2").html('<td>样本文件</td><td colspan="5"><input type="file" id="name2file" onChange="getFile(\'2\');"><input type="text" name="name2" id="name2"></td>');
+		$("#tab8file3").html('');
+		
+		$("#tab8save").attr("onClick","autoGetVal('tab8','8','8A');");
+		$('#myTab a[href="#tab8"]').tab('show');
+		getObj("8", "8A", "tab8");
+	}
+	
+	
 
 }
 
@@ -250,4 +290,41 @@ function len(s) {
 		} 
 	} 
 	return l; 
+}
+
+function getMt(){
+	$.ajax({
+		url : "loadMt.do",
+		type : "post",
+		dataType : "text",
+		success : function(data) {
+			//data = hexToDec(data);
+			data = eval('(' + data + ')');
+			data = eval(data);
+			var html = '<option value=""></option>';
+			for(var d in data){
+				var o = data[d];
+				var temp = '<option value="'+o['index']+'">'+o['name']+'</option>';
+				html+=temp;
+			}
+			$("select[name='sim']").html(html);
+			//alert(html);
+		},
+		error : function(err) {
+			alert("未能读取默认参数");
+		}
+	});
+}
+
+function getFile(id){
+	//规定file选择框的名称比对应text的名称多后面多“file”
+	if(id="1"){
+		$("#name1").val($("#name1file").val().split("\\").pop());
+	}
+	if(id="2"){
+		$("#name2").val($("#name2file").val().split("\\").pop());
+	}
+	if(id="3"){
+		$("#name3").val($("#name3file").val().split("\\").pop());
+	}
 }

@@ -8,7 +8,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
+	<script src="js/export.js"></script>
+	<script src="js/custom/defaultData.js"></script>
   </head>
   <body>
   	<#if Session["user"]?exists>
@@ -49,6 +50,30 @@
             <td align="center" style="width:90px; height:20px">
               <input type="text" id="file" >
             </td>
+            <tr>
+            	<td align="center">选择对象：</td>
+            	<td align="center" style="width:90px; height:20px">
+              	<select name="sim" >
+              		<option></option>
+              	</select>
+              	<script>
+              		getMt();
+              	</script>
+            	</td>
+            	
+				</tr>
+				<tr>
+				<td>
+            		<input type="button" class="btn btn-info" value="导出Html"
+							onClick="exportHtml();">
+				</td>
+				<td>
+					<input type="button" class="btn btn-info" value="导出Word"
+							onClick="exportWord();"></td><td>
+					<input type="button" class="btn btn-info" value="导出Pdf"
+							onClick="exportPdf();">
+            	</td>
+            </tr>
           </tr> 
         </table>
         <script src="js/custom/runAndshow.js"></script>
@@ -128,4 +153,5 @@
 	</div>
     
   </body>
+ 
 </html>

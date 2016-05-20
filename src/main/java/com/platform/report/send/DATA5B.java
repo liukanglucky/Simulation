@@ -255,4 +255,11 @@ public class DATA5B implements Serializable{
 		this.outp3 = outp3;
 	}
 	
+	private int code; //指令码
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
 }

@@ -282,4 +282,49 @@ public class DATA8 implements Serializable{
 		this.down = down;
 	}
 	
+	//传递文件名报文
+	private int namelen1;
+	private char[] name1 = new char[50];
+	private int namelen2;
+	private char[] name2 = new char[50];
+	private int namelen3;
+	private char[] name3 = new char[50];
+	public int getNamelen1() {
+		return namelen1;
+	}
+	public void setNamelen1(int namelen1) {
+		this.namelen1 = namelen1;
+	}
+	public char[] getName1() {
+		return name1;
+	}
+	public void setName1(char[] name1) {
+		this.name1 = name1;
+	}
+	public int getNamelen2() {
+		return namelen2;
+	}
+	public void setNamelen2(int namelen2) {
+		this.namelen2 = namelen2;
+	}
+	public char[] getName2() {
+		return name2;
+	}
+	public void setName2(char[] name2) {
+		this.name2 = name2;
+	}
+	public int getNamelen3() {
+		return namelen3;
+	}
+	public void setNamelen3(int namelen3) {
+		this.namelen3 = namelen3;
+	}
+	public char[] getName3() {
+		return name3;
+	}
+	public void setName3(char[] name3) {
+		this.name3 = name3;
+	}
+	
+	
 }

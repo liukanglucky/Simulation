@@ -257,7 +257,8 @@ public class ObjectToFile {
 					System.out.println(fields[i].getName()+",fieldType is "+type+",value is "+map.get(key));
 					
 					if(type.equals("char")){
-						fields[i].set(obj, (char)map.get(key).charAt(0));
+						System.out.println("fieldType is "+type+" "+(char)map.get(key).trim().charAt(0));
+						fields[i].set(obj, (char)map.get(key).trim().charAt(0));
 					}
 					
 					if(type.equals("int")){
