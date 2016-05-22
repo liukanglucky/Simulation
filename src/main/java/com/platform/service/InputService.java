@@ -24,7 +24,7 @@ public class InputService {
 		
 		input = DATAFactory.getData(dataNum);
 		
-		if(!dataNum.equals("2")){
+		if(!dataNum.equals("2")&&!dataNum.equals("2A")&&!dataNum.equals("2B")){
 			otf.mapToObject(otf.stringToMap(str), input);
 		}else{
 			Map<String,String> data2Map = otf.stringToMap(str);

@@ -46,7 +46,7 @@ public class DATA2 implements Serializable{
 	private int num;  //阵元个数
 	private char type1;//仿真类型
 	private char[] type2 = new char[4];//信号形式
-	private char len;  //文件名长度
+	private int len;  //文件名长度
 	private char[] file = new char[255];//文件名
 	
 	//2016.5.10增加
@@ -256,10 +256,10 @@ public class DATA2 implements Serializable{
 	public void setType2(char[] type2) {
 		this.type2 = type2;
 	}
-	public char getLen() {
+	public int getLen() {
 		return len;
 	}
-	public void setLen(char len) {
+	public void setLen(int len) {
 		this.len = len;
 	}
 	public char[] getFile() {

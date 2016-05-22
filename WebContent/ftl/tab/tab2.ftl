@@ -11,7 +11,7 @@
     <table border="0" cellpadding="1" cellspacing="1" style="width: 100%; font-size:8px;">
       <tr>
         <td>纵波声速</td>
-        <td><input name="speed1" style="width:75px;" type="text" value=tab2_data.speed1>
+        <td><input name="speed1" style="width:75px;" type="text" >
 	    <input name="s2" type="hidden" value="1"></td>
         <td>海底谱强度</td>
         <td><input name="pu1" style="width:75px;" type="text"></td>
@@ -314,8 +314,8 @@
         <td></td>
       </tr>
       </table>
-     <input type="button" class="btn btn-warning" value="保存数据"
+     <input type="button" class="btn btn-warning" value="保存数据" id="tab2save"
 							onClick="autoGetVal('tab2',2,2);">
-	<input type="button" class="btn btn-success" value="开始仿真"
+	<input type="button" class="btn btn-success" value="开始仿真" 
 		onClick="run('tab2',2,2);">
   </div>

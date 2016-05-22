@@ -165,7 +165,7 @@ public class ModelDataServiceImpl implements ModelDataService{
 			return this.insertData7(temp);
 		}
 		
-		if(dataType.equals("8")){
+		if(dataType.equals("8A") || dataType.equals("8B") ||dataType.equals("8") ){
 			DATA8 temp= (DATA8)data;
 			temp.setOperator(operator);
 			return this.insertData8(temp);
@@ -251,25 +251,25 @@ public class ModelDataServiceImpl implements ModelDataService{
 	@Override
 	public int insertData4A(DATA3A data) {
 		// TODO Auto-generated method stub
-		return modelDataDao.insertData3A(data);
+		return modelDataDao.insertData4A(data);
 	}
 
 	@Override
 	public int insertData4B(DATA3B data) {
 		// TODO Auto-generated method stub
-		return modelDataDao.insertData3B(data);
+		return modelDataDao.insertData4B(data);
 	}
 
 	@Override
 	public int insertData6A(DATA5A data) {
 		// TODO Auto-generated method stub
-		return modelDataDao.insertData5A(data);
+		return modelDataDao.insertData6A(data);
 	}
 
 	@Override
 	public int insertData6B(DATA5B data) {
 		// TODO Auto-generated method stub
-		return modelDataDao.insertData5B(data);
+		return modelDataDao.insertData6B(data);
 	}
 	
 }

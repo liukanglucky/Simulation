@@ -54,7 +54,7 @@
               </td>
               <td align="center">仿真对象</td>
               <td align="center">
-                <select name="sim">
+                <select name="simname">
                  <option value=""></option>
                 </select>
                 <script>getMt();</script>

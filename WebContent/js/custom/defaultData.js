@@ -24,6 +24,7 @@ function getObj(id, fileid, tabname) {
 		success : function(data) {
 			data = hexToDec(data);
 			data = eval('(' + data + ')');
+			//alert(data);
 			defaultVal(tabname, data);
 		},
 		error : function(err) {
@@ -149,9 +150,16 @@ function tabgo1() {
 function tabgo2() {
 	$("#tabContent").slideDown();
 	$('#tab-2').attr('href', '#tab2');
+	
+	if ($("#simType").val() == 1) {
+		$("#tab2save").attr("onClick","autoGetVal('tab2','2','2B');");
+		getObj("2", "2B", "tab2");
+	}
+	if ($("#simType").val() == 0) {
+		$("#tab2save").attr("onClick","autoGetVal('tab2','2','2A');");
+		getObj("2", "2A", "tab2");
+	}
 	$('#myTab a[href="#tab2"]').tab('show');
-	getObj("2", "2", "tab2");
-
 }
 
 function tabgo3() {
@@ -301,13 +309,13 @@ function getMt(){
 			//data = hexToDec(data);
 			data = eval('(' + data + ')');
 			data = eval(data);
-			var html = '<option value=""></option>';
+			var html = '<option value="0"></option>';
 			for(var d in data){
 				var o = data[d];
 				var temp = '<option value="'+o['index']+'">'+o['name']+'</option>';
 				html+=temp;
 			}
-			$("select[name='sim']").html(html);
+			$("select[name='simname']").html(html);
 			//alert(html);
 		},
 		error : function(err) {
@@ -325,6 +333,19 @@ function getFile(id){
 		$("#name2").val($("#name2file").val().split("\\").pop());
 	}
 	if(id="3"){
+		if($("#name3file").val() != "" && $("#name3file").val() != null)
 		$("#name3").val($("#name3file").val().split("\\").pop());
 	}
+}
+
+function calFile(){
+	$("#file").val($("#calfile").val().split("\\").pop());
+}
+
+function tab1File(){
+	$("#tab1file2").val($("#tab1getfile").val().split("\\").pop());
+}
+
+function tab1BFile(){
+	$("#tab1Bfile2").val($("#tab1Bgetfile").val().split("\\").pop());
 }

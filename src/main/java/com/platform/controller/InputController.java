@@ -255,6 +255,7 @@ public class InputController extends BaseJsonAction{
 			Field dataindex = input.getClass().getDeclaredField("dataindex");
 			dataindex.setAccessible(true);
 			dataindex.set(input, maxid+1);
+			System.out.println("insert factory use datanum is "+dataNum);
 			User user=(User) request.getSession().getAttribute("user"); 
 			mdsi.insertFactory(dataNum, input,user.getId());
 		} catch (NoSuchFieldException e) {
@@ -305,6 +306,25 @@ public class InputController extends BaseJsonAction{
 		
 		input = inputService.reutrnObject(dataNum, str);
 		
+		if(dataNum.equals("8")){
+			System.out.println(input.getClass().getName());
+			try {
+			Field name1 = input.getClass().getDeclaredField("name1");
+			name1.setAccessible(true);
+			char[] name1array = (char[])name1.get(input);
+			for (int i = 0; i < name1array.length; i++) {
+				System.out.println("+++++++++data8 name is "+name1array[i]);
+			}
+			
+			Field namelen1 = input.getClass().getDeclaredField("namelen1");
+			namelen1.setAccessible(true);
+			int namelen1int = (int)namelen1.get(input);
+			System.out.println("+++++++++data8 name len is "+namelen1int);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		//等待执行成功信号
 //		String serverHost = "192.168.220.202";  

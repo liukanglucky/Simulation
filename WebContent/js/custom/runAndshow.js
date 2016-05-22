@@ -5,6 +5,14 @@ out2 = "";
 out3 = "";
 out4 = "";
 para = "";
+
+
+linename1="";
+linename2="";
+linename3="";
+linename4="";
+
+
 /**
  *  show data
  */
@@ -53,7 +61,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 		var xdata3 = new Array(100);
 		var xdata4 = new Array(100);
 
-		if(modelid == "1B" || dataid == "2"){
+		if(modelid == "1B" ){
 			
 			for (var i = 0; i < data1.length; i++) {
 				xdata1[i] = i;
@@ -90,7 +98,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波频率谱' ]
+				data : [ linename1]
 			},
 			toolbox : {
 				show : true,
@@ -143,7 +151,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				},
 			} ],
 			series : [ {
-				name : '回波频率谱',
+				name : linename1,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -167,7 +175,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '目标强度方位变化' ]
+				data : [ linename2 ]
 			},
 			toolbox : {
 				show : true,
@@ -214,7 +222,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				},
 			} ],
 			series : [ {
-				name : '目标强度方位变化',
+				name : linename2,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -235,7 +243,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波信号' ]
+				data : [ linename3 ]
 			},
 			toolbox : {
 				show : true,
@@ -283,7 +291,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 				},
 			} ],
 			series : [ {
-				name : '回波信号',
+				name : linename3,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -304,7 +312,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 					trigger : 'axis'
 				},
 				legend : {
-					data : [ '回波信号' ]
+					data : [ linename4 ]
 				},
 				toolbox : {
 					show : true,
@@ -352,7 +360,7 @@ function showData(data1,data2,data3,data4,text,text2,dataid,modelid) {
 					},
 				} ],
 				series : [ {
-					name : '回波信号',
+					name : linename4,
 					type : 'line',
 					stack : '总量',
 					symbol : 'none',
@@ -386,9 +394,50 @@ function run(id, dataid,modelid){
 
 	var simType=$("#simType").val();//zjh改，方便模型七八传值
 	var result = "";
-
+	
+	//model1 有 file1 和 file2
+	if(dataid == "1"){
+		var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
+		var file2 = $.trim($("#tab"+modelid+"file2").val().replace(/,/g,''));
+		result = result + "file1:"+file1+",";
+		result = result + "len1:"+len(file1)+",";
+		result = result + "file2:"+file2+",";
+		result = result + "len2:"+len(file2)+",";
+		result = result + "dbspeed:"+$("#tab"+modelid+"dbspeed").val()+",";
+		
+	}else{
+		//model 8 有三个文件
+		if(dataid == "8"){
+			var name1 = $.trim($("#name1").val().replace(/,/g,'')) ;
+			var name2 = $.trim($("#name2").val().replace(/,/g,'')) ;
+			if($("#name3").val() != "" && $("#name3").val() != null)
+			var name3 = $.trim($("#name3").val().replace(/,/g,'')) ;
+			result = result + "name1:"+name1+",";
+			//alert(len(name1));
+			result  = result + "namelen1:"+len(name1.replace(/,/g,''))+",";
+			result = result + "name2:"+name2+",";
+			result  = result + "namelen2:"+len(name2.replace(/,/g,''))+",";
+			if("undefined" != typeof name3){
+				result = result + "name3:"+name3+",";
+				result  = result + "namelen3:"+len(name3.replace(/,/g,''))+",";
+			}
+			
+			
+		}
+		
+		if(dataid == "7"){
+			var file1 = $.trim($("#file").val().replace(/,/g,'')) ;
+			result = result + "file1:"+file1+",";
+			result = result + "len1:"+len(file1)+",";
+		}
+		
+		var file = $.trim($("#file").val().replace(/,/g,''));
+		result+="file:"+file+",";
+		result+="len:"+len(file)+",";
+	}
+	
 	for (var i = 0; i < dom.size(); i++) {
-
+		if($(dom[i]).attr("name") != "file2" && $(dom[i]).attr("name") != "name1" && $(dom[i]).attr("name") != "name2" && $(dom[i]).attr("name") != "name3" )
 		result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 	}
 
@@ -408,8 +457,9 @@ function run(id, dataid,modelid){
 //	$("#main2").html("");
 //	$("#main3").html("");
 	
-	
 
+	//alert(result);
+	initLineName(modelid);
 	
 	$.ajax({
 		url : "input/run.do",
@@ -746,9 +796,9 @@ function initResult(line1,line2,line3,line4,text){
 			out3 = out3+"000";
 		if(len(line3[i])==1)
 			out3 = out3+"00"+line3[i];
-		if(len(line1[i])==2)
+		if(len(line3[i])==2)
 			out3 = out3+"0"+line3[i];
-		if(len(line1[i])==3)
+		if(len(line3[i])==3)
 			out3 = out3+line3[i];
 	}
 	for(var i=0; i < line4.length; i++){
@@ -756,10 +806,10 @@ function initResult(line1,line2,line3,line4,text){
 			out4 = out4+"000";
 		if(len(line4[i])==1)
 			out4 = out4+"00"+line4[i];
-		if(len(line1[i])==2)
-			out4 = out1+"0"+line3[i];
-		if(len(line1[i])==3)
-			out4 = out4+line3[i];
+		if(len(line4[i])==2)
+			out4 = out4+"0"+line4[i];
+		if(len(line4[i])==3)
+			out4 = out4+line4[i];
 	}
 	para = text;
 }
@@ -824,14 +874,17 @@ function autoGetVal(id, dataid, fileid) {
 		if(dataid == "8"){
 			var name1 = $.trim($("#name1").val().replace(/,/g,'')) ;
 			var name2 = $.trim($("#name2").val().replace(/,/g,'')) ;
+			if($("#name3").val() != "" && $("#name3").val() != null)
 			var name3 = $.trim($("#name3").val().replace(/,/g,'')) ;
 			result = result + "name1:"+name1+",";
 			//alert(len(name1));
 			result  = result + "namelen1:"+len(name1.replace(/,/g,''))+",";
 			result = result + "name2:"+name2+",";
 			result  = result + "namelen2:"+len(name2.replace(/,/g,''))+",";
+			if("undefined" != typeof name3){
 			result = result + "name3:"+name3+",";
 			result  = result + "namelen3:"+len(name3.replace(/,/g,''))+",";
+			}
 			
 		}
 		
@@ -846,8 +899,9 @@ function autoGetVal(id, dataid, fileid) {
 		result+="len:"+len(file)+",";
 	}
 	
+	
 	for (var i = 0; i < dom.size(); i++) {
-		if($(dom[i]).attr("name") != "file2")
+		if($(dom[i]).attr("name") != "file2" && $(dom[i]).attr("name") != "name1" && $(dom[i]).attr("name") != "name2" && $(dom[i]).attr("name") != "name3" )
 			result += $(dom[i]).attr("name") + ":" + $(dom[i]).val() + ",";
 	}
 
@@ -881,4 +935,53 @@ function autoGetVal(id, dataid, fileid) {
 		}
 	});
 
+}
+
+
+
+function initLineName(modelid){
+	//初始化曲线名称
+	if(modelid == "1"){
+		//分析
+		linename1 = "时域回波信号";
+		linename2 = "回波频谱";
+		linename3 = "回波包络";
+	}
+	//模拟
+	if(modelid == "1B"){
+		linename1 = "主动发射信号";
+		linename2 = "时域回波信号";
+		linename3 = "目标强度方位变化";
+	}
+	
+	//分析
+	if(modelid == "2A" || modelid == "2B" ){
+		linename1 = "时域波形";
+		linename2 = "混响级";
+		linename3 = "混响功率谱";
+	}
+	
+	
+	//分析
+	if(modelid == "3A"||modelid == "3B"||modelid == "4A"||modelid == "4B"||modelid == "5A"||modelid == "5B"||modelid == "6A"||modelid == "6B"){
+		linename1 = "Lofar谱";
+		linename2 = "Demon谱";
+		linename3 = "信号波形";
+	}
+	
+	
+	//分析
+	if(modelid == "7A"||modelid == "7B"){
+		linename1 = "噪声功率谱";
+		
+	}
+	
+	
+	//分析
+	if(modelid == "8A"||modelid == "8B"||modelid == "8"){
+		linename1 = "传播损失";
+		
+	}
+	
+	
 }

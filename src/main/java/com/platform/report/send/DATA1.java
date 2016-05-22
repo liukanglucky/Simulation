@@ -44,9 +44,9 @@ public class DATA1 implements Serializable{
 	private char type1;//仿真类型
 	private char type2;//包络
 	private char type3;//信号形式
-	private char len1;  //数据文件名长度
+	private int len1;  //数据文件名长度
 	private char[] file1 = new char[100];//文件名
-	private char len2;  //模型文件名长度
+	private int len2;  //模型文件名长度
 	private char[] file2 = new char[100];//文件名
 	public char getS1() {
 		return s1;
@@ -159,10 +159,10 @@ public class DATA1 implements Serializable{
 	public void setType3(char type3) {
 		this.type3 = type3;
 	}
-	public char getLen1() {
+	public int getLen1() {
 		return len1;
 	}
-	public void setLen1(char len1) {
+	public void setLen1(int len1) {
 		this.len1 = len1;
 	}
 	public char[] getFile1() {
@@ -171,10 +171,10 @@ public class DATA1 implements Serializable{
 	public void setFile1(char[] file1) {
 		this.file1 = file1;
 	}
-	public char getLen2() {
+	public int getLen2() {
 		return len2;
 	}
-	public void setLen2(char len2) {
+	public void setLen2(int len2) {
 		this.len2 = len2;
 	}
 	public char[] getFile2() {

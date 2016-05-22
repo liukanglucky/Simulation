@@ -14,7 +14,7 @@ public class DATAFactory {
 			obj = new DATA1();
 		}
 		
-		if(dataType.equals("2")){
+		if(dataType.equals("2")||dataType.equals("2A")||dataType.equals("2B")){
 			obj = new DATA2();
 		}
 		

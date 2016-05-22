@@ -30,7 +30,7 @@ public class DATA3A implements Serializable{
 	private float lm2;          //模拟灵敏度
 	private char type1;//仿真类型
 	private char type2;//目标类型1:001；2:054A；3:039；4：Y7A;5：Y10
-	private char len;  //文件名长度
+	private int len;  //文件名长度
 	private char[] file = new char[255];//文件名
 	
 	private float[] xp1 = new float[20];      //线谱频率20
@@ -157,10 +157,10 @@ public class DATA3A implements Serializable{
 	public void setType2(char type2) {
 		this.type2 = type2;
 	}
-	public char getLen() {
+	public int getLen() {
 		return len;
 	}
-	public void setLen(char len) {
+	public void setLen(int len) {
 		this.len = len;
 	}
 	public char[] getFile() {

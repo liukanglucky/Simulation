@@ -22,7 +22,7 @@
 		values
 		(#{dataindex},#{date1},2,#{mt},#{sim},1,#{time1},#{type3},
 		<!-- #{speed}, -->
-		#{dbspeed},
+		#{dbspeed}
 		,#{ang},#{fre},#{bre},#{cre},#{distence},#{ang1},
 		#{out1},#{out2},#{out3},#{out4})
 	</insert>

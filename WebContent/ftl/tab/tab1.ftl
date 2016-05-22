@@ -1,5 +1,6 @@
 <div class="tab-pane" id="tab1">
-    目标三维模型 : <input type="text"  id="tab1file2" name="file2">
+    目标三维模型 : <input type="file" id="tab1getfile" onChange="tab1File();">
+    <input type="text"  id="tab1file2" name="file2">
     仿真类型：
     <select name="mt" style="width:90px; height:20px">
       <option value="1">潜艇</option>

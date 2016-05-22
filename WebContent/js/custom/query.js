@@ -5,11 +5,15 @@
 	  	var _comments= '';
 	  	var _currentPage= '';
 	  	var _pageSize = '';
+	  	linename1="";
+	  	linename2="";
+	  	linename3="";
+	  	linename4="";
 	  	
 	function queryModelData(){
 	  	_dt = $("select[name='dt']").val();
 	  	_mt = $("select[name='mt']").val(); 
-	  	_sim = $("select[name='sim']").val();
+	  	_sim = $("select[name='simname']").val();
 	  	_stype = $("select[name='stype']").val();
 	  	_comments= $("input[name='comments']").val();
 	  	_currentPage= 1;
@@ -374,7 +378,35 @@
 				var line4 = new Array();
 				switch(data.stype){
 					case 1:
+						linename1 = "主动发射信号";
+						linename2 = "时域回波信号";
+						linename3 = "目标强度方位变化";
+						for(i=0,j=0;j<(data.out1.length)/3;j++)
+		        		{
+		        			line1[j]=data.out1.substr(i,3);
+		        			i+=3;
+		        		}
+		        		for(i=0,j=0;j<(data.out2.length)/3;j++)
+		        		{
+		        			line2[j]=data.out2.substr(i,3);
+		        			i+=3;
+		        		}
+		        		for(i=0,j=0;j<(data.out3.length)/3;j++)
+		        		{
+		        			line3[j]=data.out3.substr(i,3);
+		        			i+=3;
+		        		}
+//		        		for(i=0,j=0;j<(data.out4.length)/3;j++)
+//		        		{
+//		        			line4[j]=data.out4.substr(i,3);
+//		        			i+=3;
+//		        		}
+		        		showData1_2(line1,line2,line3,line4,input,output);
+		        		break;
 					case 2:
+						linename1 = "时域波形";
+						linename2 = "混响级";
+						linename3 = "混响功率谱";
 						for(i=0,j=0;j<(data.out1.length)/3;j++)
 		        		{
 		        			line1[j]=data.out1.substr(i,3);
@@ -401,6 +433,9 @@
 					case 4:
 					case 5:
 					case 6:
+						linename1 = "Lofar谱";
+						linename2 = "Demon谱";
+						linename3 = "信号波形";
 						for(i=0,j=0;j<(data.out1.length)/3;j++)
 		        		{
 		        			line1[j]=data.out1.substr(i,3);
@@ -419,7 +454,16 @@
 		        		showData3_6(line1,line2,line3,input,output);
 		        		break;
 					case 7:
+						linename1 = "噪声功率谱";
+						for(i=0,j=0;j<(data.out1.length)/3;j++)
+		        		{
+		        			line1[j]=data.out1.substr(i,3);
+		        			i+=3;
+		        		}
+						showData7_8(line1,input,output);
+						break;
 					case 8:
+						linename1 = "传播损失";
 						//alert(data.out1);
 						for(i=0,j=0;j<(data.out1.length)/3;j++)
 		        		{

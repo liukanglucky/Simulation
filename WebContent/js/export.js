@@ -91,3 +91,70 @@ function exportPdf(){
 		}
 	}
 
+
+
+function fake_click(obj) {
+    var ev = document.createEvent("MouseEvents");
+    ev.initMouseEvent(
+        "click", true, false, window, 0, 0, 0, 0, 0
+        , false, false, false, false, 0, null
+        );
+    obj.dispatchEvent(ev);
+}
+ 
+function export_raw(name, data) {
+   var urlObject = window.URL || window.webkitURL || window;
+ 
+   var export_blob = new Blob([data]);
+ 
+   var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+   save_link.href = urlObject.createObjectURL(export_blob);
+   save_link.download = name;
+   fake_click(save_link);
+}
+
+function exportHtml2(){
+	var test=document.getElementsByTagName('html')[0].outerHTML;
+	console.log(test);
+	export_raw('test.html', test);
+}
+
+function exportImg(event){
+	   event.preventDefault();
+       html2canvas(document.body, {
+       allowTaint: true,
+       taintTest: false,
+       onrendered: function(canvas) {
+           canvas.id = "mycanvas";
+           //document.body.appendChild(canvas);
+           //生成base64图片数据
+           var dataUrl = canvas.toDataURL();
+           //alert(dataUrl);
+           
+           var imgData = dataUrl;
+           var doc = new jsPDF();
+
+           doc.setFontSize(40);
+           //doc.text(35, 25, "Paranyan loves jsPDF");
+           doc.addImage(imgData, 'PNG', 15, 40, 180, 160);
+           
+           var name = prompt("请输入保存文件名", ""); //将输入的内容赋给变量 name ，  
+           
+           //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值  
+           if (name)//如果返回的有内容  
+           {  
+        	   doc.save(name+".pdf"); 
+           }  
+           
+          
+           //以下代码为下载此图片功能 
+//           var triggerDownload = $("<a>").attr("href", dataUrl).attr("download", "img.png").appendTo("body"); 
+//           triggerDownload[0].click(); 
+//           triggerDownload.remove();
+//
+//           var newImg = document.createElement("img");
+//           newImg.src =  dataUrl;
+//           document.body.appendChild(newImg);
+       }
+   });
+}

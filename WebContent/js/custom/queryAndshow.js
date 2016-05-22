@@ -29,7 +29,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波频率谱' ]
+				data : [ linename1 ]
 			},
 			toolbox : {
 				show : true,
@@ -82,7 +82,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '回波频率谱',
+				name : linename1,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -106,7 +106,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '目标强度方位变化' ]
+				data : [ linename2 ]
 			},
 			toolbox : {
 				show : true,
@@ -153,7 +153,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '目标强度方位变化',
+				name : linename2,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -174,7 +174,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波信号' ]
+				data : [ linename3 ]
 			},
 			toolbox : {
 				show : true,
@@ -222,7 +222,7 @@ function showData3_6(data1,data2,data3,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '回波信号',
+				name : linename3,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -274,7 +274,7 @@ function showData7_8(data1,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波频率谱' ]
+				data : [ linename1 ]
 			},
 			toolbox : {
 				show : true,
@@ -327,7 +327,7 @@ function showData7_8(data1,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '回波频率谱',
+				name : linename1,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -387,7 +387,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波频率谱' ]
+				data : [ linename1 ]
 			},
 			toolbox : {
 				show : true,
@@ -440,7 +440,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '回波频率谱',
+				name : linename1,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -464,7 +464,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '目标强度方位变化' ]
+				data : [ linename2 ]
 			},
 			toolbox : {
 				show : true,
@@ -511,7 +511,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '目标强度方位变化',
+				name : linename2,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -532,7 +532,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				trigger : 'axis'
 			},
 			legend : {
-				data : [ '回波信号' ]
+				data : [ linename3 ]
 			},
 			toolbox : {
 				show : true,
@@ -580,7 +580,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 				},
 			} ],
 			series : [ {
-				name : '回波信号',
+				name : linename3,
 				type : 'line',
 				stack : '总量',
 				symbol : 'none',
@@ -601,7 +601,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 					trigger : 'axis'
 				},
 				legend : {
-					data : [ '回波信号' ]
+					data : [ linename4 ]
 				},
 				toolbox : {
 					show : true,
@@ -649,7 +649,7 @@ function showData1_2(data1,data2,data3,data4,text1,text2) {
 					},
 				} ],
 				series : [ {
-					name : '回波信号',
+					name : linename4,
 					type : 'line',
 					stack : '总量',
 					symbol : 'none',

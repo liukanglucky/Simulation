@@ -8,7 +8,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/html2canvas.js"></script>
 	<script src="js/export.js"></script>
+	
+	<script src="js/jspdf.min.js"></script>
+	<!--
+	<script src="js/jspdf.plugin.addimage.js"></script>
+	<script src="js/jspdf.plugin.png_support.js"></script>
+	<script src="js/png.js"></script>
+	<script src="js/zlib.js"></script>
+	-->
 	<script src="js/custom/defaultData.js"></script>
   </head>
   <body>
@@ -48,31 +57,35 @@
             </td>
             <td align="center">选择实例数据：</td>
             <td align="center" style="width:90px; height:20px">
+             <input type="file" onChange="calFile();" id="calfile">
               <input type="text" id="file" >
             </td>
             <tr>
             	<td align="center">选择对象：</td>
             	<td align="center" style="width:90px; height:20px">
-              	<select name="sim" >
+              	<select name="simname" >
               		<option></option>
               	</select>
               	<script>
               		getMt();
               	</script>
             	</td>
-            	
+            	<td>
+            		<input type="button" class="btn btn-info" value="导出Pdf"
+							onClick="exportImg(event);">
+				</td>
 				</tr>
 				<tr>
-				<td>
+				<!--<td>
             		<input type="button" class="btn btn-info" value="导出Html"
-							onClick="exportHtml();">
+							onClick="exportHtml2();">
 				</td>
 				<td>
 					<input type="button" class="btn btn-info" value="导出Word"
 							onClick="exportWord();"></td><td>
 					<input type="button" class="btn btn-info" value="导出Pdf"
 							onClick="exportPdf();">
-            	</td>
+            	</td>-->
             </tr>
           </tr> 
         </table>
@@ -83,7 +96,7 @@
           <li><a href="#" onclick="tabgo1()" id="tab-1">舰艇声反射</a></li>
           <li><a href="#" onclick="tabgo2()" id="tab-2">高频混响</a></li>
           <li><a href="#" onclick="tabgo3()" id="tab-3">舰艇辐射</a></li>
-          <li><a href="#" onclick="tabgo4()" id="tab-4">鱼雷</a></li>
+          <li><a href="#" onclick="tabgo4()" id="tab-4">鱼雷辐射</a></li>
           <li><a href="#" onclick="tabgo5()" id="tab-5">舰艇自噪声</a></li>
           <li><a href="#" onclick="tabgo6()" id="tab-6">鱼雷自噪声</a></li>
           <li><a href="#tab7" onclick="tabgo7()" id="tab-7">海洋环境</a></li>

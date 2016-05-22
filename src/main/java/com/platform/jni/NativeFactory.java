@@ -19,11 +19,14 @@ public class NativeFactory {
 		if (dataType.equals("1")) {
 			DATA1 obj = (DATA1) data;
 			obj.setType1('2');// 2对应分析
+			obj.setS1('1');
+			obj.setType2('2');//包络
 			m.model1(obj);
 		}
 		if (dataType.equals("1B")) {
 			DATA1 obj = (DATA1) data;
 			obj.setType1('1');// 1对应仿真
+			obj.setS1('2');
 			m.model1(obj);
 		}
 
@@ -98,7 +101,7 @@ public class NativeFactory {
 			if (simType.equals("0")) {
 				obj.setS1('6');
 			} else {
-				obj.setS1('8');
+				obj.setS1('1');
 			}
 			m.model8(obj);
 		}
