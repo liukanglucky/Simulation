@@ -256,4 +256,8 @@ public class DATA3B implements Serializable{
 		this.outp3 = outp3;
 	}
 	
+	public String toString(){
+		return "num1:"+this.num1;
+	}
+	
 }
